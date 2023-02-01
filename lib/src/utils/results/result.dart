@@ -5,6 +5,8 @@ class Result {
   ///Operation result.
   final bool isSuccess;
 
+  bool get isNotSuccess => !isSuccess;
+
   ///Operation message. Also it can use for error message.
   final String message;
 

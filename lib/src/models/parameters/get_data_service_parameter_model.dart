@@ -1,4 +1,4 @@
-import '../entity_model.dart';
+import '../entities/entity_model.dart';
 import 'service_parameter_model.dart';
 
 class GetDataServiceParameterModel<TData extends EntityModel<TData>> extends ServiceParameterModel {

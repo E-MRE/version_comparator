@@ -1,4 +1,4 @@
-import '../../models/entity_model.dart';
+import '../../models/entities/entity_model.dart';
 import '../../models/parameters/get_data_service_parameter_model.dart';
 import '../../models/parameters/send_data_service_parameter_model.dart';
 import '../../utils/results/data_result.dart';
