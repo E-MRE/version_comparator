@@ -11,9 +11,9 @@ import 'package:version_comparator/version_comparator.dart';
 void main() {
   test('Compare equality of Android app version and store version with customVersionCompare test', () async {
     final parameter = CustomVersionCompareParameterModel(
-      currentAppVersion: '1.0',
+      currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
       store: StoreModel.android(),
-      query: 'id=com.ebg.qrbarcode',
+      query: 'id=ADD_YOUR_APP_ID',
       parseModel: EmptyEntityModel.empty(),
       jsonToResponseService: AndroidJsonToVersionResponseManager(),
     );
@@ -27,9 +27,9 @@ void main() {
 
   test('Compare equality of iOS app version and store version with customVersionCompare test', () async {
     final parameter = CustomVersionCompareParameterModel(
-      currentAppVersion: '2.0.23',
+      currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
       store: StoreModel.ios(),
-      query: 'bundleId=com.mars.FocusId',
+      query: 'bundleId=ADD_YOUR_APP_ID',
       parseModel: IosVersionEntityModel(),
       jsonToResponseService: IosJsonToVersionResponseManager(),
       updateLinkGetter: (parseModel) => parseModel.storeUrl,
