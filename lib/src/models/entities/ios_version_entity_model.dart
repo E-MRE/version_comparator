@@ -40,7 +40,7 @@ class IosVersionEntityModel extends EntityModel<IosVersionEntityModel> {
   }
 
   @override
-  IosVersionEntityModel fromJson(Map<String, String> json) => _$IosVersionEntityModelFromJson(json);
+  IosVersionEntityModel fromJson(Map<String, dynamic> json) => _$IosVersionEntityModelFromJson(json);
 
   @override
   IosVersionEntityModel fromResponseBodyString(String body) {

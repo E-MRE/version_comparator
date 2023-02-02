@@ -1,4 +1,4 @@
-import 'package:version_comparator/src/utils/constants/endpoint_constants.dart';
+import '../../utils/constants/endpoint_constants.dart';
 
 abstract class BaseStoreModel {
   final String baseUrl;
@@ -11,10 +11,20 @@ class StoreModel extends BaseStoreModel {
   StoreModel.custom({required super.baseUrl, required super.endpoint});
 
   StoreModel.android()
-      : super(baseUrl: EndpointConstants.androidStoreBaseUrl, endpoint: EndpointConstants.androidAppEndpoint);
+      : super(
+          baseUrl: EndpointConstants.androidStoreBaseUrl,
+          endpoint: EndpointConstants.androidAppEndpoint,
+        );
 
-  StoreModel.ios() : super(baseUrl: EndpointConstants.iosStoreBaseUrl, endpoint: EndpointConstants.iosAppEndpoint);
+  StoreModel.ios()
+      : super(
+          baseUrl: EndpointConstants.iosStoreBaseUrl,
+          endpoint: EndpointConstants.iosAppEndpoint,
+        );
 
   StoreModel.huawei(String appId)
-      : super(baseUrl: EndpointConstants.huaweiStoreBaseUrl, endpoint: '${EndpointConstants.huaweiAppEndpoint}/$appId');
+      : super(
+          baseUrl: EndpointConstants.huaweiVersionControlBaseUrl,
+          endpoint: EndpointConstants.huaweiVersionControlEndpoint,
+        );
 }

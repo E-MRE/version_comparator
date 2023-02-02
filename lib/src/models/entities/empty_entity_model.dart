@@ -4,7 +4,7 @@ class EmptyEntityModel extends EntityModel<EmptyEntityModel> {
   @override
   final String responseBody;
 
-  final Map<String, String> jsonData;
+  final Map<String, dynamic> jsonData;
 
   EmptyEntityModel({required this.jsonData, required this.responseBody});
 
@@ -13,12 +13,12 @@ class EmptyEntityModel extends EntityModel<EmptyEntityModel> {
         responseBody = '';
 
   @override
-  EmptyEntityModel fromJson(Map<String, String> json) {
+  EmptyEntityModel fromJson(Map<String, dynamic> json) {
     return EmptyEntityModel(jsonData: json, responseBody: responseBody);
   }
 
   @override
-  Map<String, String> toJson() => jsonData;
+  Map<String, dynamic> toJson() => jsonData;
 
   @override
   EmptyEntityModel fromResponseBodyString(String body) {
