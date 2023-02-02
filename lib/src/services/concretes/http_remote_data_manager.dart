@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -27,8 +26,10 @@ class HttpRemoteDataManager extends RemoteDataService {
           .get(getUri(parameterModel), headers: parameterModel.header ?? baseHeader)
           .timeout(parameterModel.timeoutDuration);
 
+      final data = parameterModel.parseModel.fromResponseBodyString(response.body);
+
       return response.statusCode == HttpStatus.ok
-          ? DataResult.success(data: parameterModel.parseModel.fromJson(jsonDecode(response.body)))
+          ? DataResult.success(data: data)
           : DataResult.errorByServiceMessageEnum(serviceMessage: ServiceMessage.getDataError);
     } catch (exception) {
       return DataResult.error(message: exception.toString());

@@ -1,6 +1,6 @@
-import '../utils/mixins/version_converter_mixin.dart';
+import '../utils/mixins/version_compare_mixin.dart';
 
-class VersionResponseModel with VersionConverterMixin {
+class VersionResponseModel with VersionCompareMixin {
   /// The current version of the app.
   final String appVersion;
 
@@ -11,12 +11,7 @@ class VersionResponseModel with VersionConverterMixin {
   final String updateLink;
 
   ///result of compared versions between [appVersion] and [storeVersion]
-  bool get isAppVersionOld {
-    final convertedAppVersion = convertToInt(appVersion);
-    final convertedStoreVersion = convertToInt(appVersion);
-
-    return convertedAppVersion < convertedStoreVersion;
-  }
+  bool get isAppVersionOld => isCurrentVersionOld(currentVersion: appVersion, storeVersion: storeVersion);
 
   VersionResponseModel({
     required this.appVersion,

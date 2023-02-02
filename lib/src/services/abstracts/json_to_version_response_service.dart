@@ -1,6 +1,6 @@
-import '../../utils/mixins/version_converter_mixin.dart';
+import '../../models/entities/entity_model.dart';
 import '../../utils/results/data_result.dart';
 
-abstract class JsonToVersionResponseService with VersionConverterMixin {
-  DataResult<String> convert(Map<String, String> json);
+abstract class JsonToVersionResponseService {
+  DataResult<String> convert(EntityModel entity);
 }

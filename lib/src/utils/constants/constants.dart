@@ -1,4 +1,5 @@
 const String kEmpty = '';
+const String kSpace = ' ';
 const String kVersionSplitter = '.';
 
 const int kDefaultTimeout = 16000;

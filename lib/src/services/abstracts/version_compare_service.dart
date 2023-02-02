@@ -1,24 +1,33 @@
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/entities/store_model.dart';
 import '../../models/version_response_model.dart';
 import '../../utils/enums/error_message.dart';
-import '../../utils/enums/store_type.dart';
 import '../../utils/results/data_result.dart';
 import '../../utils/results/result.dart';
 import 'json_to_version_response_service.dart';
 import 'remote_data_service.dart';
 
 abstract class VersionCompareService {
-  StoreType get store;
+  BaseStoreModel get store;
   RemoteDataService get dataService;
   JsonToVersionResponseService get jsonToResponseService;
 
   PackageInfo? _info;
 
   Future<DataResult<VersionResponseModel>> getVersion();
-  Future<Result> launchStoreLink(String storeLink);
 
-  Future<DataResult<String>> getAppVersion() async {
+  Future<Result> launchStoreLink(String storeLink) async {
+    if (await canLaunchUrl(Uri.parse(storeLink))) {
+      final isLaunched = await launchUrl(Uri.parse(storeLink), mode: LaunchMode.externalApplication);
+      return isLaunched ? Result.success() : Result.error(message: ErrorMessage.notLaunchUrl.message);
+    } else {
+      return Result.error(message: ErrorMessage.notLaunchUrl.message);
+    }
+  }
+
+  Future<DataResult<String>> getCurrentAppVersion() async {
     try {
       _info ??= await PackageInfo.fromPlatform();
       return _info?.version == null || (_info?.version.isEmpty ?? true)

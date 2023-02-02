@@ -2,27 +2,56 @@ library version_comparator;
 
 import 'dart:io';
 
+import 'package:version_comparator/src/models/entities/entity_model.dart';
+import 'package:version_comparator/src/models/entities/store_model.dart';
 import 'package:version_comparator/src/models/version_response_model.dart';
+import 'package:version_comparator/src/services/abstracts/json_to_version_response_service.dart';
+import 'package:version_comparator/src/services/abstracts/version_compare_service.dart';
 import 'package:version_comparator/src/services/concretes/android_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/custom_version_compare_manager.dart';
 import 'package:version_comparator/src/utils/results/data_result.dart';
 
-class VersionComparator {
-  static VersionComparator? _instance;
+abstract class BaseVersionComparator {
+  VersionCompareService? get versionComparator;
 
-  VersionComparator._init();
+  Future<DataResult<VersionResponseModel>> customVersionCompare<TData extends EntityModel<TData>>({
+    required TData parseModel,
+    required String currentAppVersion,
+    required JsonToVersionResponseService jsonToVersionResponseService,
+    required BaseStoreModel store,
+    required String? query,
+  });
+}
 
-  static Future<DataResult<VersionResponseModel>> get comparedVersion {
-    _instance ??= VersionComparator._init();
-    return _instance!._compareVersion();
-  }
+class VersionComparator extends BaseVersionComparator {
+  @override
+  VersionCompareService? versionComparator;
 
-  Future<DataResult<VersionResponseModel>> _compareVersion() async {
+  Future<DataResult<VersionResponseModel>> comparePlatformSpecific() async {
     if (Platform.isAndroid) {
-      final comparatorService = AndroidVersionCompareManager.httpService();
+      versionComparator = AndroidVersionCompareManager.httpService();
 
-      return await comparatorService.getVersion();
+      return await versionComparator!.getVersion();
     }
 
     throw Exception('Other platforms is not supported');
+  }
+
+  @override
+  Future<DataResult<VersionResponseModel>> customVersionCompare<TData extends EntityModel<TData>>({
+    required TData parseModel,
+    required String currentAppVersion,
+    required JsonToVersionResponseService jsonToVersionResponseService,
+    required BaseStoreModel store,
+    required String? query,
+  }) async {
+    versionComparator = CustomVersionCompareManager.httpService(
+        parseModel: parseModel,
+        currentAppVersion: currentAppVersion,
+        jsonToResponseService: jsonToVersionResponseService,
+        store: store,
+        query: query);
+
+    return await versionComparator!.getVersion();
   }
 }

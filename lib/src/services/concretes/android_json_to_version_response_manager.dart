@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import '../../models/entities/entity_model.dart';
 import '../../utils/enums/error_message.dart';
 import '../../utils/helpers/regexp_helper.dart';
 import '../../utils/results/data_result.dart';
@@ -7,16 +6,25 @@ import '../abstracts/json_to_version_response_service.dart';
 
 class AndroidJsonToVersionResponseManager extends JsonToVersionResponseService {
   @override
-  DataResult<String> convert(Map<String, String> json) {
-    final firstMatch = RegExpHelper.androidVersionRegExp.firstMatch(jsonEncode(json));
+  DataResult<String> convert(EntityModel entity) {
+    final firstMatch = RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
 
-    if (firstMatch == null || firstMatch.groupCount < 2) {
-      return DataResult.byErrorMessageEnum(error: ErrorMessage.versionNotMatch);
-    }
+    final firstMatchResult = _checkRegExpVersion(firstMatch);
+    if (firstMatchResult.isSuccess) return firstMatchResult;
 
-    final version = firstMatch.group(1);
-    return version == null || version.isEmpty
-        ? DataResult.byErrorMessageEnum(error: ErrorMessage.versionNotMatch)
-        : DataResult.success(data: version);
+    final firstMatchWithAlphabet = RegExpHelper.androidVersionWithAlphabetRegExp.firstMatch(entity.responseBody);
+
+    return _checkRegExpVersion(firstMatchWithAlphabet);
   }
+}
+
+DataResult<String> _checkRegExpVersion(RegExpMatch? regExpMatch) {
+  if (regExpMatch == null || regExpMatch.groupCount < 1) {
+    return DataResult.byErrorMessageEnum(error: ErrorMessage.versionNotMatch);
+  }
+
+  final version = regExpMatch.group(1);
+  return version == null || version.isEmpty
+      ? DataResult.byErrorMessageEnum(error: ErrorMessage.versionNotMatch)
+      : DataResult.success(data: version);
 }
