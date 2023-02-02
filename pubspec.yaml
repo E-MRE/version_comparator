@@ -11,6 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Json Operations
+  json_annotation:
+
+  #Query operations
+  collection:
+
   #Networking
   http: ^0.13.5
 
@@ -24,5 +30,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+  build_runner: ^2.2.1
+  #Json Opertion
+  json_serializable:
 
 flutter:

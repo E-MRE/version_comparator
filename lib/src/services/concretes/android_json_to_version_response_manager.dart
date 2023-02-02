@@ -1,20 +1,15 @@
-import '../../models/entities/entity_model.dart';
+import '../../models/entities/empty_entity_model.dart';
 import '../../utils/enums/error_message.dart';
 import '../../utils/helpers/regexp_helper.dart';
 import '../../utils/results/data_result.dart';
 import '../abstracts/json_to_version_response_service.dart';
 
-class AndroidJsonToVersionResponseManager extends JsonToVersionResponseService {
+class AndroidJsonToVersionResponseManager extends JsonToVersionResponseService<EmptyEntityModel> {
   @override
-  DataResult<String> convert(EntityModel entity) {
+  DataResult<String> convert(EmptyEntityModel entity) {
     final firstMatch = RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
 
-    final firstMatchResult = _checkRegExpVersion(firstMatch);
-    if (firstMatchResult.isSuccess) return firstMatchResult;
-
-    final firstMatchWithAlphabet = RegExpHelper.androidVersionWithAlphabetRegExp.firstMatch(entity.responseBody);
-
-    return _checkRegExpVersion(firstMatchWithAlphabet);
+    return _checkRegExpVersion(firstMatch);
   }
 }
 

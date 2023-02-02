@@ -27,6 +27,7 @@ abstract class BaseVersionComparator {
       jsonToResponseService: parameterModel.jsonToResponseService,
       store: parameterModel.store,
       query: parameterModel.query,
+      updateLinkGetter: parameterModel.updateLinkGetter,
     ));
 
     return await versionComparator!.getVersion();

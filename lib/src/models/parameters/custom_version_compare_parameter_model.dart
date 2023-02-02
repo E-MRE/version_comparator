@@ -8,6 +8,7 @@ class CustomVersionCompareParameterModel<TData extends EntityModel<TData>> {
   final JsonToVersionResponseService jsonToResponseService;
   final BaseStoreModel store;
   final String? query;
+  final String? Function(TData parseModel)? updateLinkGetter;
 
   CustomVersionCompareParameterModel({
     required this.parseModel,
@@ -15,5 +16,6 @@ class CustomVersionCompareParameterModel<TData extends EntityModel<TData>> {
     required this.jsonToResponseService,
     required this.store,
     required this.query,
+    this.updateLinkGetter,
   });
 }

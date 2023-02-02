@@ -1,8 +1,11 @@
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:version_comparator/src/models/entities/entity_model.dart';
 
 import '../../models/entities/store_model.dart';
+import '../../models/parameters/get_data_service_parameter_model.dart';
 import '../../models/version_response_model.dart';
+import '../../utils/constants/constants.dart';
 import '../../utils/enums/error_message.dart';
 import '../../utils/results/data_result.dart';
 import '../../utils/results/result.dart';
@@ -47,5 +50,55 @@ abstract class VersionCompareService {
     } catch (exception) {
       return DataResult.error(message: exception.toString());
     }
+  }
+}
+
+abstract class VersionCompareByQueryService extends VersionCompareService {
+  Future<DataResult<VersionResponseModel>> getVersionByQuery<TData extends EntityModel<TData>>({
+    required String query,
+    required TData parseModel,
+    String? Function(TData parseModel)? updateLinkGetter,
+  }) async {
+    final appVersionResult = await getCurrentAppVersion();
+    if (appVersionResult.isNotSuccess) return DataResult.error(message: appVersionResult.message);
+
+    return getStoreVersionByQuery<TData>(
+      query: query,
+      parseModel: parseModel,
+      updateLinkGetter: updateLinkGetter,
+      currentVersion: appVersionResult.data ?? kEmpty,
+    );
+  }
+
+  Future<DataResult<VersionResponseModel>> getStoreVersionByQuery<TData extends EntityModel<TData>>({
+    required String query,
+    required TData parseModel,
+    required String currentVersion,
+    String? Function(TData parseModel)? updateLinkGetter,
+  }) async {
+    final parameter = GetDataServiceParameterModel<TData>(
+      baseUrl: store.baseUrl,
+      endpoint: store.endpoint,
+      parseModel: parseModel,
+      query: query,
+    );
+
+    final response = await dataService.getData(parameter);
+    if (response.isNotSuccess || response.data == null) {
+      return DataResult.error(message: response.message);
+    }
+
+    final versionResult = jsonToResponseService.convert(response.data!);
+    if (versionResult.isNotSuccess) {
+      return DataResult.error(message: versionResult.message);
+    }
+
+    return DataResult.success(
+      data: VersionResponseModel(
+        appVersion: currentVersion,
+        storeVersion: versionResult.data ?? kEmpty,
+        updateLink: updateLinkGetter?.call(response.data!) ?? parameter.getUrl(),
+      ),
+    );
   }
 }
