@@ -19,10 +19,20 @@ import 'package:version_comparator/src/utils/enums/error_message.dart';
 import 'package:version_comparator/src/utils/mixins/platform_decider_mixin.dart';
 import 'package:version_comparator/src/utils/results/data_result.dart';
 
+///The mission of the VersionComparator class is to compare different versions of an app.
+///It has two methods: platformSpecificCompare and customCompare.
+///The platformSpecificCompare method is used to compare platform-specific versions, such as Android, iOS, and Huawei.
+///The customCompare method is used to compare versions with custom settings.
+///This method can be used when the project platform is different from Android,
+///iOS or Huawei, or when comparing versions from other stores.
 abstract class BaseVersionComparator {
   VersionCompareService? _versionComparator;
+
+  ///Getter of the current VersionCompare service.
   VersionCompareService? get versionComparator => _versionComparator;
 
+  ///This code is a method that sets the versionComparator variable to the VersionCompareService service.
+  ///This service is using for the compare app versions.
   void setVersionComparator(VersionCompareService service) {
     _versionComparator = service;
   }
