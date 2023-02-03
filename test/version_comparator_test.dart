@@ -20,7 +20,7 @@ void main() {
       jsonToResponseService: AndroidJsonToVersionResponseManager(),
     );
 
-    final result = await VersionComparator().customVersionCompare(parameter);
+    final result = await VersionComparator().customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
@@ -37,7 +37,7 @@ void main() {
       updateLinkGetter: (parseModel) => parseModel.storeUrl,
     );
 
-    final result = await VersionComparator().customVersionCompare(parameter);
+    final result = await VersionComparator().customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
@@ -54,7 +54,7 @@ void main() {
       updateLinkGetter: (parseModel) => parseModel.storeUrl('C105568597'),
     );
 
-    final result = await VersionComparator().customVersionCompare(parameter);
+    final result = await VersionComparator().customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);

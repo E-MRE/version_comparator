@@ -20,8 +20,9 @@ dependencies:
   #Networking
   http: ^0.13.5
 
-  #Package Version
+  #Package & Device Info
   package_info_plus:
+  device_info_plus:
 
   #Launch URL
   url_launcher:
