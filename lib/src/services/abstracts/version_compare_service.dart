@@ -13,7 +13,6 @@ import 'json_to_version_response_service.dart';
 import 'remote_data_service.dart';
 
 abstract class VersionCompareService {
-  BaseStoreModel get store;
   RemoteDataService get dataService;
   JsonToVersionResponseService get jsonToResponseService;
   String get appId;
@@ -78,7 +77,7 @@ abstract class VersionCompareByQueryService extends VersionCompareService {
     String? Function(TData parseModel)? updateLinkGetter,
   }) async {
     final parameter = GetDataServiceParameterModel<TData>(
-      url: store.storeUrl,
+      url: storeUrl,
       parseModel: parseModel,
       query: query,
     );
