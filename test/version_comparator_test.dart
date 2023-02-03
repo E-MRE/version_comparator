@@ -2,11 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:version_comparator/src/models/entities/empty_entity_model.dart';
 import 'package:version_comparator/src/models/entities/huawei/huawei_version_entity_model.dart';
 import 'package:version_comparator/src/models/entities/ios_version_entity_model.dart';
-import 'package:version_comparator/src/models/entities/store_model.dart';
 import 'package:version_comparator/src/models/parameters/custom_version_compare_parameter_model.dart';
 import 'package:version_comparator/src/services/concretes/android_json_to_version_response_manager.dart';
 import 'package:version_comparator/src/services/concretes/huawei_json_to_version_response_manager.dart';
 import 'package:version_comparator/src/services/concretes/ios_json_to_version_response_manager.dart';
+import 'package:version_comparator/src/utils/constants/endpoint_constants.dart';
 
 import 'package:version_comparator/version_comparator.dart';
 
@@ -14,7 +14,7 @@ void main() {
   test('Compare equality of Android app version and store version with customVersionCompare test', () async {
     final parameter = CustomVersionCompareParameterModel(
       currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
-      store: StoreModel.android(),
+      storeUrl: EndpointConstants.androidStoreUrl,
       query: 'id=ADD_YOUR_APP_ID',
       parseModel: EmptyEntityModel.empty(),
       jsonToResponseService: AndroidJsonToVersionResponseManager(),
@@ -30,7 +30,7 @@ void main() {
   test('Compare equality of iOS app version and store version with customVersionCompare test', () async {
     final parameter = CustomVersionCompareParameterModel(
       currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
-      store: StoreModel.ios(),
+      storeUrl: EndpointConstants.iosStoreUrl,
       query: 'bundleId=ADD_YOUR_APP_ID',
       parseModel: IosVersionEntityModel(),
       jsonToResponseService: IosJsonToVersionResponseManager(),
@@ -47,7 +47,7 @@ void main() {
   test('Compare equality of Huawei app version and store version with customVersionCompare test', () async {
     final parameter = CustomVersionCompareParameterModel(
       currentAppVersion: '[ADD_YOUR_DOWNLOADED_APP_VERSION]',
-      store: StoreModel.huawei('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
+      storeUrl: EndpointConstants.huaweiStoreUrl,
       query: 'method=internal.getTabDetail&uri=app%7C[ADD_YOUR_APP_ID_FROM_APP_GALLERY]',
       parseModel: HuaweiVersionEntityModel.empty(),
       jsonToResponseService: HuaweiJsonToVersionResponseManager(),

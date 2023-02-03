@@ -24,7 +24,7 @@ class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
   final List<HuaweiLayoutDataModel>? layoutData;
 
   String storeUrl(String appId) {
-    return '${EndpointConstants.huaweiStoreBaseUrl}/${EndpointConstants.huaweiAppEndpoint}/$appId';
+    return '${EndpointConstants.huaweiStoreUrl}/$appId';
   }
 
   String get storeVersion {
