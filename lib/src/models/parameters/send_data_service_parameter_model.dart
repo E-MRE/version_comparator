@@ -5,13 +5,12 @@ class SendDataServiceParameterModel<TData extends EntityModel<TData>> extends Se
   final TData body;
 
   SendDataServiceParameterModel({
-    required super.baseUrl,
-    required super.endpoint,
+    required super.url,
     required this.body,
     super.timeout,
     super.header,
   });
 
   @override
-  String getUrl() => '$baseUrl/$endpoint';
+  String getUrl() => url;
 }

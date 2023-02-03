@@ -1,30 +1,17 @@
 import '../../utils/constants/endpoint_constants.dart';
 
 abstract class BaseStoreModel {
-  final String baseUrl;
-  final String endpoint;
+  final String storeUrl;
 
-  BaseStoreModel({required this.baseUrl, required this.endpoint});
+  BaseStoreModel({required this.storeUrl});
 }
 
 class StoreModel extends BaseStoreModel {
-  StoreModel.custom({required super.baseUrl, required super.endpoint});
+  StoreModel.custom({required super.storeUrl});
 
-  StoreModel.android()
-      : super(
-          baseUrl: EndpointConstants.androidStoreBaseUrl,
-          endpoint: EndpointConstants.androidAppEndpoint,
-        );
+  StoreModel.android() : super(storeUrl: EndpointConstants.androidStoreUrl);
 
-  StoreModel.ios()
-      : super(
-          baseUrl: EndpointConstants.iosStoreBaseUrl,
-          endpoint: EndpointConstants.iosAppEndpoint,
-        );
+  StoreModel.ios() : super(storeUrl: EndpointConstants.iosStoreUrl);
 
-  StoreModel.huawei(String appId)
-      : super(
-          baseUrl: EndpointConstants.huaweiVersionControlBaseUrl,
-          endpoint: EndpointConstants.huaweiVersionControlEndpoint,
-        );
+  StoreModel.huawei(String appId) : super(storeUrl: EndpointConstants.huaweiVersionControlUrl);
 }

@@ -1,7 +1,7 @@
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:version_comparator/src/models/entities/entity_model.dart';
 
+import '../../models/entities/entity_model.dart';
 import '../../models/entities/store_model.dart';
 import '../../models/parameters/get_data_service_parameter_model.dart';
 import '../../models/version_response_model.dart';
@@ -77,8 +77,7 @@ abstract class VersionCompareByQueryService extends VersionCompareService {
     String? Function(TData parseModel)? updateLinkGetter,
   }) async {
     final parameter = GetDataServiceParameterModel<TData>(
-      baseUrl: store.baseUrl,
-      endpoint: store.endpoint,
+      url: store.storeUrl,
       parseModel: parseModel,
       query: query,
     );

@@ -6,8 +6,7 @@ class GetDataServiceParameterModel<TData extends EntityModel<TData>> extends Ser
   final String? query;
 
   GetDataServiceParameterModel({
-    required super.baseUrl,
-    required super.endpoint,
+    required super.url,
     required this.parseModel,
     this.query,
     super.timeout,
@@ -16,6 +15,6 @@ class GetDataServiceParameterModel<TData extends EntityModel<TData>> extends Ser
 
   @override
   String getUrl() {
-    return query?.isEmpty ?? true ? '$baseUrl/$endpoint' : '$baseUrl/$endpoint?$query';
+    return query?.isEmpty ?? true ? url : '$url?$query';
   }
 }

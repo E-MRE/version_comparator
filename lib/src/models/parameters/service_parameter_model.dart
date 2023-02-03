@@ -1,8 +1,7 @@
 import '../../utils/constants/constants.dart';
 
 abstract class ServiceParameterModel {
-  final String baseUrl;
-  final String endpoint;
+  final String url;
   final int timeout;
   final Map<String, String>? header;
 
@@ -11,8 +10,7 @@ abstract class ServiceParameterModel {
   Duration get timeoutDuration => Duration(milliseconds: timeout.toInt());
 
   ServiceParameterModel({
-    required this.baseUrl,
-    required this.endpoint,
+    required this.url,
     this.timeout = kDefaultTimeout,
     this.header,
   });
