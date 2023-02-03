@@ -20,7 +20,7 @@ void main() {
       jsonToResponseService: AndroidJsonToVersionResponseManager(),
     );
 
-    final result = await VersionComparator().customCompare(parameterModel: parameter);
+    final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
@@ -37,7 +37,7 @@ void main() {
       updateLinkGetter: (parseModel) => parseModel.storeUrl,
     );
 
-    final result = await VersionComparator().customCompare(parameterModel: parameter);
+    final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
@@ -46,15 +46,15 @@ void main() {
 
   test('Compare equality of Huawei app version and store version with customVersionCompare test', () async {
     final parameter = CustomVersionCompareParameterModel(
-      currentAppVersion: '1.0.22',
-      store: StoreModel.huawei('C105568597'),
-      query: 'method=internal.getTabDetail&uri=app%7CC105568597',
+      currentAppVersion: '[ADD_YOUR_DOWNLOADED_APP_VERSION]',
+      store: StoreModel.huawei('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
+      query: 'method=internal.getTabDetail&uri=app%7C[ADD_YOUR_APP_ID_FROM_APP_GALLERY]',
       parseModel: HuaweiVersionEntityModel.empty(),
       jsonToResponseService: HuaweiJsonToVersionResponseManager(),
-      updateLinkGetter: (parseModel) => parseModel.storeUrl('C105568597'),
+      updateLinkGetter: (parseModel) => parseModel.storeUrl('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
     );
 
-    final result = await VersionComparator().customCompare(parameterModel: parameter);
+    final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);

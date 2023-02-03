@@ -75,7 +75,21 @@ abstract class BaseVersionComparator {
   }
 }
 
+///The mission of the VersionComparator class is to compare different versions of an app.
+///It has two methods: platformSpecificCompare and customCompare.
+///The platformSpecificCompare method is used to compare platform-specific versions, such as Android, iOS, and Huawei.
+///The customCompare method is used to compare versions with custom settings.
+///This method can be used when the project platform is different from Android,
+///iOS or Huawei, or when comparing versions from other stores.
 class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin {
+  static VersionComparator? _instance;
+  static VersionComparator get instance {
+    _instance ??= VersionComparator._init();
+    return _instance!;
+  }
+
+  VersionComparator._init();
+
   @override
   Future<DataResult<VersionResponseModel>> platformSpecificCompare({
     JsonToVersionResponseService? jsonToVersionResponseService,
