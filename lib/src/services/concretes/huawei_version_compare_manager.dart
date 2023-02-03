@@ -1,4 +1,6 @@
 import '../../models/entities/huawei/huawei_version_entity_model.dart';
+import '../../models/entities/store/base_store_model.dart';
+import '../../models/entities/store/huawei_store_model.dart';
 import '../../models/version_response_model.dart';
 import '../../utils/constants/endpoint_constants.dart';
 import '../../utils/results/data_result.dart';
@@ -25,15 +27,16 @@ class HuaweiVersionCompareManager extends VersionCompareByQueryService {
         jsonToResponseService = jsonToVersionResponseService ?? HuaweiJsonToVersionResponseManager();
 
   @override
-  final String storeUrl;
+  BaseStoreModel get store => HuaweiStoreModel(appId);
+
+  @override
+  final String appId;
 
   @override
   final RemoteDataService dataService;
 
   @override
   final JsonToVersionResponseService jsonToResponseService;
-
-  final String appId;
 
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {

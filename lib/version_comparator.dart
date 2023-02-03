@@ -44,9 +44,9 @@ abstract class BaseVersionComparator {
   /// 3. huaweiStoreAppId: an optional String value. It's important for `[Huawei]`.
   /// You must set this parameter if you want to compare your app from `[AppGallery]`.
   Future<DataResult<VersionResponseModel>> platformSpecificCompare({
+    required String appId,
     JsonToVersionResponseService? jsonToVersionResponseService,
     RemoteDataService? dataService,
-    String? huaweiStoreAppId,
   });
 
   /// This function returns a Future object of type `[DataResult<VersionResponseModel>]` which is used to
@@ -62,8 +62,7 @@ abstract class BaseVersionComparator {
     RemoteDataService? dataService,
   }) async {
     setVersionComparator(CustomVersionCompareManager(
-      query: parameterModel.query,
-      storeUrl: parameterModel.storeUrl,
+      store: parameterModel.store,
       parseModel: parameterModel.parseModel,
       updateLinkGetter: parameterModel.updateLinkGetter,
       dataService: dataService ?? HttpRemoteDataManager(),
@@ -92,9 +91,9 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
 
   @override
   Future<DataResult<VersionResponseModel>> platformSpecificCompare({
+    required String appId,
     JsonToVersionResponseService? jsonToVersionResponseService,
     RemoteDataService? dataService,
-    String? huaweiStoreAppId,
   }) async {
     final platform = await getPlatform();
 
@@ -108,6 +107,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
         setVersionComparator(AndroidVersionCompareManager(
           jsonToResponseService: jsonToVersionResponseService ?? AndroidJsonToVersionResponseManager(),
           dataService: remoteService,
+          appId: appId,
         ));
         break;
 
@@ -115,18 +115,15 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
         setVersionComparator(IosVersionCompareManager(
           jsonToResponseService: jsonToVersionResponseService ?? IosJsonToVersionResponseManager(),
           dataService: remoteService,
+          appId: appId,
         ));
         break;
 
       case AppPlatform.huawei:
-        if (huaweiStoreAppId == null || huaweiStoreAppId.isEmpty) {
-          return DataResult.byErrorMessageEnum(error: ErrorMessage.huaweiAppIdNullOrEmpty);
-        }
-
         setVersionComparator(HuaweiVersionCompareManager(
           jsonToResponseService: jsonToVersionResponseService ?? HuaweiJsonToVersionResponseManager(),
           dataService: remoteService,
-          appId: huaweiStoreAppId,
+          appId: appId,
         ));
         break;
     }

@@ -1,6 +1,6 @@
 import '../../models/entities/entity_model.dart';
+import '../../models/entities/store/base_store_model.dart';
 import '../../models/version_response_model.dart';
-import '../../utils/constants/constants.dart';
 import '../../utils/results/data_result.dart';
 import '../abstracts/json_to_version_response_service.dart';
 import '../abstracts/remote_data_service.dart';
@@ -14,7 +14,6 @@ class CustomVersionCompareManager<TData extends EntityModel<TData>> extends Vers
     required this.jsonToResponseService,
     required this.currentAppVersion,
     required this.parseModel,
-    required this.query,
     this.updateLinkGetter,
   });
 
@@ -23,7 +22,6 @@ class CustomVersionCompareManager<TData extends EntityModel<TData>> extends Vers
     required this.storeUrl,
     required this.currentAppVersion,
     required this.parseModel,
-    required this.query,
     this.updateLinkGetter,
   }) : dataService = HttpRemoteDataManager();
 
@@ -34,9 +32,11 @@ class CustomVersionCompareManager<TData extends EntityModel<TData>> extends Vers
   final String storeUrl;
 
   @override
+  String get appId => store.appId;
+
+  @override
   final JsonToVersionResponseService jsonToResponseService;
 
-  final String? query;
   final String currentAppVersion;
   final TData parseModel;
   final String? Function(TData parseModel)? updateLinkGetter;
@@ -44,7 +44,7 @@ class CustomVersionCompareManager<TData extends EntityModel<TData>> extends Vers
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
     return getStoreVersionByQuery<TData>(
-      query: query ?? kEmpty,
+      query: store.versionQuery,
       parseModel: parseModel,
       currentVersion: currentAppVersion,
       updateLinkGetter: updateLinkGetter,
