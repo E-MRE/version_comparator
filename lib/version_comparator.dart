@@ -63,7 +63,7 @@ abstract class BaseVersionComparator {
   }) async {
     setVersionComparator(CustomVersionCompareManager(
       query: parameterModel.query,
-      store: parameterModel.store,
+      storeUrl: parameterModel.storeUrl,
       parseModel: parameterModel.parseModel,
       updateLinkGetter: parameterModel.updateLinkGetter,
       dataService: dataService ?? HttpRemoteDataManager(),
