@@ -2,7 +2,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/entities/entity_model.dart';
-import '../../models/entities/store_model.dart';
+import '../../models/entities/store/base_store_model.dart';
 import '../../models/parameters/get_data_service_parameter_model.dart';
 import '../../models/version_response_model.dart';
 import '../../utils/constants/constants.dart';
@@ -16,6 +16,7 @@ abstract class VersionCompareService {
   BaseStoreModel get store;
   RemoteDataService get dataService;
   JsonToVersionResponseService get jsonToResponseService;
+  String get appId;
 
   PackageInfo? _info;
 

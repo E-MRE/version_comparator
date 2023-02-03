@@ -1,5 +1,6 @@
 import '../../models/entities/ios_version_entity_model.dart';
-import '../../models/entities/store_model.dart';
+import '../../models/entities/store/base_store_model.dart';
+import '../../models/entities/store/ios_store_model.dart';
 import '../../models/version_response_model.dart';
 import '../../utils/results/data_result.dart';
 import '../abstracts/json_to_version_response_service.dart';
@@ -9,14 +10,19 @@ import 'http_remote_data_manager.dart';
 import 'ios_json_to_version_response_manager.dart';
 
 class IosVersionCompareManager extends VersionCompareByQueryService {
-  IosVersionCompareManager({required this.dataService, required this.jsonToResponseService});
+  IosVersionCompareManager({required this.dataService, required this.jsonToResponseService, required this.appId});
 
-  IosVersionCompareManager.httpService({JsonToVersionResponseService? jsonToVersionResponseService})
-      : dataService = HttpRemoteDataManager(),
+  IosVersionCompareManager.httpService({
+    JsonToVersionResponseService? jsonToVersionResponseService,
+    required this.appId,
+  })  : dataService = HttpRemoteDataManager(),
         jsonToResponseService = jsonToVersionResponseService ?? IosJsonToVersionResponseManager();
 
   @override
-  BaseStoreModel get store => StoreModel.ios();
+  BaseStoreModel get store => IosStoreModel(appId);
+
+  @override
+  final String appId;
 
   @override
   final RemoteDataService dataService;
