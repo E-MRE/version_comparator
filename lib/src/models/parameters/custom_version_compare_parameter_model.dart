@@ -14,8 +14,6 @@ class CustomVersionCompareParameterModel<TData extends EntityModel<TData>> {
     required this.currentAppVersion,
     required this.jsonToResponseService,
     required this.store,
-    required this.storeUrl,
-    required this.query,
     this.updateLinkGetter,
   });
 }
