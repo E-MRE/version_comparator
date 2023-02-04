@@ -32,9 +32,6 @@ class CustomVersionCompareManager<TData extends EntityModel<TData>> extends Vers
   final BaseStoreModel store;
 
   @override
-  String get appId => store.appId;
-
-  @override
   final JsonToVersionResponseService jsonToResponseService;
 
   final String currentAppVersion;
@@ -44,7 +41,6 @@ class CustomVersionCompareManager<TData extends EntityModel<TData>> extends Vers
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
     return getStoreVersionByQuery<TData>(
-      query: store.versionQuery,
       parseModel: parseModel,
       currentVersion: currentAppVersion,
       updateLinkGetter: updateLinkGetter,

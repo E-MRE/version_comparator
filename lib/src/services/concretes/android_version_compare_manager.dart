@@ -10,19 +10,21 @@ import 'android_json_to_version_response_manager.dart';
 import 'http_remote_data_manager.dart';
 
 class AndroidVersionCompareManager extends VersionCompareByQueryService {
-  AndroidVersionCompareManager({required this.dataService, required this.jsonToResponseService, required this.appId});
+  AndroidVersionCompareManager({
+    required this.dataService,
+    required this.jsonToResponseService,
+    required String bundleId,
+  }) : store = AndroidStoreModel(bundleId);
 
   AndroidVersionCompareManager.httpService({
     JsonToVersionResponseService? jsonToVersionResponseService,
-    required this.appId,
-  })  : dataService = HttpRemoteDataManager(),
+    required String bundleId,
+  })  : store = AndroidStoreModel(bundleId),
+        dataService = HttpRemoteDataManager(),
         jsonToResponseService = jsonToVersionResponseService ?? AndroidJsonToVersionResponseManager();
 
   @override
-  BaseStoreModel get store => AndroidStoreModel(appId);
-
-  @override
-  final String appId;
+  final BaseStoreModel store;
 
   @override
   final RemoteDataService dataService;
@@ -35,6 +37,6 @@ class AndroidVersionCompareManager extends VersionCompareByQueryService {
     final bundleIdResult = await getBundleId();
     if (bundleIdResult.isNotSuccess) return DataResult.error(message: bundleIdResult.message);
 
-    return getVersionByQuery(query: 'id=${bundleIdResult.data}', parseModel: EmptyEntityModel.empty());
+    return getVersionByQuery(parseModel: EmptyEntityModel.empty());
   }
 }

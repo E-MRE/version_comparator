@@ -107,7 +107,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
         setVersionComparator(AndroidVersionCompareManager(
           jsonToResponseService: jsonToVersionResponseService ?? AndroidJsonToVersionResponseManager(),
           dataService: remoteService,
-          appId: appId,
+          bundleId: appId,
         ));
         break;
 
@@ -115,7 +115,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
         setVersionComparator(IosVersionCompareManager(
           jsonToResponseService: jsonToVersionResponseService ?? IosJsonToVersionResponseManager(),
           dataService: remoteService,
-          appId: appId,
+          bundleId: appId,
         ));
         break;
 
