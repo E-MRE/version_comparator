@@ -11,19 +11,21 @@ import 'http_remote_data_manager.dart';
 import 'ios_json_to_version_response_manager.dart';
 
 class IosVersionCompareManager extends VersionCompareByQueryService {
-  IosVersionCompareManager({required this.dataService, required this.jsonToResponseService, required this.appId});
+  IosVersionCompareManager({
+    required this.dataService,
+    required this.jsonToResponseService,
+    required String bundleId,
+  }) : store = IosStoreModel(bundleId);
 
   IosVersionCompareManager.httpService({
     JsonToVersionResponseService? jsonToVersionResponseService,
-    required this.appId,
-  })  : dataService = HttpRemoteDataManager(),
+    required String bundleId,
+  })  : store = IosStoreModel(bundleId),
+        dataService = HttpRemoteDataManager(),
         jsonToResponseService = jsonToVersionResponseService ?? IosJsonToVersionResponseManager();
 
   @override
-  BaseStoreModel get store => IosStoreModel(appId);
-
-  @override
-  final String appId;
+  final BaseStoreModel store;
 
   @override
   final RemoteDataService dataService;
@@ -37,7 +39,6 @@ class IosVersionCompareManager extends VersionCompareByQueryService {
     if (bundleIdResult.isNotSuccess) return DataResult.error(message: bundleIdResult.message);
 
     return getVersionByQuery<IosVersionEntityModel>(
-      query: 'bundleId=${bundleIdResult.data}',
       parseModel: IosVersionEntityModel(),
       updateLinkGetter: (parseModel) => parseModel.storeUrl,
     );

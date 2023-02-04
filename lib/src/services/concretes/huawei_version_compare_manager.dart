@@ -14,23 +14,18 @@ class HuaweiVersionCompareManager extends VersionCompareByQueryService {
   HuaweiVersionCompareManager({
     required this.dataService,
     required this.jsonToResponseService,
-    required this.appId,
-    String? storeUrl,
-  }) : storeUrl = storeUrl ?? EndpointConstants.huaweiStoreUrl;
+    required String appId,
+  }) : store = HuaweiStoreModel(appId);
 
   HuaweiVersionCompareManager.httpService({
     JsonToVersionResponseService? jsonToVersionResponseService,
-    required this.appId,
-    String? storeUrl,
-  })  : dataService = HttpRemoteDataManager(),
-        storeUrl = storeUrl ?? EndpointConstants.huaweiStoreUrl,
+    required String appId,
+  })  : store = HuaweiStoreModel(appId),
+        dataService = HttpRemoteDataManager(),
         jsonToResponseService = jsonToVersionResponseService ?? HuaweiJsonToVersionResponseManager();
 
   @override
-  BaseStoreModel get store => HuaweiStoreModel(appId);
-
-  @override
-  final String appId;
+  final BaseStoreModel store;
 
   @override
   final RemoteDataService dataService;
@@ -41,9 +36,8 @@ class HuaweiVersionCompareManager extends VersionCompareByQueryService {
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
     return getVersionByQuery<HuaweiVersionEntityModel>(
-      query: 'method=internal.getTabDetail&uri=app%7C$appId',
       parseModel: HuaweiVersionEntityModel.empty(),
-      updateLinkGetter: (parseModel) => parseModel.storeUrl(appId),
+      updateLinkGetter: (parseModel) => parseModel.storeUrl(store.appId),
     );
   }
 }
