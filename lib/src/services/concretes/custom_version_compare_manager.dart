@@ -10,26 +10,26 @@ import 'http_remote_data_manager.dart';
 class CustomVersionCompareManager<TData extends EntityModel<TData>> extends VersionCompareByQueryService {
   CustomVersionCompareManager({
     required this.dataService,
-    required this.storeUrl,
     required this.jsonToResponseService,
     required this.currentAppVersion,
     required this.parseModel,
+    required this.store,
     this.updateLinkGetter,
   });
 
   CustomVersionCompareManager.httpService({
     required this.jsonToResponseService,
-    required this.storeUrl,
     required this.currentAppVersion,
     required this.parseModel,
+    required this.store,
     this.updateLinkGetter,
   }) : dataService = HttpRemoteDataManager();
 
   @override
-  final RemoteDataService dataService;
+  final BaseStoreModel store;
 
   @override
-  final String storeUrl;
+  final RemoteDataService dataService;
 
   @override
   final JsonToVersionResponseService jsonToResponseService;

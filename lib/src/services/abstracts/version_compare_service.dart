@@ -38,7 +38,7 @@ abstract class VersionCompareByQueryService extends VersionCompareService {
     String? Function(TData parseModel)? updateLinkGetter,
   }) async {
     final parameter = GetDataServiceParameterModel<TData>(
-      url: storeUrl,
+      url: store.storeUrl,
       parseModel: parseModel,
       query: store.versionQuery,
     );
