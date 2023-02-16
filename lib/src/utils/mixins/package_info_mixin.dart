@@ -1,6 +1,6 @@
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:version_comparator/src/utils/constants/constants.dart';
 
-import '../enums/error_message.dart';
 import '../results/data_result.dart';
 
 mixin PackageInfoMixin {
@@ -8,10 +8,10 @@ mixin PackageInfoMixin {
     try {
       final info = await PackageInfo.fromPlatform();
       return info.version.isEmpty
-          ? DataResult.byErrorMessageEnum(error: ErrorMessage.appVersionFetchError)
+          ? DataResult.error(message: kErrorMessage.appVersionFetchError)
           : DataResult.success(data: info.version);
     } catch (exception) {
-      return DataResult.byErrorMessageEnum(error: ErrorMessage.appVersionFetchError);
+      return DataResult.error(message: kErrorMessage.appVersionFetchError);
     }
   }
 
@@ -19,10 +19,10 @@ mixin PackageInfoMixin {
     try {
       final info = await PackageInfo.fromPlatform();
       return info.packageName.isEmpty
-          ? DataResult.byErrorMessageEnum(error: ErrorMessage.appBundleIdFetchError)
+          ? DataResult.error(message: kErrorMessage.appBundleIdFetchError)
           : DataResult.success(data: info.packageName);
     } catch (exception) {
-      return DataResult.byErrorMessageEnum(error: ErrorMessage.appBundleIdFetchError);
+      return DataResult.error(message: kErrorMessage.appBundleIdFetchError);
     }
   }
 }

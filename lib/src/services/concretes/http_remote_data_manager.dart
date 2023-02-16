@@ -6,7 +6,7 @@ import '../../models/entities/entity_model.dart';
 import '../../models/parameters/get_data_service_parameter_model.dart';
 import '../../models/parameters/send_data_service_parameter_model.dart';
 import '../../models/parameters/service_parameter_model.dart';
-import '../../utils/enums/service_message.dart';
+import '../../utils/constants/constants.dart';
 import '../../utils/results/data_result.dart';
 import '../../utils/results/result.dart';
 import '../abstracts/remote_data_service.dart';
@@ -30,7 +30,7 @@ class HttpRemoteDataManager extends RemoteDataService {
 
       return response.statusCode == HttpStatus.ok
           ? DataResult.success(data: data)
-          : DataResult.errorByServiceMessageEnum(serviceMessage: ServiceMessage.getDataError);
+          : DataResult.error(message: kInfoMessage.getDataError);
     } catch (exception) {
       return DataResult.error(message: exception.toString());
     }
@@ -44,8 +44,8 @@ class HttpRemoteDataManager extends RemoteDataService {
           .timeout(parameterModel.timeoutDuration);
 
       return response.statusCode == HttpStatus.ok
-          ? Result.success(message: ServiceMessage.sendDataSuccess.message)
-          : DataResult.errorByServiceMessageEnum(serviceMessage: ServiceMessage.sendDataError);
+          ? Result.success(message: kInfoMessage.sendDataSuccess)
+          : DataResult.error(message: kInfoMessage.sendDataError);
     } catch (exception) {
       return DataResult.error(message: exception.toString());
     }
