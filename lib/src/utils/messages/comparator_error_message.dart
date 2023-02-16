@@ -27,4 +27,7 @@ abstract class ComparatorErrorMessage {
   /// 'App bundle Id and custom app Id are not valid. Version compare is not possible'
   String get bundleIdAndCustomIdNotValid =>
       'App bundle Id and custom app Id are not valid. Version compare is not possible';
+
+  /// 'This app platform is not handled'
+  String get unHandledAppPlatformException => 'This app platform is not handled';
 }

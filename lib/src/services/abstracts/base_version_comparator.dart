@@ -4,6 +4,8 @@ import '../../models/version_response_model.dart';
 import '../../utils/constants/constants.dart';
 import '../../utils/messages/comparator_error_message.dart';
 import '../../utils/messages/comparator_info_message.dart';
+import '../../utils/mixins/package_info_mixin.dart';
+import '../../utils/mixins/platform_decider_mixin.dart';
 import '../../utils/results/data_result.dart';
 import '../concretes/custom/custom_version_compare_manager.dart';
 import '../concretes/http_remote_data_manager.dart';
@@ -17,7 +19,7 @@ import 'version_convert_service.dart';
 ///The customCompare method is used to compare versions with custom settings.
 ///This method can be used when the project platform is different from Android,
 ///iOS or Huawei, or when comparing versions from other stores.
-abstract class BaseVersionComparator {
+abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin {
   VersionCompareService? _versionComparator;
 
   ///Getter of the current VersionCompare service.
