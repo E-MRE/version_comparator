@@ -12,7 +12,7 @@ import 'version_convert_service.dart';
 abstract class VersionCompareService with PackageInfoMixin, LaunchUrlMixin {
   BaseStoreModel get store;
   RemoteDataService get dataService;
-  VersionConvertService get jsonToResponseService;
+  VersionConvertService get versionConvertService;
 
   Future<DataResult<VersionResponseModel>> getVersion();
 }
@@ -48,7 +48,7 @@ abstract class VersionCompareByQueryService extends VersionCompareService {
       return DataResult.error(message: response.message);
     }
 
-    final versionResult = jsonToResponseService.convert(response.data!);
+    final versionResult = versionConvertService.convert(response.data!);
     if (versionResult.isNotSuccess) {
       return DataResult.error(message: versionResult.message);
     }

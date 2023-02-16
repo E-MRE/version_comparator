@@ -9,7 +9,6 @@ import 'package:version_comparator/src/models/parameters/custom_version_compare_
 import 'package:version_comparator/src/services/concretes/android/android_version_convert_manager.dart';
 import 'package:version_comparator/src/services/concretes/huawei/huawei_version_convert_manager.dart';
 import 'package:version_comparator/src/services/concretes/ios/ios_version_convert_manager.dart';
-
 import 'package:version_comparator/version_comparator.dart';
 
 void main() {
@@ -18,7 +17,7 @@ void main() {
       currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
       store: AndroidStoreModel('ADD_YOUR_APP_ID'),
       parseModel: EmptyEntityModel.empty(),
-      jsonToResponseService: AndroidVersionConvertManager(),
+      versionConvertService: AndroidVersionConvertManager(),
     );
 
     final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
@@ -33,7 +32,7 @@ void main() {
       currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
       store: IosStoreModel('ADD_YOUR_APP_ID'),
       parseModel: IosVersionEntityModel(),
-      jsonToResponseService: IosVersionConvertManager(),
+      versionConvertService: IosVersionConvertManager(),
       updateLinkGetter: (parseModel) => parseModel.storeUrl,
     );
 
@@ -49,7 +48,7 @@ void main() {
       currentAppVersion: '[ADD_YOUR_DOWNLOADED_APP_VERSION]',
       store: HuaweiStoreModel('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
       parseModel: HuaweiVersionEntityModel.empty(),
-      jsonToResponseService: HuaweiVersionConvertManager(),
+      versionConvertService: HuaweiVersionConvertManager(),
       updateLinkGetter: (parseModel) => parseModel.storeUrl('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
     );
 

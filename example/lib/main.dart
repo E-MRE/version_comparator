@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _compareVersion() async {
     _setLoading(true);
-    final result = await VersionComparator.instance.platformSpecificCompare(appId: 'com.mars.dev.connectly');
+    final result = await VersionComparator.instance.comparePlatformSpecific();
     _setLoading(false);
 
     if (result.isNotSuccess || result.data == null) {

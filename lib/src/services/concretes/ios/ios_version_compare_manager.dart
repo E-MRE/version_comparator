@@ -12,16 +12,16 @@ import 'ios_version_convert_manager.dart';
 class IosVersionCompareManager extends VersionCompareByQueryService {
   IosVersionCompareManager({
     required this.dataService,
-    required this.jsonToResponseService,
+    required this.versionConvertService,
     required String bundleId,
   }) : store = IosStoreModel(bundleId);
 
   IosVersionCompareManager.httpService({
-    VersionConvertService? jsonToVersionResponseService,
+    VersionConvertService? versionConvertService,
     required String bundleId,
   })  : store = IosStoreModel(bundleId),
         dataService = HttpRemoteDataManager(),
-        jsonToResponseService = jsonToVersionResponseService ?? IosVersionConvertManager();
+        versionConvertService = versionConvertService ?? IosVersionConvertManager();
 
   @override
   final BaseStoreModel store;
@@ -30,7 +30,7 @@ class IosVersionCompareManager extends VersionCompareByQueryService {
   final RemoteDataService dataService;
 
   @override
-  final VersionConvertService jsonToResponseService;
+  final VersionConvertService versionConvertService;
 
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
