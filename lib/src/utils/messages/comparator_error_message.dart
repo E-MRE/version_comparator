@@ -23,4 +23,8 @@ abstract class ComparatorErrorMessage {
 
   /// 'You must add Huawei Store App Id for compare versions'
   String get huaweiAppIdNullOrEmpty => 'You must add Huawei Store App Id for compare versions';
+
+  /// 'App bundle Id and custom app Id are not valid. Version compare is not possible'
+  String get bundleIdAndCustomIdNotValid =>
+      'App bundle Id and custom app Id are not valid. Version compare is not possible';
 }

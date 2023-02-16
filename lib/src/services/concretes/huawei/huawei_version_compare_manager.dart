@@ -12,16 +12,16 @@ import 'huawei_version_convert_manager.dart';
 class HuaweiVersionCompareManager extends VersionCompareByQueryService {
   HuaweiVersionCompareManager({
     required this.dataService,
-    required this.jsonToResponseService,
+    required this.versionConvertService,
     required String appId,
   }) : store = HuaweiStoreModel(appId);
 
   HuaweiVersionCompareManager.httpService({
-    VersionConvertService? jsonToVersionResponseService,
+    VersionConvertService? versionConvertService,
     required String appId,
   })  : store = HuaweiStoreModel(appId),
         dataService = HttpRemoteDataManager(),
-        jsonToResponseService = jsonToVersionResponseService ?? HuaweiVersionConvertManager();
+        versionConvertService = versionConvertService ?? HuaweiVersionConvertManager();
 
   @override
   final BaseStoreModel store;
@@ -30,7 +30,7 @@ class HuaweiVersionCompareManager extends VersionCompareByQueryService {
   final RemoteDataService dataService;
 
   @override
-  final VersionConvertService jsonToResponseService;
+  final VersionConvertService versionConvertService;
 
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
