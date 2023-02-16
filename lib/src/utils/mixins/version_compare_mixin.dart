@@ -18,7 +18,7 @@ mixin VersionCompareMixin {
   }
 
   bool _isIntVersionOld(int currentVersion, int storeVersion) {
-    return currentVersion > storeVersion;
+    return storeVersion > currentVersion;
   }
 
   bool _isListVersionOld(List<String> currentVersion, List<String> storeVersion) {
@@ -69,6 +69,6 @@ mixin VersionCompareMixin {
     final trimVersion = version.replaceAll(kSpace, kEmpty);
 
     final list = trimVersion.split(kVersionSplitter);
-    return list.isEmpty ? [defaultValue] : list;
+    return list.isEmpty ? [defaultValue] : list.reversed.toList();
   }
 }
