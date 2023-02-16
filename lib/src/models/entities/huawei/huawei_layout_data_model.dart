@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:version_comparator/src/utils/constants/constants.dart';
 
+import '../../../utils/constants/constants.dart';
 import '../entity_model.dart';
 import 'huawei_app_data_model.dart';
 

@@ -6,8 +6,8 @@ import '../../utils/constants/constants.dart';
 import '../../utils/mixins/launch_url_mixin.dart';
 import '../../utils/mixins/package_info_mixin.dart';
 import '../../utils/results/data_result.dart';
-import 'version_convert_service.dart';
 import 'remote_data_service.dart';
+import 'version_convert_service.dart';
 
 abstract class VersionCompareService with PackageInfoMixin, LaunchUrlMixin {
   BaseStoreModel get store;
