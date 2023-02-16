@@ -1,13 +1,13 @@
-import '../../models/entities/ios_version_entity_model.dart';
-import '../../models/entities/store/base_store_model.dart';
-import '../../models/entities/store/ios_store_model.dart';
-import '../../models/version_response_model.dart';
-import '../../utils/results/data_result.dart';
-import '../abstracts/json_to_version_response_service.dart';
-import '../abstracts/remote_data_service.dart';
-import '../abstracts/version_compare_service.dart';
-import 'http_remote_data_manager.dart';
-import 'ios_json_to_version_response_manager.dart';
+import '../../../models/entities/ios_version_entity_model.dart';
+import '../../../models/entities/store/base_store_model.dart';
+import '../../../models/entities/store/ios_store_model.dart';
+import '../../../models/version_response_model.dart';
+import '../../../utils/results/data_result.dart';
+import '../../abstracts/version_convert_service.dart';
+import '../../abstracts/remote_data_service.dart';
+import '../../abstracts/version_compare_service.dart';
+import '../http_remote_data_manager.dart';
+import 'ios_version_convert_manager.dart';
 
 class IosVersionCompareManager extends VersionCompareByQueryService {
   IosVersionCompareManager({
@@ -17,11 +17,11 @@ class IosVersionCompareManager extends VersionCompareByQueryService {
   }) : store = IosStoreModel(bundleId);
 
   IosVersionCompareManager.httpService({
-    JsonToVersionResponseService? jsonToVersionResponseService,
+    VersionConvertService? jsonToVersionResponseService,
     required String bundleId,
   })  : store = IosStoreModel(bundleId),
         dataService = HttpRemoteDataManager(),
-        jsonToResponseService = jsonToVersionResponseService ?? IosJsonToVersionResponseManager();
+        jsonToResponseService = jsonToVersionResponseService ?? IosVersionConvertManager();
 
   @override
   final BaseStoreModel store;
@@ -30,7 +30,7 @@ class IosVersionCompareManager extends VersionCompareByQueryService {
   final RemoteDataService dataService;
 
   @override
-  final JsonToVersionResponseService jsonToResponseService;
+  final VersionConvertService jsonToResponseService;
 
   @override
   Future<DataResult<VersionResponseModel>> getVersion() async {

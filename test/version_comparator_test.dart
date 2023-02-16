@@ -6,9 +6,9 @@ import 'package:version_comparator/src/models/entities/store/android_store_model
 import 'package:version_comparator/src/models/entities/store/huawei_store_model.dart';
 import 'package:version_comparator/src/models/entities/store/ios_store_model.dart';
 import 'package:version_comparator/src/models/parameters/custom_version_compare_parameter_model.dart';
-import 'package:version_comparator/src/services/concretes/android_json_to_version_response_manager.dart';
-import 'package:version_comparator/src/services/concretes/huawei_json_to_version_response_manager.dart';
-import 'package:version_comparator/src/services/concretes/ios_json_to_version_response_manager.dart';
+import 'package:version_comparator/src/services/concretes/android/android_version_convert_manager.dart';
+import 'package:version_comparator/src/services/concretes/huawei/huawei_version_convert_manager.dart';
+import 'package:version_comparator/src/services/concretes/ios/ios_version_convert_manager.dart';
 
 import 'package:version_comparator/version_comparator.dart';
 
@@ -18,7 +18,7 @@ void main() {
       currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
       store: AndroidStoreModel('ADD_YOUR_APP_ID'),
       parseModel: EmptyEntityModel.empty(),
-      jsonToResponseService: AndroidJsonToVersionResponseManager(),
+      jsonToResponseService: AndroidVersionConvertManager(),
     );
 
     final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
@@ -33,7 +33,7 @@ void main() {
       currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
       store: IosStoreModel('ADD_YOUR_APP_ID'),
       parseModel: IosVersionEntityModel(),
-      jsonToResponseService: IosJsonToVersionResponseManager(),
+      jsonToResponseService: IosVersionConvertManager(),
       updateLinkGetter: (parseModel) => parseModel.storeUrl,
     );
 
@@ -49,7 +49,7 @@ void main() {
       currentAppVersion: '[ADD_YOUR_DOWNLOADED_APP_VERSION]',
       store: HuaweiStoreModel('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
       parseModel: HuaweiVersionEntityModel.empty(),
-      jsonToResponseService: HuaweiJsonToVersionResponseManager(),
+      jsonToResponseService: HuaweiVersionConvertManager(),
       updateLinkGetter: (parseModel) => parseModel.storeUrl('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
     );
 
