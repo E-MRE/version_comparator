@@ -14,8 +14,10 @@ import 'package:version_comparator/src/services/concretes/huawei/huawei_version_
 import 'package:version_comparator/src/services/concretes/huawei/huawei_version_convert_manager.dart';
 import 'package:version_comparator/src/services/concretes/ios/ios_version_compare_manager.dart';
 import 'package:version_comparator/src/services/concretes/ios/ios_version_convert_manager.dart';
+import 'package:version_comparator/src/utils/constants/constants.dart';
 import 'package:version_comparator/src/utils/enums/app_platform.dart';
-import 'package:version_comparator/src/utils/enums/error_message.dart';
+import 'package:version_comparator/src/utils/messages/comparator_error_message.dart';
+import 'package:version_comparator/src/utils/messages/comparator_info_message.dart';
 import 'package:version_comparator/src/utils/mixins/platform_decider_mixin.dart';
 import 'package:version_comparator/src/utils/results/data_result.dart';
 
@@ -35,6 +37,16 @@ abstract class BaseVersionComparator {
   ///This service is using for the compare app versions.
   void setVersionComparator(VersionCompareService service) {
     _versionComparator = service;
+  }
+
+  ///It sets custom info messages to the package. You can use for handle the package info messages.
+  void setInfoMessages(ComparatorInfoMessage infoMessage) {
+    AppConstants.setInfoMessage(infoMessage);
+  }
+
+  ///It sets custom error messages to the package. You can use for handle the package error messages.
+  void setErrorMessages(ComparatorErrorMessage errorMessage) {
+    AppConstants.setErrorMessage(errorMessage);
   }
 
   /// This function returns a Future object of type `[DataResult<VersionResponseModel>]` which is used to
@@ -101,7 +113,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
 
     switch (platform) {
       case AppPlatform.invalid:
-        throw Exception(ErrorMessage.otherPlatformsNotSupported);
+        throw Exception(kErrorMessage.otherPlatformsNotSupported);
 
       case AppPlatform.android:
         setVersionComparator(AndroidVersionCompareManager(
@@ -128,7 +140,6 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
         break;
     }
 
-    return await versionComparator?.getVersion() ??
-        DataResult.byErrorMessageEnum(error: ErrorMessage.versionComparatorNotSet);
+    return await versionComparator?.getVersion() ?? DataResult.error(message: kErrorMessage.versionComparatorNotSet);
   }
 }
