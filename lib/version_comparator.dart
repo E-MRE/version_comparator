@@ -3,17 +3,17 @@ library version_comparator;
 import 'package:version_comparator/src/models/entities/entity_model.dart';
 import 'package:version_comparator/src/models/parameters/custom_version_compare_parameter_model.dart';
 import 'package:version_comparator/src/models/version_response_model.dart';
-import 'package:version_comparator/src/services/abstracts/json_to_version_response_service.dart';
+import 'package:version_comparator/src/services/abstracts/version_convert_service.dart';
 import 'package:version_comparator/src/services/abstracts/remote_data_service.dart';
 import 'package:version_comparator/src/services/abstracts/version_compare_service.dart';
-import 'package:version_comparator/src/services/concretes/android_json_to_version_response_manager.dart';
-import 'package:version_comparator/src/services/concretes/android_version_compare_manager.dart';
-import 'package:version_comparator/src/services/concretes/custom_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/android/android_version_convert_manager.dart';
+import 'package:version_comparator/src/services/concretes/android/android_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/custom/custom_version_compare_manager.dart';
 import 'package:version_comparator/src/services/concretes/http_remote_data_manager.dart';
-import 'package:version_comparator/src/services/concretes/huawei_json_to_version_response_manager.dart';
-import 'package:version_comparator/src/services/concretes/huawei_version_compare_manager.dart';
-import 'package:version_comparator/src/services/concretes/ios_json_to_version_response_manager.dart';
-import 'package:version_comparator/src/services/concretes/ios_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/huawei/huawei_version_convert_manager.dart';
+import 'package:version_comparator/src/services/concretes/huawei/huawei_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/ios/ios_version_convert_manager.dart';
+import 'package:version_comparator/src/services/concretes/ios/ios_version_compare_manager.dart';
 import 'package:version_comparator/src/utils/enums/app_platform.dart';
 import 'package:version_comparator/src/utils/enums/error_message.dart';
 import 'package:version_comparator/src/utils/mixins/platform_decider_mixin.dart';
@@ -45,7 +45,7 @@ abstract class BaseVersionComparator {
   /// You must set this parameter if you want to compare your app from `[AppGallery]`.
   Future<DataResult<VersionResponseModel>> platformSpecificCompare({
     required String appId,
-    JsonToVersionResponseService? jsonToVersionResponseService,
+    VersionConvertService? jsonToVersionResponseService,
     RemoteDataService? dataService,
   });
 
@@ -92,7 +92,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
   @override
   Future<DataResult<VersionResponseModel>> platformSpecificCompare({
     required String appId,
-    JsonToVersionResponseService? jsonToVersionResponseService,
+    VersionConvertService? jsonToVersionResponseService,
     RemoteDataService? dataService,
   }) async {
     final platform = await getPlatform();
@@ -105,7 +105,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
 
       case AppPlatform.android:
         setVersionComparator(AndroidVersionCompareManager(
-          jsonToResponseService: jsonToVersionResponseService ?? AndroidJsonToVersionResponseManager(),
+          jsonToResponseService: jsonToVersionResponseService ?? AndroidVersionConvertManager(),
           dataService: remoteService,
           bundleId: appId,
         ));
@@ -113,7 +113,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
 
       case AppPlatform.ios:
         setVersionComparator(IosVersionCompareManager(
-          jsonToResponseService: jsonToVersionResponseService ?? IosJsonToVersionResponseManager(),
+          jsonToResponseService: jsonToVersionResponseService ?? IosVersionConvertManager(),
           dataService: remoteService,
           bundleId: appId,
         ));
@@ -121,7 +121,7 @@ class VersionComparator extends BaseVersionComparator with PlatformDeciderMixin 
 
       case AppPlatform.huawei:
         setVersionComparator(HuaweiVersionCompareManager(
-          jsonToResponseService: jsonToVersionResponseService ?? HuaweiJsonToVersionResponseManager(),
+          jsonToResponseService: jsonToVersionResponseService ?? HuaweiVersionConvertManager(),
           dataService: remoteService,
           appId: appId,
         ));
