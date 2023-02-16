@@ -1,6 +1,5 @@
-import 'package:version_comparator/src/utils/helpers/regexp_helper.dart';
-
 import '../constants/constants.dart';
+import '../helpers/regexp_helper.dart';
 
 mixin VersionCompareMixin {
   bool isCurrentVersionOld({required String currentVersion, required String storeVersion, int defaultValue = kZero}) {

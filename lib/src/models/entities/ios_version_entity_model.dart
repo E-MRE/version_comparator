@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:collection/collection.dart';
 
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../utils/constants/constants.dart';
