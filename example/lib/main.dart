@@ -1,3 +1,6 @@
+import 'models/my_store_model.dart';
+import 'models/my_version_response_model.dart';
+import 'services/my_version_convert_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:version_comparator/version_comparator.dart';
 
@@ -55,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(_versionResult, textAlign: TextAlign.center),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _isLoading ? null : () async => _compareVersion(),
+              onPressed: _isLoading ? null : () async => customCompareVersion(),
               child: _isLoading ? const CircularProgressIndicator() : const Text('Compare App Version'),
             ),
           ],
@@ -64,11 +67,25 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> _compareVersion() async {
+  Future<void> compareVersion() async {
     _setLoading(true);
     final result = await VersionComparator.instance.comparePlatformSpecific();
-    _setLoading(false);
 
+    _setLoading(false);
+    _setResultMessage(result);
+  }
+
+  Future<void> customCompareVersion() async {
+    _setLoading(true);
+    final result = await VersionComparator.instance.customCompare<MyVersionResponseModel>(
+      parameterModel: _getParameter,
+    );
+
+    _setLoading(false);
+    _setResultMessage(result);
+  }
+
+  void _setResultMessage(DataResult<VersionResponseModel> result) {
     if (result.isNotSuccess || result.data == null) {
       _setResult('Error: ${result.message}');
     } else if (result.data!.isAppVersionOld) {
@@ -76,5 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       _setResult('Success: App version is up to date');
     }
+  }
+
+  CustomVersionCompareParameterModel<MyVersionResponseModel> get _getParameter {
+    return CustomVersionCompareParameterModel<MyVersionResponseModel>(
+      parseModel: MyVersionResponseModel.empty(),
+      currentAppVersion: 'YOUR_DOWNLOADED_APP_VERSION',
+      versionConvertService: MyVersionConvertManager(),
+      store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
+    );
   }
 }
