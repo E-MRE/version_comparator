@@ -1,5 +1,9 @@
 library version_comparator;
 
+export 'src/models/index.dart';
+export 'src/services/index.dart';
+export 'src/utils/index.dart';
+
 import 'src/models/version_response_model.dart';
 import 'src/services/abstracts/base_version_comparator.dart';
 import 'src/services/abstracts/remote_data_service.dart';
