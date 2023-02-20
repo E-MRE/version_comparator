@@ -6,3 +6,4 @@ export 'messages/comparator_error_message.dart';
 export 'messages/comparator_info_message.dart';
 export 'mixins/platform_decider_mixin.dart';
 export 'mixins/version_compare_mixin.dart';
+export 'mixins/version_dialog_mixin.dart';
