@@ -63,16 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              onPressed: () async => await _showVersionDialog(_getResponseExample),
               child: const Text('Show Alert Dialog'),
-              onPressed: () async {
-                await _showVersionDialog(
-                  VersionResponseModel(
-                    appVersion: '1.0.0',
-                    storeVersion: '1.0.1',
-                    updateLink: 'https://wwww.google.com/',
-                  ),
-                );
-              },
             ),
           ],
         ),
@@ -113,6 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
     await _showVersionDialog(responseModel);
   }
 
+  Future<void> _showVersionDialog(VersionResponseModel versionResponseModel, {bool isRequired = false}) async {
+    await VersionComparator.instance.showSimpleVersionDialog(
+      context,
+      versionResponseModel,
+      isUpdateRequired: isRequired,
+    );
+  }
+
   CustomVersionCompareParameterModel<MyVersionResponseModel> get _getParameter {
     return CustomVersionCompareParameterModel<MyVersionResponseModel>(
       parseModel: MyVersionResponseModel.empty(),
@@ -122,11 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> _showVersionDialog(VersionResponseModel versionResponseModel, {bool isRequired = false}) async {
-    await VersionComparator.instance.showSimpleVersionDialog(
-      context,
-      versionResponseModel,
-      isUpdateRequired: isRequired,
+  VersionResponseModel get _getResponseExample {
+    return VersionResponseModel(
+      appVersion: '1.0.0',
+      storeVersion: '1.0.1',
+      updateLink: 'https://wwww.google.com/',
     );
   }
 }
