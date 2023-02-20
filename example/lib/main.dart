@@ -61,6 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: _isLoading ? null : () async => customCompareVersion(),
               child: _isLoading ? const CircularProgressIndicator() : const Text('Compare App Version'),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async => await _showVersionDialog(_getResponseExample),
+              child: const Text('Show Alert Dialog'),
+            ),
           ],
         ),
       ),
@@ -89,10 +94,23 @@ class _MyHomePageState extends State<MyHomePage> {
     if (result.isNotSuccess || result.data == null) {
       _setResult('Error: ${result.message}');
     } else if (result.data!.isAppVersionOld) {
-      _setResult('Error: App version is old. Please update');
+      _setResultAndShowVersionDialog('Error: App version is old. Please update', result.data!);
     } else {
       _setResult('Success: App version is up to date');
     }
+  }
+
+  Future<void> _setResultAndShowVersionDialog(String message, VersionResponseModel responseModel) async {
+    _setResult(message);
+    await _showVersionDialog(responseModel);
+  }
+
+  Future<void> _showVersionDialog(VersionResponseModel versionResponseModel, {bool isRequired = false}) async {
+    await VersionComparator.instance.showSimpleVersionDialog(
+      context,
+      versionResponseModel,
+      isUpdateRequired: isRequired,
+    );
   }
 
   CustomVersionCompareParameterModel<MyVersionResponseModel> get _getParameter {
@@ -101,6 +119,14 @@ class _MyHomePageState extends State<MyHomePage> {
       currentAppVersion: 'YOUR_DOWNLOADED_APP_VERSION',
       versionConvertService: MyVersionConvertManager(),
       store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
+    );
+  }
+
+  VersionResponseModel get _getResponseExample {
+    return VersionResponseModel(
+      appVersion: '1.0.0',
+      storeVersion: '1.0.1',
+      updateLink: 'https://wwww.google.com/',
     );
   }
 }

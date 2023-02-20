@@ -1,11 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:version_comparator/src/models/entities/empty_entity_model.dart';
 import 'package:version_comparator/src/models/entities/huawei/huawei_version_entity_model.dart';
 import 'package:version_comparator/src/models/entities/ios_version_entity_model.dart';
-import 'package:version_comparator/src/models/entities/store/android_store_model.dart';
-import 'package:version_comparator/src/models/entities/store/huawei_store_model.dart';
-import 'package:version_comparator/src/models/entities/store/ios_store_model.dart';
-import 'package:version_comparator/src/models/parameters/custom_version_compare_parameter_model.dart';
 import 'package:version_comparator/src/services/concretes/android/android_version_convert_manager.dart';
 import 'package:version_comparator/src/services/concretes/huawei/huawei_version_convert_manager.dart';
 import 'package:version_comparator/src/services/concretes/ios/ios_version_convert_manager.dart';
@@ -20,7 +15,7 @@ void main() {
       versionConvertService: AndroidVersionConvertManager(),
     );
 
-    final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
+    final result = await VersionComparator.getInstanceByDialogService().customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
