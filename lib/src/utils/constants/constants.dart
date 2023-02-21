@@ -12,6 +12,10 @@ const String kHuaweiManufacturer = 'HUAWEI';
 const int kDefaultTimeout = 16000;
 const int kZero = 0;
 
+const double kLoadingWidgetSize = 40;
+const double kMediumSpace = 16;
+const double kTransparentBlack = 0.25;
+
 ComparatorInfoMessage get kInfoMessage => AppConstants.comparatorInfoMessage ?? DefaultComparatorInfoMessage.instance;
 
 ComparatorErrorMessage get kErrorMessage =>

@@ -1,0 +1,1 @@
+enum CheckVersionLoadingType { alertDialog, widget }

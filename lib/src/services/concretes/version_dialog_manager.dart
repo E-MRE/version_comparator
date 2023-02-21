@@ -6,8 +6,12 @@ import '../abstracts/version_dialog_service.dart';
 
 class VersionDialogManager extends VersionDialogService {
   @override
-  Future<T?> showCustomVersionDialog<T>({required BuildContext context, required Widget dialog}) async {
-    return await showDialog<T>(context: context, builder: (_) => dialog);
+  Future<T?> showCustomVersionDialog<T>({
+    required BuildContext context,
+    required Widget dialog,
+    bool isDismissible = true,
+  }) async {
+    return await showDialog<T>(context: context, barrierDismissible: isDismissible, builder: (_) => dialog);
   }
 
   @override
@@ -87,7 +91,7 @@ class VersionDialogManager extends VersionDialogService {
   }) {
     return [
       if (!isUpdateRequired && isCancelActionVisible) _buildCancelButton<T>(context, onAfterPopDialog, popResult),
-      _buildUpdateButton<T>(context, versionModel, isUpdateRequired, popResult),
+      _buildUpdateButton<T>(context, versionModel, onAfterPopDialog, isUpdateRequired, popResult),
     ];
   }
 
@@ -101,6 +105,7 @@ class VersionDialogManager extends VersionDialogService {
   Widget _buildUpdateButton<T>(
     BuildContext context,
     VersionResponseModel versionModel,
+    VoidCallback? onAfterPopDialog,
     bool isUpdateRequired,
     T? popResult,
   ) {
@@ -111,6 +116,7 @@ class VersionDialogManager extends VersionDialogService {
         updateLink: versionModel.updateLink,
         isUpdateRequired: isUpdateRequired,
         popResult: popResult,
+        onAfterPopDialog: onAfterPopDialog,
       ),
     );
   }
@@ -119,11 +125,13 @@ class VersionDialogManager extends VersionDialogService {
     required BuildContext context,
     required String updateLink,
     required bool isUpdateRequired,
+    VoidCallback? onAfterPopDialog,
     T? popResult,
   }) async {
     await launchStoreLink(updateLink);
     if (context.mounted && !isUpdateRequired) {
       Navigator.of(context).pop<T>(popResult);
+      onAfterPopDialog?.call();
     }
   }
 

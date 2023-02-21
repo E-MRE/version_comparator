@@ -11,6 +11,7 @@ import 'src/utils/mixins/bundle_id_controller_mixin.dart';
 export 'src/models/index.dart';
 export 'src/services/index.dart';
 export 'src/utils/index.dart';
+export 'src/widgets/index.dart';
 
 ///The mission of the VersionComparator class is to compare different versions of an app.
 ///It has two methods: platformSpecificCompare and customCompare.
