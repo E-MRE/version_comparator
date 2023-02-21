@@ -34,4 +34,13 @@ abstract class ComparatorInfoMessage {
   ///Required version message text.
   String requiredVersionDialogContent(String oldVersion, String latestVersion) =>
       'App version ($oldVersion) out of date. Please update app to latest version ($latestVersion).';
+
+  ///When checks app version this message will display
+  String get checkVersionLoadingMessage => 'App version checking...';
+
+  ///If any error occur dialog title will be display with this text.
+  String get checkVersionErrorDialogTitle => 'Error';
+
+  ///OK action text
+  String get checkVersionOkAction => 'OK';
 }

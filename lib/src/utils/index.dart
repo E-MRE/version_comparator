@@ -1,6 +1,7 @@
 export 'results/result.dart';
 export 'results/data_result.dart';
 export 'enums/app_platform.dart';
+export 'enums/check_version_loading_type.dart';
 export 'helpers/regexp_helper.dart';
 export 'messages/comparator_error_message.dart';
 export 'messages/comparator_info_message.dart';

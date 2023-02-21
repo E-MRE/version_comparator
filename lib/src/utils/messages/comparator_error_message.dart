@@ -30,4 +30,7 @@ abstract class ComparatorErrorMessage {
 
   /// 'This app platform is not handled'
   String get unHandledAppPlatformException => 'This app platform is not handled';
+
+  ///If data is null than this message displays.
+  String get versionResponseNull => 'Data is null. App version can\'t compare';
 }

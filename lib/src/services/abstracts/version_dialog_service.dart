@@ -26,5 +26,9 @@ abstract class VersionDialogService with LaunchUrlMixin {
     VoidCallback? onAfterPopDialog,
   });
 
-  Future<T?> showCustomVersionDialog<T>({required BuildContext context, required Widget dialog});
+  Future<T?> showCustomVersionDialog<T>({
+    required BuildContext context,
+    required Widget dialog,
+    bool isDismissible = true,
+  });
 }
