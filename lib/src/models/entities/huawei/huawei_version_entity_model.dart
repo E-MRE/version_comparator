@@ -51,8 +51,5 @@ class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
   HuaweiVersionEntityModel fromJson(Map<String, dynamic> json) => _$HuaweiVersionEntityModelFromJson(json);
 
   @override
-  HuaweiVersionEntityModel fromResponseBodyString(String body) => HuaweiVersionEntityModel.fromResponse(body);
-
-  @override
   Map<String, dynamic> toJson() => _$HuaweiVersionEntityModelToJson(this);
 }

@@ -23,7 +23,4 @@ class MyVersionResponseModel extends EntityModel<MyVersionResponseModel> {
 
   @override
   Map<String, dynamic> toJson() => jsonData;
-
-  @override
-  MyVersionResponseModel fromResponseBodyString(String body) => MyVersionResponseModel.fromResponse(body);
 }
