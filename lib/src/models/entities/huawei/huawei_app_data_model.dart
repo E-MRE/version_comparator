@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../utils/constants/constants.dart';
@@ -22,12 +20,6 @@ class HuaweiAppDataModel extends EntityModel<HuaweiAppDataModel> {
 
   @override
   HuaweiAppDataModel fromJson(Map<String, dynamic> json) => _$HuaweiAppDataModelFromJson(json);
-
-  @override
-  HuaweiAppDataModel fromResponseBodyString(String body) {
-    final json = jsonDecode(body);
-    return _$HuaweiAppDataModelFromJson(json);
-  }
 
   @override
   Map<String, dynamic> toJson() => _$HuaweiAppDataModelToJson(this);

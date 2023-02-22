@@ -23,7 +23,4 @@ class EmptyEntityModel extends EntityModel<EmptyEntityModel> {
 
   @override
   Map<String, dynamic> toJson() => jsonData;
-
-  @override
-  EmptyEntityModel fromResponseBodyString(String body) => EmptyEntityModel.fromResponse(body);
 }
