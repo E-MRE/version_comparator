@@ -19,17 +19,14 @@ class HttpRemoteDataManager extends RemoteDataService {
   final http.Client _client;
 
   @override
-  Future<DataResult<TData>> getData<TData extends EntityModel<TData>>(
-      GetDataServiceParameterModel<TData> parameterModel) async {
+  Future<DataResult<String>> getData(GetDataServiceParameterModel parameterModel) async {
     try {
       final response = await _client
           .get(getUri(parameterModel), headers: parameterModel.header ?? baseHeader)
           .timeout(parameterModel.timeoutDuration);
 
-      final data = parameterModel.parseModel.fromResponseBodyString(response.body);
-
       return response.statusCode == HttpStatus.ok
-          ? DataResult.success(data: data)
+          ? DataResult.success(data: response.body)
           : DataResult.error(message: kInfoMessage.getDataError);
     } catch (exception) {
       return DataResult.error(message: exception.toString());

@@ -39,14 +39,16 @@ class IosVersionEntityModel extends EntityModel<IosVersionEntityModel> {
     return version is String ? version : kEmpty;
   }
 
+  factory IosVersionEntityModel.fromResponse(String body) {
+    final trimBody = body.replaceAll(kSpace, kEmpty);
+    return _$IosVersionEntityModelFromJson(jsonDecode(trimBody));
+  }
+
   @override
   IosVersionEntityModel fromJson(Map<String, dynamic> json) => _$IosVersionEntityModelFromJson(json);
 
   @override
-  IosVersionEntityModel fromResponseBodyString(String body) {
-    final trimBody = body.replaceAll(kSpace, kEmpty);
-    return _$IosVersionEntityModelFromJson(jsonDecode(trimBody));
-  }
+  IosVersionEntityModel fromResponseBodyString(String body) => IosVersionEntityModel.fromResponse(body);
 
   @override
   Map<String, dynamic> toJson() => _$IosVersionEntityModelToJson(this);

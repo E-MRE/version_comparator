@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:version_comparator/version_comparator.dart';
 
@@ -52,12 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: VersionCompareWrapper(
-        futureCallback: () async {
-          await Future.delayed(const Duration(seconds: 5));
-          return VersionComparator.instance.customCompare<MyVersionResponseModel>(
-            parameterModel: _getParameter,
-          );
-        },
+        futureCallback: () async => await VersionComparator.instance.comparePlatformSpecific(),
         dialogService: VersionComparator.instance.dialogService,
         child: _buildBody(),
       ),
@@ -97,8 +91,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> customCompareVersion() async {
     _setLoading(true);
-    final result = await VersionComparator.instance.customCompare<MyVersionResponseModel>(
-      parameterModel: _getParameter,
+    final result = await VersionComparator.instance.customCompare(
+      localVersion: '1.0.0',
+      store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
+      customUpdateLink: (body) => 'YOU CAN ADD CUSTOM UPDATE LINK',
+      onConvertVersion: (responseBody) {
+        final result = MyVersionConvertManager().convert(MyVersionResponseModel.fromResponse(responseBody));
+        return result.data;
+      },
     );
 
     _setLoading(false);
@@ -128,18 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  CustomVersionCompareParameterModel<MyVersionResponseModel> get _getParameter {
-    return CustomVersionCompareParameterModel<MyVersionResponseModel>(
-      parseModel: MyVersionResponseModel.empty(),
-      currentAppVersion: 'YOUR_DOWNLOADED_APP_VERSION',
-      versionConvertService: MyVersionConvertManager(),
-      store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
-    );
-  }
-
   VersionResponseModel get _getResponseExample {
     return VersionResponseModel(
-      appVersion: '1.0.0',
+      localVersion: '1.0.0',
       storeVersion: '1.0.1',
       updateLink: 'https://wwww.google.com/',
     );

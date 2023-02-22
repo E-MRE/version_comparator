@@ -12,6 +12,10 @@ class EmptyEntityModel extends EntityModel<EmptyEntityModel> {
       : jsonData = {},
         responseBody = '';
 
+  factory EmptyEntityModel.fromResponse(String body) {
+    return EmptyEntityModel(jsonData: {'data': body}, responseBody: body);
+  }
+
   @override
   EmptyEntityModel fromJson(Map<String, dynamic> json) {
     return EmptyEntityModel(jsonData: json, responseBody: responseBody);
@@ -21,7 +25,5 @@ class EmptyEntityModel extends EntityModel<EmptyEntityModel> {
   Map<String, dynamic> toJson() => jsonData;
 
   @override
-  EmptyEntityModel fromResponseBodyString(String body) {
-    return EmptyEntityModel(jsonData: {'data': body}, responseBody: body);
-  }
+  EmptyEntityModel fromResponseBodyString(String body) => EmptyEntityModel.fromResponse(body);
 }

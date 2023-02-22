@@ -42,14 +42,16 @@ class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
 
   factory HuaweiVersionEntityModel.fromJson(Map<String, dynamic> json) => _$HuaweiVersionEntityModelFromJson(json);
 
+  factory HuaweiVersionEntityModel.fromResponse(String body) {
+    final json = jsonDecode(body);
+    return _$HuaweiVersionEntityModelFromJson(json);
+  }
+
   @override
   HuaweiVersionEntityModel fromJson(Map<String, dynamic> json) => _$HuaweiVersionEntityModelFromJson(json);
 
   @override
-  HuaweiVersionEntityModel fromResponseBodyString(String body) {
-    final json = jsonDecode(body);
-    return _$HuaweiVersionEntityModelFromJson(json);
-  }
+  HuaweiVersionEntityModel fromResponseBodyString(String body) => HuaweiVersionEntityModel.fromResponse(body);
 
   @override
   Map<String, dynamic> toJson() => _$HuaweiVersionEntityModelToJson(this);

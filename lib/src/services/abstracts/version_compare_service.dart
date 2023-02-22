@@ -1,4 +1,3 @@
-import '../../models/entities/entity_model.dart';
 import '../../models/entities/store/base_store_model.dart';
 import '../../models/parameters/get_data_service_parameter_model.dart';
 import '../../models/version_response_model.dart';
@@ -7,57 +6,51 @@ import '../../utils/mixins/launch_url_mixin.dart';
 import '../../utils/mixins/package_info_mixin.dart';
 import '../../utils/results/data_result.dart';
 import 'remote_data_service.dart';
-import 'version_convert_service.dart';
 
 abstract class VersionCompareService with PackageInfoMixin, LaunchUrlMixin {
   BaseStoreModel get store;
   RemoteDataService get dataService;
-  VersionConvertService get versionConvertService;
 
   Future<DataResult<VersionResponseModel>> getVersion();
 }
 
 abstract class VersionCompareByQueryService extends VersionCompareService {
-  Future<DataResult<VersionResponseModel>> getVersionByQuery<TData extends EntityModel<TData>>({
-    required TData parseModel,
-    String? Function(TData parseModel)? updateLinkGetter,
+  Future<DataResult<VersionResponseModel>> getVersionByQuery({
+    required String? Function(String responseBody) onConvertVersion,
+    String? Function(String responseBody)? customUpdateLink,
   }) async {
     final appVersionResult = await getCurrentAppVersion();
     if (appVersionResult.isNotSuccess) return DataResult.error(message: appVersionResult.message);
 
-    return getStoreVersionByQuery<TData>(
-      parseModel: parseModel,
-      updateLinkGetter: updateLinkGetter,
-      currentVersion: appVersionResult.data ?? kEmpty,
+    return getStoreVersionByQuery(
+      onConvertVersion: onConvertVersion,
+      customUpdateLink: customUpdateLink,
+      localVersion: appVersionResult.data ?? kEmpty,
     );
   }
 
-  Future<DataResult<VersionResponseModel>> getStoreVersionByQuery<TData extends EntityModel<TData>>({
-    required TData parseModel,
-    required String currentVersion,
-    String? Function(TData parseModel)? updateLinkGetter,
+  Future<DataResult<VersionResponseModel>> getStoreVersionByQuery({
+    required String? Function(String responseBody) onConvertVersion,
+    required String localVersion,
+    String? Function(String responseBody)? customUpdateLink,
   }) async {
-    final parameter = GetDataServiceParameterModel<TData>(
-      url: store.storeUrl,
-      parseModel: parseModel,
-      query: store.versionQuery,
-    );
+    final parameter = GetDataServiceParameterModel(url: store.storeUrl, query: store.versionQuery);
 
     final response = await dataService.getData(parameter);
     if (response.isNotSuccess || response.data == null) {
       return DataResult.error(message: response.message);
     }
 
-    final versionResult = versionConvertService.convert(response.data!);
-    if (versionResult.isNotSuccess) {
-      return DataResult.error(message: versionResult.message);
+    final version = onConvertVersion.call(response.data!);
+    if (version == null || version.isEmpty) {
+      return DataResult.error(message: kErrorMessage.versionResponseNull);
     }
 
     return DataResult.success(
       data: VersionResponseModel(
-        appVersion: currentVersion,
-        storeVersion: versionResult.data ?? kEmpty,
-        updateLink: updateLinkGetter?.call(response.data!) ?? parameter.getUrl(),
+        localVersion: localVersion,
+        storeVersion: version,
+        updateLink: customUpdateLink?.call(response.data!) ?? parameter.getUrl(),
       ),
     );
   }

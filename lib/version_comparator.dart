@@ -40,7 +40,6 @@ class VersionComparator extends BaseVersionComparator with BundleIdControllerMix
   @override
   Future<DataResult<VersionResponseModel>> comparePlatformSpecific({
     String? customAppId,
-    VersionConvertService? versionConvertService,
     RemoteDataService? dataService,
   }) async {
     final platform = await getPlatform();
@@ -52,7 +51,6 @@ class VersionComparator extends BaseVersionComparator with BundleIdControllerMix
 
     final remoteService = dataService ?? HttpRemoteDataManager();
     final versionComparatorService = VersionCompareServiceFactory(platform: platform).getCompareService(
-      versionConvertService: versionConvertService,
       dataService: remoteService,
       bundleId: bundleResult.data ?? kEmpty,
     );

@@ -7,21 +7,13 @@ import '../../abstracts/remote_data_service.dart';
 import '../../abstracts/version_compare_service.dart';
 import '../../abstracts/version_convert_service.dart';
 import '../http_remote_data_manager.dart';
-import 'huawei_version_convert_manager.dart';
 
 class HuaweiVersionCompareManager extends VersionCompareByQueryService {
-  HuaweiVersionCompareManager({
-    required this.dataService,
-    required this.versionConvertService,
-    required String appId,
-  }) : store = HuaweiStoreModel(appId);
+  HuaweiVersionCompareManager({required this.dataService, required String appId}) : store = HuaweiStoreModel(appId);
 
-  HuaweiVersionCompareManager.httpService({
-    VersionConvertService? versionConvertService,
-    required String appId,
-  })  : store = HuaweiStoreModel(appId),
-        dataService = HttpRemoteDataManager(),
-        versionConvertService = versionConvertService ?? HuaweiVersionConvertManager();
+  HuaweiVersionCompareManager.httpService({VersionConvertService? versionConvertService, required String appId})
+      : store = HuaweiStoreModel(appId),
+        dataService = HttpRemoteDataManager();
 
   @override
   final BaseStoreModel store;
@@ -30,13 +22,10 @@ class HuaweiVersionCompareManager extends VersionCompareByQueryService {
   final RemoteDataService dataService;
 
   @override
-  final VersionConvertService versionConvertService;
-
-  @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
-    return getVersionByQuery<HuaweiVersionEntityModel>(
-      parseModel: HuaweiVersionEntityModel.empty(),
-      updateLinkGetter: (parseModel) => parseModel.storeUrl(store.appId),
+    return getVersionByQuery(
+      customUpdateLink: (body) => HuaweiVersionEntityModel.fromResponse(body).storeUrl(store.appId),
+      onConvertVersion: (body) => HuaweiVersionEntityModel.fromResponse(body).storeVersion,
     );
   }
 }
