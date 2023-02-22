@@ -76,8 +76,8 @@ class VersionDialogManager extends VersionDialogService {
   Widget _buildContent(bool isUpdateRequired, VersionResponseModel versionModel) {
     return Text(
       isUpdateRequired
-          ? kInfoMessage.requiredVersionDialogContent(versionModel.appVersion, versionModel.storeVersion)
-          : kInfoMessage.versionDialogContent(versionModel.appVersion, versionModel.storeVersion),
+          ? kInfoMessage.requiredVersionDialogContent(versionModel.localVersion, versionModel.storeVersion)
+          : kInfoMessage.versionDialogContent(versionModel.localVersion, versionModel.storeVersion),
     );
   }
 

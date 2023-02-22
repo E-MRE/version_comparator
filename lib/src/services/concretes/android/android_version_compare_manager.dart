@@ -29,7 +29,6 @@ class AndroidVersionCompareManager extends VersionCompareByQueryService {
   @override
   final RemoteDataService dataService;
 
-  @override
   final VersionConvertService versionConvertService;
 
   @override
@@ -37,6 +36,11 @@ class AndroidVersionCompareManager extends VersionCompareByQueryService {
     final bundleIdResult = await getBundleId();
     if (bundleIdResult.isNotSuccess) return DataResult.error(message: bundleIdResult.message);
 
-    return getVersionByQuery(parseModel: EmptyEntityModel.empty());
+    return getVersionByQuery(
+      onConvertVersion: (responseBody) {
+        final versionResult = versionConvertService.convert(EmptyEntityModel.fromResponse(responseBody));
+        return versionResult.data;
+      },
+    );
   }
 }

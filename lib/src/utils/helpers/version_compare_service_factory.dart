@@ -1,12 +1,9 @@
 import '../../services/abstracts/remote_data_service.dart';
 import '../../services/abstracts/version_compare_service.dart';
-import '../../services/abstracts/version_convert_service.dart';
 import '../../services/concretes/android/android_version_compare_manager.dart';
 import '../../services/concretes/android/android_version_convert_manager.dart';
 import '../../services/concretes/huawei/huawei_version_compare_manager.dart';
-import '../../services/concretes/huawei/huawei_version_convert_manager.dart';
 import '../../services/concretes/ios/ios_version_compare_manager.dart';
-import '../../services/concretes/ios/ios_version_convert_manager.dart';
 import '../constants/constants.dart';
 import '../enums/app_platform.dart';
 
@@ -16,7 +13,6 @@ class VersionCompareServiceFactory {
   VersionCompareServiceFactory({required this.platform});
 
   VersionCompareService getCompareService({
-    VersionConvertService? versionConvertService,
     required RemoteDataService dataService,
     required String bundleId,
   }) {
@@ -26,24 +22,16 @@ class VersionCompareServiceFactory {
 
       case AppPlatform.android:
         return AndroidVersionCompareManager(
-          versionConvertService: versionConvertService ?? AndroidVersionConvertManager(),
+          versionConvertService: AndroidVersionConvertManager(),
           dataService: dataService,
           bundleId: bundleId,
         );
 
       case AppPlatform.ios:
-        return IosVersionCompareManager(
-          versionConvertService: versionConvertService ?? IosVersionConvertManager(),
-          dataService: dataService,
-          bundleId: bundleId,
-        );
+        return IosVersionCompareManager(dataService: dataService, bundleId: bundleId);
 
       case AppPlatform.huawei:
-        return HuaweiVersionCompareManager(
-          versionConvertService: versionConvertService ?? HuaweiVersionConvertManager(),
-          dataService: dataService,
-          appId: bundleId,
-        );
+        return HuaweiVersionCompareManager(dataService: dataService, appId: bundleId);
 
       default:
         throw Exception(kErrorMessage.unHandledAppPlatformException);

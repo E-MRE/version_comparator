@@ -1,21 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:version_comparator/src/models/entities/huawei/huawei_version_entity_model.dart';
-import 'package:version_comparator/src/models/entities/ios_version_entity_model.dart';
-import 'package:version_comparator/src/services/concretes/android/android_version_convert_manager.dart';
-import 'package:version_comparator/src/services/concretes/huawei/huawei_version_convert_manager.dart';
-import 'package:version_comparator/src/services/concretes/ios/ios_version_convert_manager.dart';
 import 'package:version_comparator/version_comparator.dart';
 
 void main() {
   test('Compare equality of Android app version and store version with customVersionCompare test', () async {
-    final parameter = CustomVersionCompareParameterModel(
-      currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
-      store: AndroidStoreModel('ADD_YOUR_APP_ID'),
-      parseModel: EmptyEntityModel.empty(),
-      versionConvertService: AndroidVersionConvertManager(),
+    final result = await VersionComparator.instance.customCompare(
+      localVersion: 'ADD_YOUR_APP_LOCAL_VERSION',
+      store: AndroidStoreModel('ADD_YOUR_BUNDLE_ID'),
+      customUpdateLink: (responseBody) => 'Custom app update link. (Optional)',
+      onConvertVersion: (responseBody) => 'Convert store version from response.body',
     );
-
-    final result = await VersionComparator.getInstanceByDialogService().customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
@@ -23,15 +16,12 @@ void main() {
   });
 
   test('Compare equality of iOS app version and store version with customVersionCompare test', () async {
-    final parameter = CustomVersionCompareParameterModel(
-      currentAppVersion: 'ADD_YOUR_DOWNLOADED_APP_VERSION',
-      store: IosStoreModel('ADD_YOUR_APP_ID'),
-      parseModel: IosVersionEntityModel(),
-      versionConvertService: IosVersionConvertManager(),
-      updateLinkGetter: (parseModel) => parseModel.storeUrl,
+    final result = await VersionComparator.instance.customCompare(
+      localVersion: 'ADD_YOUR_APP_LOCAL_VERSION',
+      store: IosStoreModel('ADD_YOUR_BUNDLE_ID'),
+      customUpdateLink: (responseBody) => 'Custom app update link. (Optional)',
+      onConvertVersion: (responseBody) => 'Convert store version from response.body',
     );
-
-    final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);
@@ -39,15 +29,12 @@ void main() {
   });
 
   test('Compare equality of Huawei app version and store version with customVersionCompare test', () async {
-    final parameter = CustomVersionCompareParameterModel(
-      currentAppVersion: '[ADD_YOUR_DOWNLOADED_APP_VERSION]',
-      store: HuaweiStoreModel('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
-      parseModel: HuaweiVersionEntityModel.empty(),
-      versionConvertService: HuaweiVersionConvertManager(),
-      updateLinkGetter: (parseModel) => parseModel.storeUrl('[ADD_YOUR_APP_ID_FROM_APP_GALLERY]'),
+    final result = await VersionComparator.instance.customCompare(
+      localVersion: 'ADD_YOUR_APP_LOCAL_VERSION',
+      store: HuaweiStoreModel('ADD_YOUR_HUAWEI_APP_ID_FROM_APP_GALLERY'),
+      customUpdateLink: (responseBody) => 'Custom app update link. (Optional)',
+      onConvertVersion: (responseBody) => 'Convert store version from response.body',
     );
-
-    final result = await VersionComparator.instance.customCompare(parameterModel: parameter);
 
     expect(result.isSuccess, true);
     expect(result.data == null, false);

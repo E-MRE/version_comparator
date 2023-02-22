@@ -7,4 +7,3 @@ export 'concretes/custom/custom_version_compare_manager.dart';
 export 'concretes/version_dialog_manager.dart';
 export 'concretes/android/android_version_convert_manager.dart';
 export 'concretes/ios/ios_version_convert_manager.dart';
-export 'concretes/huawei/huawei_version_convert_manager.dart';

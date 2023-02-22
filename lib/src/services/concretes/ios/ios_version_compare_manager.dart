@@ -7,21 +7,13 @@ import '../../abstracts/remote_data_service.dart';
 import '../../abstracts/version_compare_service.dart';
 import '../../abstracts/version_convert_service.dart';
 import '../http_remote_data_manager.dart';
-import 'ios_version_convert_manager.dart';
 
 class IosVersionCompareManager extends VersionCompareByQueryService {
-  IosVersionCompareManager({
-    required this.dataService,
-    required this.versionConvertService,
-    required String bundleId,
-  }) : store = IosStoreModel(bundleId);
+  IosVersionCompareManager({required this.dataService, required String bundleId}) : store = IosStoreModel(bundleId);
 
-  IosVersionCompareManager.httpService({
-    VersionConvertService? versionConvertService,
-    required String bundleId,
-  })  : store = IosStoreModel(bundleId),
-        dataService = HttpRemoteDataManager(),
-        versionConvertService = versionConvertService ?? IosVersionConvertManager();
+  IosVersionCompareManager.httpService({VersionConvertService? versionConvertService, required String bundleId})
+      : store = IosStoreModel(bundleId),
+        dataService = HttpRemoteDataManager();
 
   @override
   final BaseStoreModel store;
@@ -30,16 +22,13 @@ class IosVersionCompareManager extends VersionCompareByQueryService {
   final RemoteDataService dataService;
 
   @override
-  final VersionConvertService versionConvertService;
-
-  @override
   Future<DataResult<VersionResponseModel>> getVersion() async {
     final bundleIdResult = await getBundleId();
     if (bundleIdResult.isNotSuccess) return DataResult.error(message: bundleIdResult.message);
 
-    return getVersionByQuery<IosVersionEntityModel>(
-      parseModel: IosVersionEntityModel(),
-      updateLinkGetter: (parseModel) => parseModel.storeUrl,
+    return getVersionByQuery(
+      customUpdateLink: (body) => IosVersionEntityModel.fromResponse(body).storeUrl,
+      onConvertVersion: (responseBody) => IosVersionEntityModel.fromResponse(responseBody).storeVersion,
     );
   }
 }
