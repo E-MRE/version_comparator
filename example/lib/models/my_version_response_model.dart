@@ -12,6 +12,10 @@ class MyVersionResponseModel extends EntityModel<MyVersionResponseModel> {
       : jsonData = {},
         responseBody = '';
 
+  factory MyVersionResponseModel.fromResponse(String body) {
+    return MyVersionResponseModel(jsonData: {'data': body}, responseBody: body);
+  }
+
   @override
   MyVersionResponseModel fromJson(Map<String, dynamic> json) {
     return MyVersionResponseModel(jsonData: json, responseBody: responseBody);
@@ -21,7 +25,5 @@ class MyVersionResponseModel extends EntityModel<MyVersionResponseModel> {
   Map<String, dynamic> toJson() => jsonData;
 
   @override
-  MyVersionResponseModel fromResponseBodyString(String body) {
-    return MyVersionResponseModel(jsonData: {'data': body}, responseBody: body);
-  }
+  MyVersionResponseModel fromResponseBodyString(String body) => MyVersionResponseModel.fromResponse(body);
 }
