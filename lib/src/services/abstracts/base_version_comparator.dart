@@ -36,10 +36,18 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
   /// 1. dataService: an optional RemoteDataService object. It gets response from stores.
   /// 2. customAppId: an optional String value. It's important for `[Huawei]`.
   /// You must set this parameter if you want to compare your app from `[AppGallery]`.
-  Future<DataResult<VersionResponseModel>> comparePlatformSpecific({
+  Future<DataResult<VersionResponseModel>> platformSpecificCompareByAppId({
     String? customAppId,
     RemoteDataService? dataService,
   });
+
+  /// This function returns a Future object of type `[DataResult<VersionResponseModel>]` which is used to
+  /// compare platform-specific versions. It takes three optional parameters:
+  /// 1. dataService: an optional RemoteDataService object. It gets response from stores.
+  /// You must set this parameter if you want to compare your app from `[AppGallery]`.
+  Future<DataResult<VersionResponseModel>> platformSpecificCompare({RemoteDataService? dataService}) {
+    return platformSpecificCompareByAppId(dataService: dataService);
+  }
 
   /// Custom compares the local version of the app with the remote version.
   ///
