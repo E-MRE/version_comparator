@@ -50,10 +50,29 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: VersionCompareWrapper(
-        futureCallback: () async => await VersionComparator.instance.comparePlatformSpecific(),
-        dialogService: VersionComparator.instance.dialogService,
+      body: PlatformSpecificVersionComparatorView.widget(
+        errorPageBuilder: (_, error) => Center(child: Text(error)),
+        loadingText: 'Loading',
+        isUpdateRequired: true,
+        loadingWidgetSize: 36,
+        onCompareError: (message) => debugPrint(message),
+        onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
+        onOutOfDateVersionError: (message, data) => debugPrint(message),
+        onStateChanged: (state) => debugPrint('State is: ${state.runtimeType}'),
         child: _buildBody(),
+        outOfDateVersionPageBuilder: (_, error, data) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(error, textAlign: TextAlign.center),
+              const SizedBox(height: 16),
+              Text('Out of date version: ${data.localVersion}'),
+              Text('New version: ${data.storeVersion}'),
+            ],
+          );
+        },
       ),
     );
   }
@@ -83,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> compareVersion() async {
     _setLoading(true);
-    final result = await VersionComparator.instance.comparePlatformSpecific();
+    final result = await VersionComparator.instance.platformSpecificCompare();
 
     _setLoading(false);
     _setResultMessage(result);

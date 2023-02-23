@@ -16,8 +16,6 @@ mixin BundleIdControllerMixin on BaseVersionComparator {
       return DataResult.error(message: kErrorMessage.bundleIdAndCustomIdNotValid);
     }
 
-    return platform == AppPlatform.huawei
-        ? DataResult.success(data: customAppId ?? bundleResult.data)
-        : DataResult.success(data: bundleResult.data ?? customAppId);
+    return DataResult.success(data: customAppId ?? bundleResult.data);
   }
 }

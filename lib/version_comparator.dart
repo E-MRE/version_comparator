@@ -38,7 +38,7 @@ class VersionComparator extends BaseVersionComparator with BundleIdControllerMix
   final VersionDialogService dialogService;
 
   @override
-  Future<DataResult<VersionResponseModel>> comparePlatformSpecific({
+  Future<DataResult<VersionResponseModel>> platformSpecificCompareByAppId({
     String? customAppId,
     RemoteDataService? dataService,
   }) async {
