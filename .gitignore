@@ -1,33 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@E-MRE 
-VB10
-/
-kartal
-Public
-Fork your own copy of VB10/kartal
-Code
-Issues
-Pull requests
-1
-Actions
-Projects
-Security
-Insights
-kartal/.gitignore
-
-Veli Bacik first version completed
-Latest commit 0cc082c on Dec 14, 2020
- History
- 0 contributors
-74 lines (68 sloc)  1.45 KB
-
 # Miscellaneous
 *.class
 *.log
