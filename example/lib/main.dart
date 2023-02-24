@@ -49,37 +49,32 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(widget.title)),
-        body: PlatformSpecificVersionComparatorView.alertDialog(
-          child: _buildBody(),
-          invalidVersionDialogContentBuilder: (context, message) => Center(child: Text(message)),
-        )
-
-        // PlatformSpecificVersionComparatorView.widget(
-        //   errorPageBuilder: (_, error) => Center(child: Text(error)),
-        //   loadingText: 'Loading',
-        //   isUpdateRequired: true,
-        //   loadingWidgetSize: 36,
-        //   onCompareError: (message) => debugPrint(message),
-        //   onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
-        //   onOutOfDateVersionError: (message, data) => debugPrint(message),
-        //   onStateChanged: (state) => debugPrint('State is: ${state.runtimeType}'),
-        //   child: _buildBody(),
-        //   outOfDateVersionPageBuilder: (_, error, data) {
-        //     return Column(
-        //       mainAxisSize: MainAxisSize.max,
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         Text(error, textAlign: TextAlign.center),
-        //         const SizedBox(height: 16),
-        //         Text('Out of date version: ${data.localVersion}'),
-        //         Text('New version: ${data.storeVersion}'),
-        //       ],
-        //     );
-        //   },
-        // ),
-        );
+      appBar: AppBar(title: Text(widget.title)),
+      body: PlatformSpecificVersionComparatorView.widget(
+        errorPageBuilder: (_, error) => Center(child: Text(error)),
+        loadingText: 'Loading',
+        isUpdateRequired: true,
+        loadingWidgetSize: 36,
+        onCompareError: (message) => debugPrint(message),
+        onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
+        onOutOfDateVersionError: (message, data) => debugPrint(message),
+        onStateChanged: (state) => debugPrint('State is: ${state.runtimeType}'),
+        child: _buildBody(),
+        outOfDateVersionPageBuilder: (_, error, data) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(error, textAlign: TextAlign.center),
+              const SizedBox(height: 16),
+              Text('Out of date version: ${data.localVersion}'),
+              Text('New version: ${data.storeVersion}'),
+            ],
+          );
+        },
+      ),
+    );
   }
 
   Padding _buildBody() {
