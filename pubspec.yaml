@@ -1,7 +1,9 @@
 name: version_comparator
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: An app version comparator between app stores and local version. It support Android, iOS and Huawei platforms. 
+  Also custom version compare is possible.
+repository: https://github.com/E-MRE/version_comparator/
+issue_tracker: https://github.com/E-MRE/version_comparator/issues?q=is%3Aopen 
+version: 1.0.0
 
 environment:
   sdk: '>=2.18.5 <3.0.0'
