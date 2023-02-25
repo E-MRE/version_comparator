@@ -6,18 +6,6 @@ A Flutter package for compare app version between store and local version.
 |---------|-----|---------|--------|
 |    ✔    |  ✔  |    ✔    |    ✔   |
 
-
-
-
-
-
-
-
-<!-- ## Features
-TODO: List what your package can do. Maybe include images, gifs, or videos. 
--->
-
-
 ## Usage
 
 Import `package:version_comparator/version_comparator.dart`, and use the widgets or features.
