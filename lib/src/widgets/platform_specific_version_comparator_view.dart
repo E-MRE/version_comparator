@@ -1,12 +1,14 @@
 import '../../version_comparator.dart';
 import '../utils/constants/constants.dart';
 
-class PlatformSpecificVersionComparatorView<TResult> extends CustomVersionComparatorView<TResult> {
-  PlatformSpecificVersionComparatorView({
+class AppVersionComparatorView<TResult> extends CustomVersionComparatorView<TResult> {
+  AppVersionComparatorView({
     super.key,
     required super.child,
     super.onStateChanged,
-    String? customAppId,
+    String? androidId,
+    String? iosId,
+    String? huaweiId,
     RemoteDataService? dataService,
     super.onOutOfDateVersionError,
     super.versionDialogService,
@@ -30,19 +32,23 @@ class PlatformSpecificVersionComparatorView<TResult> extends CustomVersionCompar
     super.loadingText,
   }) : super(
           onVersionCompareCallback: () async {
-            return await VersionComparator.instance.platformSpecificCompareByAppId(
-              customAppId: customAppId,
+            return await VersionComparator.instance.versionCompare(
+              iosId: iosId,
+              huaweiId: huaweiId,
+              androidId: androidId,
               dataService: dataService,
             );
           },
         );
 
-  PlatformSpecificVersionComparatorView.alertDialog({
+  AppVersionComparatorView.alertDialog({
     super.key,
     required super.child,
     super.versionDialogService,
     super.onStateChanged,
-    String? customAppId,
+    String? androidId,
+    String? iosId,
+    String? huaweiId,
     RemoteDataService? dataService,
     super.onOutOfDateVersionError,
     super.onAfterPopDialog,
@@ -61,20 +67,24 @@ class PlatformSpecificVersionComparatorView<TResult> extends CustomVersionCompar
     super.loadingText,
   }) : super.alertDialog(
           onVersionCompareCallback: () async {
-            return await VersionComparator.instance.platformSpecificCompareByAppId(
-              customAppId: customAppId,
+            return await VersionComparator.instance.versionCompare(
+              iosId: iosId,
+              huaweiId: huaweiId,
+              androidId: androidId,
               dataService: dataService,
             );
           },
         );
 
-  PlatformSpecificVersionComparatorView.widget({
+  AppVersionComparatorView.widget({
     super.key,
     required super.errorPageBuilder,
     required super.outOfDateVersionPageBuilder,
     required super.child,
     super.onStateChanged,
-    String? customAppId,
+    String? androidId,
+    String? iosId,
+    String? huaweiId,
     RemoteDataService? dataService,
     super.onOutOfDateVersionError,
     super.onCompareSuccess,
@@ -88,8 +98,10 @@ class PlatformSpecificVersionComparatorView<TResult> extends CustomVersionCompar
     super.loadingText,
   }) : super.widget(
           onVersionCompareCallback: () async {
-            return await VersionComparator.instance.platformSpecificCompareByAppId(
-              customAppId: customAppId,
+            return await VersionComparator.instance.versionCompare(
+              iosId: iosId,
+              huaweiId: huaweiId,
+              androidId: androidId,
               dataService: dataService,
             );
           },

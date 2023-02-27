@@ -4,8 +4,8 @@ import '../../utils/mixins/package_info_mixin.dart';
 import '../concretes/http_remote_data_manager.dart';
 
 ///The mission of the VersionComparator class is to compare different versions of an app.
-///It has two methods: platformSpecificCompare and customCompare.
-///The platformSpecificCompare method is used to compare platform-specific versions, such as Android, iOS, and Huawei.
+///It has three methods: versionCompare, versionCompareWithHuawei and customCompare.
+///The versionCompare methods are used to compare platform-specific versions, such as Android, iOS, and Huawei.
 ///The customCompare method is used to compare versions with custom settings.
 ///This method can be used when the project platform is different from Android,
 ///iOS or Huawei, or when comparing versions from other stores.
@@ -31,22 +31,68 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
     AppConstants.setErrorMessage(errorMessage);
   }
 
-  /// This function returns a Future object of type `[DataResult<VersionResponseModel>]` which is used to
-  /// compare platform-specific versions. It takes three optional parameters:
-  /// 1. dataService: an optional RemoteDataService object. It gets response from stores.
-  /// 2. customAppId: an optional String value. It's important for `[Huawei]`.
-  /// You must set this parameter if you want to compare your app from `[AppGallery]`.
-  Future<DataResult<VersionResponseModel>> platformSpecificCompareByAppId({
-    String? customAppId,
+  /// This function compares versions of an Android, iOS, and Huawei device.
+  ///
+  /// RemoteDataService? dataService - A service that provides remote data. default service is [HttpRemoteDataManager]
+  /// String? androidId - The version ID of the Android device. It's optional. default value is [app bundle id].
+  /// String? iosId - The version ID of the iOS device. It's optional. default value is [app bundle id].
+  /// String huaweiId - The version ID of the Huawei device. It's required.
+  /// If you set empty than function will throw exception
+  ///
+  /// It returns DataResult<VersionResponseModel> object containing a VersionResponseModel object.
+  Future<DataResult<VersionResponseModel>> versionCompareWithHuawei({
+    ///Http (GET, POST) methods manager. You can set [dataService] with custom manager.
     RemoteDataService? dataService,
+
+    //Huawei app id. It's important for retrieve version from Huawei store.
+    required String huaweiId,
+
+    ///Custom android bundle id. If you want to compare different app, set this parameter.
+    ///Default value is app bundle id
+    String? androidId,
+
+    ///Custom ios bundle id. If you want to compare different app, set this parameter.
+    ///Default value is app bundle id
+    String? iosId,
+
+    ///Set that parameter if your app version different from current app version. Default value is app version
+    String? customLocalVersion,
   });
 
-  /// This function returns a Future object of type `[DataResult<VersionResponseModel>]` which is used to
-  /// compare platform-specific versions. It takes three optional parameters:
-  /// 1. dataService: an optional RemoteDataService object. It gets response from stores.
-  /// You must set this parameter if you want to compare your app from `[AppGallery]`.
-  Future<DataResult<VersionResponseModel>> platformSpecificCompare({RemoteDataService? dataService}) {
-    return platformSpecificCompareByAppId(dataService: dataService);
+  /// This function compares versions of an Android, iOS, and Huawei device.
+  ///
+  /// RemoteDataService? dataService - A service that provides remote data. default service is [HttpRemoteDataManager]
+  /// String? androidId - The version ID of the Android device. It's optional. default value is [app bundle id].
+  /// String? iosId - The version ID of the iOS device. It's optional. default value is [app bundle id].
+  /// String? huaweiId - The version ID of the Huawei device. It's optional. Don't use that comparator if your app
+  /// in the [AppGallery]. Because AppGallery app id is different from the app bundle id.
+  ///
+  /// It returns DataResult<VersionResponseModel> object containing a VersionResponseModel object.
+  Future<DataResult<VersionResponseModel>> versionCompare({
+    ///Http (GET, POST) methods manager. You can set [dataService] with custom manager.
+    RemoteDataService? dataService,
+
+    ///Custom android bundle id. If you want to compare different app, set this parameter.
+    ///Default value is app bundle id
+    String? androidId,
+
+    ///Custom ios bundle id. If you want to compare different app, set this parameter.
+    ///Default value is app bundle id
+    String? iosId,
+
+    ///If your app is published on the [AppGallery] (Huawei Store) you must set that id.
+    String? huaweiId,
+
+    ///Set that parameter if your app version different from current app version. Default value is app version
+    String? customLocalVersion,
+  }) {
+    return versionCompareWithHuawei(
+      dataService: dataService,
+      androidId: androidId,
+      iosId: iosId,
+      huaweiId: huaweiId ?? kEmpty,
+      customLocalVersion: customLocalVersion,
+    );
   }
 
   /// Custom compares the local version of the app with the remote version.

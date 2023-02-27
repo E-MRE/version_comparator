@@ -14,8 +14,8 @@ export 'src/utils/index.dart';
 export 'src/widgets/index.dart';
 
 ///The mission of the VersionComparator class is to compare different versions of an app.
-///It has two methods: platformSpecificCompare and customCompare.
-///The platformSpecificCompare method is used to compare platform-specific versions, such as Android, iOS, and Huawei.
+///It has three methods: versionCompare, versionCompareWithHuawei and customCompare.
+///The versionCompare methods are used to compare platform-specific versions, such as Android, iOS, and Huawei.
 ///The customCompare method is used to compare versions with custom settings.
 ///This method can be used when the project platform is different from Android,
 ///iOS or Huawei, or when comparing versions from other stores.
@@ -38,12 +38,20 @@ class VersionComparator extends BaseVersionComparator with BundleIdControllerMix
   final VersionDialogService dialogService;
 
   @override
-  Future<DataResult<VersionResponseModel>> platformSpecificCompareByAppId({
-    String? customAppId,
+  Future<DataResult<VersionResponseModel>> versionCompareWithHuawei({
     RemoteDataService? dataService,
+    required String huaweiId,
+    String? customLocalVersion,
+    String? androidId,
+    String? iosId,
   }) async {
     final platform = await getPlatform();
-    final bundleResult = await getBundleWithCustomAppId(customAppId, platform);
+    final bundleResult = await getBundleByOptionalId(
+      platform: platform,
+      androidId: androidId,
+      iosId: iosId,
+      huaweiId: huaweiId,
+    );
 
     if (bundleResult.isNotSuccess) {
       return DataResult.error(message: bundleResult.message);
