@@ -52,28 +52,24 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: Text(widget.title)),
       body: PlatformSpecificVersionComparatorView.widget(
         errorPageBuilder: (_, error) => Center(child: Text(error)),
-        loadingText: 'Loading',
-        isUpdateRequired: true,
-        loadingWidgetSize: 36,
-        onCompareError: (message) => debugPrint(message),
         onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
-        onOutOfDateVersionError: (message, data) => debugPrint(message),
-        onStateChanged: (state) => debugPrint('State is: ${state.runtimeType}'),
+        outOfDateVersionPageBuilder: (_, error, data) => _buildOutOfDateWidget(error, data),
         child: _buildBody(),
-        outOfDateVersionPageBuilder: (_, error, data) {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(error, textAlign: TextAlign.center),
-              const SizedBox(height: 16),
-              Text('Out of date version: ${data.localVersion}'),
-              Text('New version: ${data.storeVersion}'),
-            ],
-          );
-        },
       ),
+    );
+  }
+
+  Widget _buildOutOfDateWidget(String error, VersionResponseModel data) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(error, textAlign: TextAlign.center),
+        const SizedBox(height: 16),
+        Text('Out of date version: ${data.localVersion}'),
+        Text('New version: ${data.storeVersion}'),
+      ],
     );
   }
 
