@@ -1,4 +1,16 @@
+<h1 align="center">VersionComparator</h1>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/34197392/221577964-c81fe068-4c81-4f67-b127-1c616924391f.png" width="250px">
+</p>
+<h2 align="center">Simple, Enjoyable & Customizable Comparator</h2></br>
 A Flutter package for compare app version between store and local version.
+
+- 🚀 Compare app version with all stores. (PlayStore, AppStore, AppGallery and Custom)
+- ⚡ Customizable & Managable
+- ❤️ Simple, powerful, & managable structor
+- 🔒 Changable error & info messages with yours.
+- 🎈 Display AlertDialog or custom widgets when compare versions.
+
 
 ## App Version Compare Platforms
 
@@ -6,7 +18,216 @@ A Flutter package for compare app version between store and local version.
 |---------|-----|---------|--------|
 |    ✔    |  ✔  |    ✔    |    ✔   |
 
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>İçindekiler</summary>
+  <ol>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#other-features">Other Features</a></li>
+    <li><a href="#customization">Customization</a></li>
+    <li><a href="#localization">Localization</a></li>
+    <li><a href="#parameter-details">Parameter Details</a></li>
+    <li><a href="#examples">Examples</a></li>
+  </ol>
+</details>
+
 ## Usage
+
+Import `package:version_comparator/version_comparator.dart`, and use the widgets or features. That's all your need. You can compare with future operation or widget. Here is some simple comparator examples:
+
+Compare with future operation:
+
+```dart
+import 'package:version_comparator/version_comparator.dart';
+
+final response = await VersionComparator.instance.platformSpecificCompare();
+
+print(response?.data?.toJson() ?? '-');
+
+////////PRINT////////
+//{
+//  "localVersion":"1.0.0",
+//  "storeVersion":"1.0.1",
+//  "updateLink:"https://your_store_link.com,
+//  "isAppVersionOld:"true
+//}
+```
+
+Compare with widget:
+
+```dart
+import 'package:version_comparator/version_comparator.dart';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.title)),
+      body: PlatformSpecificVersionComparatorView.widget(
+        errorPageBuilder: (context, error) => Center(child: Text(error)),
+        onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
+        outOfDateVersionPageBuilder: (context, error, data) => _buildOutOfDateWidget(error, data),
+        child: _buildBody(),
+      ),
+    );
+  }
+```
+
+## Features
+
+There are many features for version compare. (VersionComparator widgets, future operations, alertDialog manager, custom version comparator).
+
+### Platform Specific Compare:
+
+```dart
+import 'package:version_comparator/version_comparator.dart';
+
+  Future<void> compareVersion() async {
+    //set loading state
+    _setLoading(true); 
+    
+    // get store and local version result
+    final response = await VersionComparator.instance.platformSpecificCompare();
+
+    //set loading state
+    _setLoading(false);
+    
+    //display response
+    print(result?.data?.toJson() ?? '-');
+  }
+```
+
+### Custom Compare:
+
+```dart
+    await VersionComparator.instance.customCompare(
+      localVersion: 'YOUR_APP_VERSION', //example: 1.0.0
+      store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'), //example: com.example.myapp
+      customUpdateLink: (body) => 'YOU CAN ADD CUSTOM UPDATE LINK', //example: https://pub.dev/
+      
+      //Convert store version and return it from response.body
+      onConvertVersion: (responseBody) {
+        final result = MyVersionConvertManager().convert(MyVersionResponseModel.fromResponse(responseBody));
+        return result.data;
+      },
+    );
+```
+
+### Show Version Alert Dialog:
+
+```dart
+  await VersionComparator.instance.showSimpleVersionDialog(
+      context,
+      versionResponseModel,
+      isUpdateRequired: isRequired,
+  );
+```
+
+### Platform Specific Compare Widget:
+
+```dart
+      PlatformSpecificVersionComparatorView.widget(
+        errorPageBuilder: (context, error) => Center(child: Text(error)),
+        onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
+        outOfDateVersionPageBuilder: (context, error, data) => _buildOutOfDateWidget(error, data),
+        child: _buildBody(),
+      )
+```
+
+### Platfrom Specific Compare AlertDialog:
+
+```dart
+      PlatformSpecificVersionComparatorView.alertDialog(
+        onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
+        onOutOfDateVersionError: (message, data) => debugPrint('Error: $message'),
+        child: _buildBody(),
+      )
+```
+
+## Other Features
+
+You can also use these features if you need:
+
+```dart
+//Gets bundle id
+final bundleResult = await VersionComparator.instance.getBundleId();
+
+//Gets current platform (Android, iOS, Huawei or Undefined)
+final platformResult = await VersionComparator.instance.getPlatform();
+
+//Gets current app version
+final versionResult = await VersionComparator.instance.getCurrentAppVersion();
+```
+
+## Customization
+
+If you want to compare app version from another store, it's possible with custom compare methods. Just follow these steps.
+
+### Create StoreModel
+
+Custom compare method needs a store model. Don't forget your model must be extend from ```BaseStoreModel```.
+
+```dart
+class MyStoreModel extends BaseStoreModel{
+
+  @override
+  String get appId => 'YOUR_BUNDLE_ID_OR_APP_ID'; //for example: 'com.example.myapp'
+
+  @override
+  String get storeUrl => 'YOUR_CUSTOM_STORE_URL_WITH_ENDPOINT'; //for example: 'https://your-store.com/apps/details'
+
+  @override
+  String get versionQuery => 'QUERY_OF_STORE_URL_FOR_COMPARE'; //for example: 'appId=com.example.myapp&lang=en'
+}
+```
+
+### Create An App Version Converter Function
+
+Custom comparator sends request to store and gets json response. You must create an app version converter function. It's a simple android version converter example:
+
+```dart
+class MyVersionConvertManager extends VersionConvertService<MyVersionResponseModel> {
+  @override
+  DataResult<String> convert(EntityModel<MyVersionResponseModel> entity) {
+    final firstMatch = RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
+
+    return _checkRegExpVersion(firstMatch);
+  }
+
+  DataResult<String> _checkRegExpVersion(RegExpMatch? regExpMatch) {
+    if (regExpMatch == null || regExpMatch.groupCount < 1) {
+      return DataResult.error(message: 'Version not matched');
+    }
+
+    final version = regExpMatch.group(1);
+    return version == null || version.isEmpty
+        ? DataResult.error(message: 'Version not matched')
+        : DataResult.success(data: version);
+  }
+}
+```
+
+### Set CustomComparator Parameters
+
+After all just set parameters to custom comparator. For example:
+
+```dart
+  Future<DataResult<VersionResponseModel>> customCompareVersion() async {
+    return await VersionComparator.instance.customCompare(
+      localVersion: 'YOUR_APP_VERSION', 
+      store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
+      customUpdateLink: (body) => 'YOU CAN ADD CUSTOM UPDATE LINK (OPTIONAL)',
+      onConvertVersion: (responseBody) {
+        //Converter function. It returns app version from store.
+        final result = MyVersionConvertManager().convert(MyVersionResponseModel.fromResponse(responseBody));
+        return result.data;
+      },
+    );
+  }
+```
+
+## Examples
 
 Import `package:version_comparator/version_comparator.dart`, and use the widgets or features.
 
@@ -17,7 +238,7 @@ AlertDialog mode displays all state changes in the alert dialog, other mode disp
 Example PlatformSpecific version compare with Widget mode:
 
 ```dart
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:version_comparator/version_comparator.dart';
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +292,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 Example PlatformSpecific version compare with AlertDialog mode:
 
 ```dart
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:version_comparator/version_comparator.dart';
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +338,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 Example custom version compare with Widget mode:
 
 ```dart
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:version_comparator/version_comparator.dart';
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +395,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 Example custom version compare with AlertDialog mode:
 
 ```dart
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:version_comparator/version_comparator.dart';
 
   @override
   Widget build(BuildContext context) {
