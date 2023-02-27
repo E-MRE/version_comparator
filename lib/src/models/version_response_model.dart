@@ -18,4 +18,13 @@ class VersionResponseModel with VersionCompareMixin {
     required this.storeVersion,
     required this.updateLink,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      localVersion.toString(): localVersion,
+      storeVersion.toString(): storeVersion,
+      updateLink.toString(): updateLink,
+      isAppVersionOld.toString(): isAppVersionOld,
+    };
+  }
 }
