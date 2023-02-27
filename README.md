@@ -26,10 +26,9 @@ A Flutter package for compare app version between store and local version.
     <li><a href="#usage">Usage</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#other-features">Other Features</a></li>
+    <li><a href="#set-custom-messages">Set Custom Messages</a></li>
     <li><a href="#customization">Customization</a></li>
-    <li><a href="#localization">Localization</a></li>
     <li><a href="#parameter-details">Parameter Details</a></li>
-    <li><a href="#examples">Examples</a></li>
   </ol>
 </details>
 
@@ -160,6 +159,49 @@ final platformResult = await VersionComparator.instance.getPlatform();
 final versionResult = await VersionComparator.instance.getCurrentAppVersion();
 ```
 
+## Set Custom Messages
+
+You can also customize package error and info messages with yours. It's so simple. If you want to change messages with yours just create a class and extend it from ```ComparatorErrorMessage```or ```ComparatorInfoMessage```. After that override messages with yours. And before using comparator set your custom message classes.
+
+For set Comparator Error Message:
+
+```dart
+VersionComparator.instance.setErrorMessages(MyCustomErrorMessage());
+```
+
+For set Comparator Info Message:
+
+```dart
+VersionComparator.instance.setInfoMessages(MyCustomInfoMessage());
+```
+
+Don't forget. If you want to set a few messages use extends, for set all messages than use implements. Here is a simple example:
+
+
+```dart
+//set specific messages extend base class.
+class MyCustomErrorMessage extends ComparatorErrorMessage{
+  @override
+  String get appNotFound => 'App not found in the store.';
+
+  @override
+  String get appVersionFetchError => 'app version info couldn\'t fetch.';
+}
+```
+
+```dart
+//For set all messages just implement base class like this
+class ClassName implements ComparatorInfoMessage {
+  @override
+  String get checkVersionErrorDialogTitle => 'custom message;
+
+  @override
+  String get checkVersionLoadingMessage => 'custom message;
+  
+  //..//
+}
+```
+
 ## Customization
 
 If you want to compare app version from another store, it's possible with custom compare methods. Just follow these steps.
@@ -227,7 +269,7 @@ After all just set parameters to custom comparator. For example:
   }
 ```
 
-## Examples
+## Parameter Details
 
 Import `package:version_comparator/version_comparator.dart`, and use the widgets or features.
 
