@@ -1,6 +1,6 @@
 <h1 align="center">VersionComparator</h1>
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/34197392/221577964-c81fe068-4c81-4f67-b127-1c616924391f.png" width="250px">
+  <img src="https://user-images.githubusercontent.com/34197392/221657155-c98d1de3-ac8d-4c51-b1cd-b39cfdd3e739.png" width="250px">
 </p>
 <h2 align="center">Simple, Enjoyable & Customizable Comparator</h2></br>
 A Flutter package for compare app version between store and local version.
