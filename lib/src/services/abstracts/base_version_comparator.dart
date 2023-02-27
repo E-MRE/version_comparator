@@ -54,9 +54,6 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
     ///Custom ios bundle id. If you want to compare different app, set this parameter.
     ///Default value is app bundle id
     String? iosId,
-
-    ///Set that parameter if your app version different from current app version. Default value is app version
-    String? customLocalVersion,
   });
 
   /// This function compares versions of an Android, iOS, and Huawei device.
@@ -91,7 +88,6 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
       androidId: androidId,
       iosId: iosId,
       huaweiId: huaweiId ?? kEmpty,
-      customLocalVersion: customLocalVersion,
     );
   }
 

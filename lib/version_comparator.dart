@@ -41,7 +41,6 @@ class VersionComparator extends BaseVersionComparator with BundleIdControllerMix
   Future<DataResult<VersionResponseModel>> versionCompareWithHuawei({
     RemoteDataService? dataService,
     required String huaweiId,
-    String? customLocalVersion,
     String? androidId,
     String? iosId,
   }) async {
