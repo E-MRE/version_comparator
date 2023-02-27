@@ -76,10 +76,10 @@ import 'package:version_comparator/version_comparator.dart';
 <table width=100% text-align="center">
 	<thead>
 		<td>
-			<b>Version Compare with Widget</b>
+			<b>Version Compare with AlertDialog</b>
 		</td>
 		<td>
-			<b>Version Compare with AlertDialog</b>
+			<b>Version Compare with Widget</b>
 		</td>
 	</thead>
 	<tr>
@@ -141,8 +141,9 @@ import 'package:version_comparator/version_comparator.dart';
       isUpdateRequired: isRequired,
   );
 ```
-
+<p>
   <img src="https://user-images.githubusercontent.com/34197392/221686629-66ee8072-7908-45a7-abd6-ad75c367769c.png" width="200px">
+</p>
 
 
 ### Platform Specific Compare Widget:
@@ -155,7 +156,9 @@ import 'package:version_comparator/version_comparator.dart';
         child: _buildBody(),
       )
 ```
-			<img width="200" alt="code-one" align="center" src="https://user-images.githubusercontent.com/34197392/221685005-94318ff0-63c2-4e03-89a2-2150a44da75a.gif">
+<p>
+  <img src="https://user-images.githubusercontent.com/34197392/221682663-17a904dc-32d4-4dbd-bf5b-d90ced277b6c.gif" width="200">
+</p>
       
 
 ### Platform Specific Compare AlertDialog:
@@ -167,8 +170,11 @@ import 'package:version_comparator/version_comparator.dart';
         child: _buildBody(),
       )
 ```
+			
+<p>
+  <img width="200" alt="code-one" align="center" src="https://user-images.githubusercontent.com/34197392/221685005-94318ff0-63c2-4e03-89a2-2150a44da75a.gif">
+</p>
 
-			<img src="https://user-images.githubusercontent.com/34197392/221682663-17a904dc-32d4-4dbd-bf5b-d90ced277b6c.gif" width="200" alt="Example Version Comparator Widget">
 
 ## Other Features
 
