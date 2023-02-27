@@ -73,6 +73,25 @@ import 'package:version_comparator/version_comparator.dart';
   }
 ```
 
+<table width=100% text-align="center">
+	<thead>
+		<td>
+			<b>Version Compare with Widget</b>
+		</td>
+		<td>
+			<b>Version Compare with AlertDialog</b>
+		</td>
+	</thead>
+	<tr>
+		<td>
+			<img width="200" alt="code-one" align="center" src="https://user-images.githubusercontent.com/34197392/221685005-94318ff0-63c2-4e03-89a2-2150a44da75a.gif">
+		</td>
+		<td>
+			<img src="https://user-images.githubusercontent.com/34197392/221682663-17a904dc-32d4-4dbd-bf5b-d90ced277b6c.gif" width="200" alt="Example Version Comparator Widget">
+		</td>
+	</tr>
+</table>
+
 ## Features
 
 There are many features for version compare. (VersionComparator widgets, future operations, alertDialog manager, custom version comparator).
@@ -123,6 +142,9 @@ import 'package:version_comparator/version_comparator.dart';
   );
 ```
 
+  <img src="https://user-images.githubusercontent.com/34197392/221686629-66ee8072-7908-45a7-abd6-ad75c367769c.png" width="200px">
+
+
 ### Platform Specific Compare Widget:
 
 ```dart
@@ -133,6 +155,8 @@ import 'package:version_comparator/version_comparator.dart';
         child: _buildBody(),
       )
 ```
+			<img width="200" alt="code-one" align="center" src="https://user-images.githubusercontent.com/34197392/221685005-94318ff0-63c2-4e03-89a2-2150a44da75a.gif">
+      
 
 ### Platform Specific Compare AlertDialog:
 
@@ -143,6 +167,8 @@ import 'package:version_comparator/version_comparator.dart';
         child: _buildBody(),
       )
 ```
+
+			<img src="https://user-images.githubusercontent.com/34197392/221682663-17a904dc-32d4-4dbd-bf5b-d90ced277b6c.gif" width="200" alt="Example Version Comparator Widget">
 
 ## Other Features
 
