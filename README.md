@@ -21,7 +21,7 @@ A Flutter package for compare app version between store and local version.
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary>İçindekiler</summary>
+  <summary>Contents</summary>
   <ol>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#features">Features</a></li>
