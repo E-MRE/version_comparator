@@ -16,7 +16,7 @@ mixin _CustomVersionComparatorViewStateMixin<TResult> on State<CustomVersionComp
 
     if (result.isNotSuccess || result.data == null) {
       _setState(VersionComparatorErrorState(message: result.message, isOldVersionError: false));
-      widget.errorPageBuilder == null ? await _showInvalidVersionAlert(result) : null;
+      if (widget.errorPageBuilder == null) await _showInvalidVersionAlert(result);
       widget.onCompareError?.call(result.message);
     } else if (result.data?.isAppVersionOld ?? false) {
       if (!mounted) return;
