@@ -1,3 +1,8 @@
+## 1.0.1 (11/06/2023)
+
+* Flutter version upgraded to 3.10
+* Package versions upgraded to latest.
+
 ## 1.0.0 (28/02/2023)
 
 * Readme file upgraded.
