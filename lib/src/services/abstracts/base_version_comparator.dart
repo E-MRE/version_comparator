@@ -101,10 +101,19 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
   ///
   /// return A Future containing a DataResult<VersionResponseModel> instance with either success or error state.
   Future<DataResult<VersionResponseModel>> customCompare({
+    ///Local version info of app. Etc: '1.2.3'
     required String localVersion,
+
+    ///Http (GET, POST) methods manager. You can set [dataService] with custom manager.
     RemoteDataService? dataService,
+
+    ///Store info model for comparing app version
     required BaseStoreModel store,
+
+    ///Customize update link using response body.
     String? Function(String responseBody)? customUpdateLink,
+
+    ///It's required for converting API request. It must be return version like '1.2.3'
     required String? Function(String responseBody) onConvertVersion,
   }) async {
     setVersionComparator(CustomVersionCompareManager(

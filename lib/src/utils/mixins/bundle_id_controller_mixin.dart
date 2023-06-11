@@ -5,6 +5,9 @@ import '../extensions/string_extension.dart';
 import '../results/data_result.dart';
 
 mixin BundleIdControllerMixin on BaseVersionComparator {
+  ///It returns platform specific app bundle id.
+  ///Don't forget AppGallery (Huawei) not uses bundle id for comparing.
+  ///You have to set huaweiId parameter if you want to compare app on AppGallery.
   Future<DataResult<String>> getBundleByOptionalId({
     String? androidId,
     String? iosId,
