@@ -113,6 +113,9 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
     ///Customize update link using response body.
     String? Function(String responseBody)? customUpdateLink,
 
+    ///Custom header for fetch data from API.
+    Map<String, String>? customHeader,
+
     ///It's required for converting API request. It must be return version like '1.2.3'
     required String? Function(String responseBody) onConvertVersion,
   }) async {
@@ -124,6 +127,6 @@ abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin
       dataService: dataService ?? HttpRemoteDataManager(),
     ));
 
-    return await versionComparator!.getVersion();
+    return await versionComparator!.getVersion(customHeader: customHeader);
   }
 }

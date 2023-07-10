@@ -22,11 +22,12 @@ class IosVersionCompareManager extends VersionCompareByQueryService {
   final RemoteDataService dataService;
 
   @override
-  Future<DataResult<VersionResponseModel>> getVersion() async {
+  Future<DataResult<VersionResponseModel>> getVersion({Map<String, String>? customHeader}) async {
     final bundleIdResult = await getBundleId();
     if (bundleIdResult.isNotSuccess) return DataResult.error(message: bundleIdResult.message);
 
     return getVersionByQuery(
+      customHeader: customHeader,
       customUpdateLink: (body) => IosVersionEntityModel.fromResponse(body).storeUrl,
       onConvertVersion: (responseBody) => IosVersionEntityModel.fromResponse(responseBody).storeVersion,
     );
