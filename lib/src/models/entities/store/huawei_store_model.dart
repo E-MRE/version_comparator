@@ -13,5 +13,5 @@ class HuaweiStoreModel extends BaseStoreModel {
 
   HuaweiStoreModel(this.appId)
       : versionQuery = 'method=internal.getTabDetail&uri=app%7C$appId',
-        storeUrl = EndpointConstants.iosStoreUrl;
+        storeUrl = EndpointConstants.huaweiVersionControlUrl;
 }

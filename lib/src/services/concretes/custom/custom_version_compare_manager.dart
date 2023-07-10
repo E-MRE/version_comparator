@@ -32,10 +32,11 @@ class CustomVersionCompareManager extends VersionCompareByQueryService {
   final String? Function(String responseBody)? customUpdateLink;
 
   @override
-  Future<DataResult<VersionResponseModel>> getVersion() async {
+  Future<DataResult<VersionResponseModel>> getVersion({Map<String, String>? customHeader}) async {
     return getStoreVersionByQuery(
-      onConvertVersion: onConvertVersion,
       localVersion: localVersion,
+      customHeader: customHeader,
+      onConvertVersion: onConvertVersion,
       customUpdateLink: customUpdateLink,
     );
   }

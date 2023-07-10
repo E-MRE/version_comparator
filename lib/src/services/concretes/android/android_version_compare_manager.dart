@@ -32,11 +32,12 @@ class AndroidVersionCompareManager extends VersionCompareByQueryService {
   final VersionConvertService versionConvertService;
 
   @override
-  Future<DataResult<VersionResponseModel>> getVersion() async {
+  Future<DataResult<VersionResponseModel>> getVersion({Map<String, String>? customHeader}) async {
     final bundleIdResult = await getBundleId();
     if (bundleIdResult.isNotSuccess) return DataResult.error(message: bundleIdResult.message);
 
     return getVersionByQuery(
+      customHeader: customHeader,
       onConvertVersion: (responseBody) {
         final versionResult = versionConvertService.convert(EmptyEntityModel.fromResponse(responseBody));
         return versionResult.data;
