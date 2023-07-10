@@ -1,3 +1,8 @@
+## 1.0.2 (10/07/2023)
+
+* [Interface Code] error fixed for Huawei version compare.
+* Wrong version comparator url fixed for Huawei.
+
 ## 1.0.1 (11/06/2023)
 
 * Flutter version upgraded to 3.10
