@@ -11,7 +11,8 @@ class VersionResponseModel with VersionCompareMixin {
   final String updateLink;
 
   ///result of compared versions between [localVersion] and [storeVersion]
-  bool get isAppVersionOld => isCurrentVersionOld(currentVersion: localVersion, storeVersion: storeVersion);
+  bool get isAppVersionOld => isCurrentVersionOld(
+      currentVersion: localVersion, storeVersion: storeVersion);
 
   VersionResponseModel({
     required this.localVersion,

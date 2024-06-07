@@ -14,15 +14,18 @@ import '../abstracts/remote_data_service.dart';
 class HttpRemoteDataManager extends RemoteDataService {
   HttpRemoteDataManager() : _client = http.Client();
 
-  Uri getUri(ServiceParameterModel parameterModel) => Uri.parse(parameterModel.getUrl());
+  Uri getUri(ServiceParameterModel parameterModel) =>
+      Uri.parse(parameterModel.getUrl());
 
   final http.Client _client;
 
   @override
-  Future<DataResult<String>> getData(GetDataServiceParameterModel parameterModel) async {
+  Future<DataResult<String>> getData(
+      GetDataServiceParameterModel parameterModel) async {
     try {
       final response = await _client
-          .get(getUri(parameterModel), headers: parameterModel.header ?? baseHeader)
+          .get(getUri(parameterModel),
+              headers: parameterModel.header ?? baseHeader)
           .timeout(parameterModel.timeoutDuration);
 
       return response.statusCode == HttpStatus.ok
@@ -34,10 +37,12 @@ class HttpRemoteDataManager extends RemoteDataService {
   }
 
   @override
-  Future<Result> sendData<TData extends EntityModel<TData>>(SendDataServiceParameterModel<TData> parameterModel) async {
+  Future<Result> sendData<TData extends EntityModel<TData>>(
+      SendDataServiceParameterModel<TData> parameterModel) async {
     try {
       final response = await _client
-          .post(getUri(parameterModel), headers: parameterModel.header ?? baseHeader)
+          .post(getUri(parameterModel),
+              headers: parameterModel.header ?? baseHeader)
           .timeout(parameterModel.timeoutDuration);
 
       return response.statusCode == HttpStatus.ok

@@ -9,7 +9,10 @@ void main() {
       const currentVersion = '1.0.0';
       const storeVersion = '1.0.20';
 
-      expect(mockCompareMixin.isCurrentVersionOld(currentVersion: currentVersion, storeVersion: storeVersion), true);
+      expect(
+          mockCompareMixin.isCurrentVersionOld(
+              currentVersion: currentVersion, storeVersion: storeVersion),
+          true);
     },
   );
 
@@ -20,7 +23,10 @@ void main() {
       const currentVersion = '1.0.0';
       const storeVersion = '1.0.0';
 
-      expect(mockCompareMixin.isCurrentVersionOld(currentVersion: currentVersion, storeVersion: storeVersion), false);
+      expect(
+          mockCompareMixin.isCurrentVersionOld(
+              currentVersion: currentVersion, storeVersion: storeVersion),
+          false);
     },
   );
 
@@ -31,7 +37,10 @@ void main() {
       const currentVersion = '1.0.20';
       const storeVersion = '1.0.0';
 
-      expect(mockCompareMixin.isCurrentVersionOld(currentVersion: currentVersion, storeVersion: storeVersion), false);
+      expect(
+          mockCompareMixin.isCurrentVersionOld(
+              currentVersion: currentVersion, storeVersion: storeVersion),
+          false);
     },
   );
 
@@ -42,7 +51,10 @@ void main() {
       const currentVersion = '1.0.0-abc';
       const storeVersion = '1.0.20-abc';
 
-      expect(mockCompareMixin.isCurrentVersionOld(currentVersion: currentVersion, storeVersion: storeVersion), true);
+      expect(
+          mockCompareMixin.isCurrentVersionOld(
+              currentVersion: currentVersion, storeVersion: storeVersion),
+          true);
     },
   );
 
@@ -53,7 +65,10 @@ void main() {
       const currentVersion = '1.0.0-abc';
       const storeVersion = '1.0.0-abc';
 
-      expect(mockCompareMixin.isCurrentVersionOld(currentVersion: currentVersion, storeVersion: storeVersion), false);
+      expect(
+          mockCompareMixin.isCurrentVersionOld(
+              currentVersion: currentVersion, storeVersion: storeVersion),
+          false);
     },
   );
 
@@ -64,7 +79,10 @@ void main() {
       const currentVersion = '1.0.20-abc';
       const storeVersion = '1.0.0-abc';
 
-      expect(mockCompareMixin.isCurrentVersionOld(currentVersion: currentVersion, storeVersion: storeVersion), true);
+      expect(
+          mockCompareMixin.isCurrentVersionOld(
+              currentVersion: currentVersion, storeVersion: storeVersion),
+          true);
     },
   );
 }

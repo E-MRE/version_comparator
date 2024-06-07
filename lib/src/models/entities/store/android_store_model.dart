@@ -9,7 +9,10 @@ class AndroidStoreModel extends BaseStoreModel {
   @override
   final String versionQuery;
 
-  AndroidStoreModel.custom({required this.storeUrl, required this.appId, required this.versionQuery});
+  AndroidStoreModel.custom(
+      {required this.storeUrl,
+      required this.appId,
+      required this.versionQuery});
 
   AndroidStoreModel(String bundleId)
       : appId = bundleId,

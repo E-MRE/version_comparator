@@ -68,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return AppVersionComparatorView.widget(
       errorPageBuilder: (_, error) => Center(child: Text(error)),
       onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
-      outOfDateVersionPageBuilder: (_, error, data) => _buildOutOfDateWidget(error, data),
+      outOfDateVersionPageBuilder: (_, error, data) =>
+          _buildOutOfDateWidget(error, data),
       huaweiId: 'HUAWEI_APP_ID',
       child: _buildBody(),
     );
@@ -80,7 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget buildVersionCompareWithAlertDialog() {
     return AppVersionComparatorView.alertDialog(
       onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
-      invalidVersionDialogContentBuilder: (context, message) => Text('Error: $message'),
+      invalidVersionDialogContentBuilder: (context, message) =>
+          Text('Error: $message'),
       child: _buildBody(),
     );
   }
@@ -98,7 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
   //If your app is published on the [AppGallery] than you can use this comparator.
   Future<void> compareVersionWithHuawei(String huaweiStoreId) async {
     _setLoading(true);
-    final result = await VersionComparator.instance.versionCompareWithHuawei(huaweiId: huaweiStoreId);
+    final result = await VersionComparator.instance
+        .versionCompareWithHuawei(huaweiId: huaweiStoreId);
 
     _setLoading(false);
     _setResultMessage(result);
@@ -112,7 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
       store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
       customUpdateLink: (body) => 'YOU CAN ADD CUSTOM UPDATE LINK',
       onConvertVersion: (responseBody) {
-        final result = MyVersionConvertManager().convert(MyVersionResponseModel.fromResponse(responseBody));
+        final result = MyVersionConvertManager()
+            .convert(MyVersionResponseModel.fromResponse(responseBody));
         return result.data;
       },
     );
@@ -122,7 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   //App version out of date alert dialog function.
-  Future<void> _showVersionDialog(VersionResponseModel versionResponseModel, {bool isRequired = false}) async {
+  Future<void> _showVersionDialog(VersionResponseModel versionResponseModel,
+      {bool isRequired = false}) async {
     await VersionComparator.instance.showSimpleVersionDialog(
       context,
       versionResponseModel,
@@ -155,11 +160,14 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: _isLoading ? null : () async => customCompareVersion(),
-            child: _isLoading ? const CircularProgressIndicator() : const Text('Compare App Version'),
+            child: _isLoading
+                ? const CircularProgressIndicator()
+                : const Text('Compare App Version'),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () async => await _showVersionDialog(_getResponseExample),
+            onPressed: () async =>
+                await _showVersionDialog(_getResponseExample),
             child: const Text('Show Alert Dialog'),
           ),
         ],
@@ -171,13 +179,15 @@ class _MyHomePageState extends State<MyHomePage> {
     if (result.isNotSuccess || result.data == null) {
       _setResult('Error: ${result.message}');
     } else if (result.data!.isAppVersionOld) {
-      _setResultAndShowVersionDialog('Error: App version is old. Please update', result.data!);
+      _setResultAndShowVersionDialog(
+          'Error: App version is old. Please update', result.data!);
     } else {
       _setResult('Success: App version is up to date');
     }
   }
 
-  Future<void> _setResultAndShowVersionDialog(String message, VersionResponseModel responseModel) async {
+  Future<void> _setResultAndShowVersionDialog(
+      String message, VersionResponseModel responseModel) async {
     _setResult(message);
     await _showVersionDialog(responseModel);
   }

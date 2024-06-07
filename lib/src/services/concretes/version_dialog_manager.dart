@@ -11,7 +11,10 @@ class VersionDialogManager extends VersionDialogService {
     required Widget dialog,
     bool isDismissible = true,
   }) async {
-    return await showDialog<T>(context: context, barrierDismissible: isDismissible, builder: (_) => dialog);
+    return await showDialog<T>(
+        context: context,
+        barrierDismissible: isDismissible,
+        builder: (_) => dialog);
   }
 
   @override
@@ -70,14 +73,19 @@ class VersionDialogManager extends VersionDialogService {
   }
 
   Widget _buildTitle(bool isUpdateRequired) {
-    return Text(isUpdateRequired ? kInfoMessage.requiredVersionDialogTitle : kInfoMessage.versionDialogTitle);
+    return Text(isUpdateRequired
+        ? kInfoMessage.requiredVersionDialogTitle
+        : kInfoMessage.versionDialogTitle);
   }
 
-  Widget _buildContent(bool isUpdateRequired, VersionResponseModel versionModel) {
+  Widget _buildContent(
+      bool isUpdateRequired, VersionResponseModel versionModel) {
     return Text(
       isUpdateRequired
-          ? kInfoMessage.requiredVersionDialogContent(versionModel.localVersion, versionModel.storeVersion)
-          : kInfoMessage.versionDialogContent(versionModel.localVersion, versionModel.storeVersion),
+          ? kInfoMessage.requiredVersionDialogContent(
+              versionModel.localVersion, versionModel.storeVersion)
+          : kInfoMessage.versionDialogContent(
+              versionModel.localVersion, versionModel.storeVersion),
     );
   }
 
@@ -90,12 +98,15 @@ class VersionDialogManager extends VersionDialogService {
     T? popResult,
   }) {
     return [
-      if (!isUpdateRequired && isCancelActionVisible) _buildCancelButton<T>(context, onAfterPopDialog, popResult),
-      _buildUpdateButton<T>(context, versionModel, onAfterPopDialog, isUpdateRequired, popResult),
+      if (!isUpdateRequired && isCancelActionVisible)
+        _buildCancelButton<T>(context, onAfterPopDialog, popResult),
+      _buildUpdateButton<T>(
+          context, versionModel, onAfterPopDialog, isUpdateRequired, popResult),
     ];
   }
 
-  Widget _buildCancelButton<T>(BuildContext context, VoidCallback? onAfterPopDialog, T? popResult) {
+  Widget _buildCancelButton<T>(
+      BuildContext context, VoidCallback? onAfterPopDialog, T? popResult) {
     return TextButton(
       onPressed: () => _onCancelTap<T>(context, onAfterPopDialog, popResult),
       child: Text(kInfoMessage.versionDialogCancelAction),
@@ -135,7 +146,8 @@ class VersionDialogManager extends VersionDialogService {
     }
   }
 
-  void _onCancelTap<T>(BuildContext context, VoidCallback? onAfterPopDialog, T? popResult) {
+  void _onCancelTap<T>(
+      BuildContext context, VoidCallback? onAfterPopDialog, T? popResult) {
     Navigator.of(context).pop<T>(popResult);
     onAfterPopDialog?.call();
   }

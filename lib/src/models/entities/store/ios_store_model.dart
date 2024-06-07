@@ -9,7 +9,10 @@ class IosStoreModel extends BaseStoreModel {
   @override
   final String versionQuery;
 
-  IosStoreModel.custom({required this.storeUrl, required this.appId, required this.versionQuery});
+  IosStoreModel.custom(
+      {required this.storeUrl,
+      required this.appId,
+      required this.versionQuery});
 
   IosStoreModel(String bundleId)
       : appId = bundleId,

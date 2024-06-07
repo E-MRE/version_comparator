@@ -19,15 +19,19 @@ export 'src/widgets/index.dart';
 ///The customCompare method is used to compare versions with custom settings.
 ///This method can be used when the project platform is different from Android,
 ///iOS or Huawei, or when comparing versions from other stores.
-class VersionComparator extends BaseVersionComparator with BundleIdControllerMixin, VersionDialogMixin {
+class VersionComparator extends BaseVersionComparator
+    with BundleIdControllerMixin, VersionDialogMixin {
   static VersionComparator? _instance;
   static VersionComparator get instance => getInstanceByDialogService();
 
   ///Create a `VersionComparator` instance using with custom `VersionDialogService` (optional)
-  static VersionComparator getInstanceByDialogService({VersionDialogService? dialogService}) {
-    _instance ??= VersionComparator._init(dialogService: dialogService ?? VersionDialogManager());
+  static VersionComparator getInstanceByDialogService(
+      {VersionDialogService? dialogService}) {
+    _instance ??= VersionComparator._init(
+        dialogService: dialogService ?? VersionDialogManager());
 
-    if (dialogService != null && (_instance!.dialogService.runtimeType != dialogService.runtimeType)) {
+    if (dialogService != null &&
+        (_instance!.dialogService.runtimeType != dialogService.runtimeType)) {
       _instance = VersionComparator._init(dialogService: dialogService);
     }
     return _instance!;
@@ -73,13 +77,15 @@ class VersionComparator extends BaseVersionComparator with BundleIdControllerMix
     }
 
     final remoteService = dataService ?? HttpRemoteDataManager();
-    final versionComparatorService = VersionCompareServiceFactory(platform: platform).getCompareService(
+    final versionComparatorService =
+        VersionCompareServiceFactory(platform: platform).getCompareService(
       dataService: remoteService,
       bundleId: bundleResult.data ?? kEmpty,
     );
 
     setVersionComparator(versionComparatorService);
 
-    return await versionComparator?.getVersion() ?? DataResult.error(message: kErrorMessage.versionComparatorNotSet);
+    return await versionComparator?.getVersion() ??
+        DataResult.error(message: kErrorMessage.versionComparatorNotSet);
   }
 }

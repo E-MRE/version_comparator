@@ -7,7 +7,9 @@ import '../../utils/results/result.dart';
 abstract class RemoteDataService {
   Map<String, String> get baseHeader => {'content-type': 'application/json'};
 
-  Future<DataResult<String>> getData(GetDataServiceParameterModel parameterModel);
+  Future<DataResult<String>> getData(
+      GetDataServiceParameterModel parameterModel);
 
-  Future<Result> sendData<TData extends EntityModel<TData>>(SendDataServiceParameterModel<TData> parameterModel);
+  Future<Result> sendData<TData extends EntityModel<TData>>(
+      SendDataServiceParameterModel<TData> parameterModel);
 }

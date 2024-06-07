@@ -10,7 +10,8 @@ part 'ios_version_entity_model.g.dart';
 
 @JsonSerializable()
 class IosVersionEntityModel extends EntityModel<IosVersionEntityModel> {
-  IosVersionEntityModel({this.resultCount, this.results, String? responseBody}) : responseBody = responseBody ?? kEmpty;
+  IosVersionEntityModel({this.resultCount, this.results, String? responseBody})
+      : responseBody = responseBody ?? kEmpty;
 
   @override
   @JsonKey(includeFromJson: false)
@@ -22,7 +23,8 @@ class IosVersionEntityModel extends EntityModel<IosVersionEntityModel> {
   String get storeUrl {
     if (results == null || (results?.isEmpty ?? true)) return kEmpty;
 
-    final item = results!.firstWhereOrNull((element) => element.containsKey('trackViewUrl'));
+    final item = results!
+        .firstWhereOrNull((element) => element.containsKey('trackViewUrl'));
     if (item == null) return kEmpty;
 
     final url = item['trackViewUrl'];
@@ -32,7 +34,8 @@ class IosVersionEntityModel extends EntityModel<IosVersionEntityModel> {
   String get storeVersion {
     if (results == null || (results?.isEmpty ?? true)) return kEmpty;
 
-    final item = results!.firstWhereOrNull((element) => element.containsKey('version'));
+    final item =
+        results!.firstWhereOrNull((element) => element.containsKey('version'));
     if (item == null) return kEmpty;
 
     final version = item['version'];
@@ -45,7 +48,8 @@ class IosVersionEntityModel extends EntityModel<IosVersionEntityModel> {
   }
 
   @override
-  IosVersionEntityModel fromJson(Map<String, dynamic> json) => _$IosVersionEntityModelFromJson(json);
+  IosVersionEntityModel fromJson(Map<String, dynamic> json) =>
+      _$IosVersionEntityModelFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$IosVersionEntityModelToJson(this);

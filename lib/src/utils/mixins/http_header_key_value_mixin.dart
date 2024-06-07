@@ -6,5 +6,6 @@ mixin HttpHeaderKeyValueMixin {
   MapEntry<String, String> getApplicationJsonContentTypeEntry() =>
       const MapEntry<String, String>(contentTypeKey, applicationJsonValue);
 
-  MapEntry<String, String> getInterfaceCodeEntry(String code) => MapEntry<String, String>(interfaceCodeKey, code);
+  MapEntry<String, String> getInterfaceCodeEntry(String code) =>
+      MapEntry<String, String>(interfaceCodeKey, code);
 }

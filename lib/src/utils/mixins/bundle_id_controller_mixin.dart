@@ -26,11 +26,13 @@ mixin BundleIdControllerMixin on BaseVersionComparator {
 
     final bundleResult = await getBundleId();
 
-    bool isBundleNotValid =
-        bundleResult.isNotSuccess || bundleResult.data == null || (bundleResult.data?.isEmpty ?? true);
+    bool isBundleNotValid = bundleResult.isNotSuccess ||
+        bundleResult.data == null ||
+        (bundleResult.data?.isEmpty ?? true);
 
     if (isBundleNotValid) {
-      return DataResult.error(message: kErrorMessage.bundleIdAndCustomIdNotValid);
+      return DataResult.error(
+          message: kErrorMessage.bundleIdAndCustomIdNotValid);
     }
 
     return bundleResult;

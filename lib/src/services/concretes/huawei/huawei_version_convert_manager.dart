@@ -3,7 +3,8 @@ import '../../../utils/constants/constants.dart';
 import '../../../utils/results/data_result.dart';
 import '../../abstracts/version_convert_service.dart';
 
-class HuaweiVersionConvertManager extends VersionConvertService<HuaweiVersionEntityModel> {
+class HuaweiVersionConvertManager
+    extends VersionConvertService<HuaweiVersionEntityModel> {
   @override
   DataResult<String> convert(HuaweiVersionEntityModel entity) {
     final version = entity.storeVersion;

@@ -9,7 +9,8 @@ import '../concretes/http_remote_data_manager.dart';
 ///The customCompare method is used to compare versions with custom settings.
 ///This method can be used when the project platform is different from Android,
 ///iOS or Huawei, or when comparing versions from other stores.
-abstract class BaseVersionComparator with PlatformDeciderMixin, PackageInfoMixin, VersionDialogMixin {
+abstract class BaseVersionComparator
+    with PlatformDeciderMixin, PackageInfoMixin, VersionDialogMixin {
   VersionCompareService? _versionComparator;
 
   ///Getter of the current VersionCompare service.
