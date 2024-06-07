@@ -1,7 +1,6 @@
 part of '../../widgets/custom_version_comparator_view.dart';
 
-mixin _CustomVersionComparatorViewStateMixin<TResult>
-    on State<CustomVersionComparatorView<TResult>>
+mixin _CustomVersionComparatorViewStateMixin<TResult> on State<CustomVersionComparatorView<TResult>>
     implements VersionResultValidatorMixin {
   late VersionComparatorState _state;
 
@@ -16,10 +15,10 @@ mixin _CustomVersionComparatorViewStateMixin<TResult>
     final result = await _getVersionByValidation();
 
     if (result.isNotSuccess || result.data == null) {
-      _setState(VersionComparatorErrorState(
-          message: result.message, isOldVersionError: false));
-      if (widget.errorPageBuilder == null)
+      _setState(VersionComparatorErrorState(message: result.message, isOldVersionError: false));
+      if (widget.errorPageBuilder == null) {
         await _showInvalidVersionAlert(result);
+      }
       widget.onCompareError?.call(result.message);
     } else if (result.data?.isAppVersionOld ?? false) {
       if (!mounted) return;
@@ -28,8 +27,7 @@ mixin _CustomVersionComparatorViewStateMixin<TResult>
         data: result.data,
         isOldVersionError: true,
       ));
-      widget.onOutOfDateVersionError
-          ?.call(_getOutOfDateMessage(result.data!), result.data!);
+      widget.onOutOfDateVersionError?.call(_getOutOfDateMessage(result.data!), result.data!);
       await _showOldVersionAlert(result);
     } else {
       widget.onCompareSuccess?.call(result.data!);
@@ -49,15 +47,12 @@ mixin _CustomVersionComparatorViewStateMixin<TResult>
     );
   }
 
-  Future<void> _showInvalidVersionAlert(
-      DataResult<VersionResponseModel> result) async {
+  Future<void> _showInvalidVersionAlert(DataResult<VersionResponseModel> result) async {
     if (!mounted) return;
-    final alertResult =
-        await widget.dialogService?.showCustomVersionDialog<TResult>(
+    final alertResult = await widget.dialogService?.showCustomVersionDialog<TResult>(
       context: context,
       isDismissible: false,
-      dialog: widget.invalidVersionDialogContentBuilder
-              ?.call(context, result.message) ??
+      dialog: widget.invalidVersionDialogContentBuilder?.call(context, result.message) ??
           VersionResultErrorDialogContent(
             content: result.message,
             onPressed: () {
@@ -70,8 +65,7 @@ mixin _CustomVersionComparatorViewStateMixin<TResult>
     widget.onAfterPopDialog?.call(alertResult);
   }
 
-  Future<void> _showOldVersionAlert(
-      DataResult<VersionResponseModel> result) async {
+  Future<void> _showOldVersionAlert(DataResult<VersionResponseModel> result) async {
     if (!mounted) return;
     final alertResult = await widget.dialogService?.showVersionDialog<TResult>(
       context: context,
@@ -92,10 +86,7 @@ mixin _CustomVersionComparatorViewStateMixin<TResult>
     widget.onStateChanged?.call(state);
   }
 
-  String _getOutOfDateMessage(VersionResponseModel versionModel) =>
-      widget.isUpdateRequired
-          ? kInfoMessage.requiredVersionDialogContent(
-              versionModel.localVersion, versionModel.storeVersion)
-          : kInfoMessage.versionDialogContent(
-              versionModel.localVersion, versionModel.storeVersion);
+  String _getOutOfDateMessage(VersionResponseModel versionModel) => widget.isUpdateRequired
+      ? kInfoMessage.requiredVersionDialogContent(versionModel.localVersion, versionModel.storeVersion)
+      : kInfoMessage.versionDialogContent(versionModel.localVersion, versionModel.storeVersion);
 }

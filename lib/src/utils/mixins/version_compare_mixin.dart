@@ -2,20 +2,15 @@ import '../constants/constants.dart';
 import '../helpers/regexp_helper.dart';
 
 mixin VersionCompareMixin {
-  bool isCurrentVersionOld(
-      {required String currentVersion,
-      required String storeVersion,
-      int defaultValue = kZero}) {
+  bool isCurrentVersionOld({required String currentVersion, required String storeVersion, int defaultValue = kZero}) {
     if (currentVersion.isEmpty || storeVersion.isEmpty) return true;
 
-    final convertedCurrentVersion =
-        _convertVersion(currentVersion, defaultValue);
+    final convertedCurrentVersion = _convertVersion(currentVersion, defaultValue);
     final convertedStoreVersion = _convertVersion(storeVersion, defaultValue);
 
     if (convertedCurrentVersion is int && convertedStoreVersion is int) {
       return _isIntVersionOld(convertedCurrentVersion, convertedStoreVersion);
-    } else if (convertedCurrentVersion is List<String> &&
-        convertedStoreVersion is List<String>) {
+    } else if (convertedCurrentVersion is List<String> && convertedStoreVersion is List<String>) {
       return _isListVersionOld(convertedCurrentVersion, convertedStoreVersion);
     } else {
       return true;
@@ -26,8 +21,7 @@ mixin VersionCompareMixin {
     return storeVersion > currentVersion;
   }
 
-  bool _isListVersionOld(
-      List<String> currentVersion, List<String> storeVersion) {
+  bool _isListVersionOld(List<String> currentVersion, List<String> storeVersion) {
     if (currentVersion.length != storeVersion.length) return true;
 
     for (var index = 0; index < currentVersion.length; index++) {
@@ -35,11 +29,11 @@ mixin VersionCompareMixin {
       final storeVersionNumber = int.tryParse(storeVersion[index]);
 
       if (currentVersionNumber != null && storeVersionNumber != null) {
-        if (_isIntVersionOld(currentVersionNumber, storeVersionNumber))
+        if (_isIntVersionOld(currentVersionNumber, storeVersionNumber)) {
           return true;
+        }
       } else {
-        if (currentVersion[index].toLowerCase() !=
-            storeVersion[index].toLowerCase()) return true;
+        if (currentVersion[index].toLowerCase() != storeVersion[index].toLowerCase()) return true;
       }
     }
 
@@ -55,8 +49,7 @@ mixin VersionCompareMixin {
   }
 
   int _convertToInt(String version, {int defaultValue = kZero}) {
-    final versionList =
-        _convertToList(version, defaultValue: defaultValue.toString());
+    final versionList = _convertToList(version, defaultValue: defaultValue.toString());
     int convertedVersion = kZero;
 
     int multiplier = 1;

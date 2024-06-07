@@ -21,8 +21,7 @@ class AndroidVersionCompareManager extends VersionCompareByQueryService {
     required String bundleId,
   })  : store = AndroidStoreModel(bundleId),
         dataService = HttpRemoteDataManager(),
-        versionConvertService =
-            versionConvertService ?? AndroidVersionConvertManager();
+        versionConvertService = versionConvertService ?? AndroidVersionConvertManager();
 
   @override
   final BaseStoreModel store;
@@ -33,17 +32,16 @@ class AndroidVersionCompareManager extends VersionCompareByQueryService {
   final VersionConvertService versionConvertService;
 
   @override
-  Future<DataResult<VersionResponseModel>> getVersion(
-      {Map<String, String>? customHeader}) async {
+  Future<DataResult<VersionResponseModel>> getVersion({Map<String, String>? customHeader}) async {
     final bundleIdResult = await getBundleId();
-    if (bundleIdResult.isNotSuccess)
+    if (bundleIdResult.isNotSuccess) {
       return DataResult.error(message: bundleIdResult.message);
+    }
 
     return getVersionByQuery(
       customHeader: customHeader,
       onConvertVersion: (responseBody) {
-        final versionResult = versionConvertService
-            .convert(EmptyEntityModel.fromResponse(responseBody));
+        final versionResult = versionConvertService.convert(EmptyEntityModel.fromResponse(responseBody));
         return versionResult.data;
       },
     );
