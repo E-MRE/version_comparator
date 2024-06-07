@@ -6,10 +6,12 @@ import '../../utils/mixins/http_header_key_value_mixin.dart';
 import '../../utils/results/data_result.dart';
 import 'version_compare_service.dart';
 
-abstract class HuaweiVersionCompareService extends VersionCompareByQueryService with HttpHeaderKeyValueMixin {
+abstract class HuaweiVersionCompareService extends VersionCompareByQueryService
+    with HttpHeaderKeyValueMixin {
   Future<DataResult<String>> getInterfaceCode() async {
     final result = await dataService.getData(
-      GetDataServiceParameterModel(url: EndpointConstants.huaweiInterfaceCodeUrl),
+      GetDataServiceParameterModel(
+          url: EndpointConstants.huaweiInterfaceCodeUrl),
     );
 
     return result;
@@ -18,7 +20,8 @@ abstract class HuaweiVersionCompareService extends VersionCompareByQueryService 
   Future<Map<String, String>> generateHeaderByInterfaceCode() async {
     final interfaceCodeResult = await getInterfaceCode();
 
-    if (interfaceCodeResult.isNotSuccess || (interfaceCodeResult.data?.isNullOrEmpty ?? true)) {
+    if (interfaceCodeResult.isNotSuccess ||
+        (interfaceCodeResult.data?.isNullOrEmpty ?? true)) {
       return dataService.baseHeader;
     }
 

@@ -9,7 +9,10 @@ class HuaweiStoreModel extends BaseStoreModel {
   @override
   final String versionQuery;
 
-  HuaweiStoreModel.custom({required this.storeUrl, required this.appId, required this.versionQuery});
+  HuaweiStoreModel.custom(
+      {required this.storeUrl,
+      required this.appId,
+      required this.versionQuery});
 
   HuaweiStoreModel(this.appId)
       : versionQuery = 'method=internal.getTabDetail&uri=app%7C$appId',

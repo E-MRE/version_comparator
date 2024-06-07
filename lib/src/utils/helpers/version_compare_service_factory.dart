@@ -28,10 +28,12 @@ class VersionCompareServiceFactory {
         );
 
       case AppPlatform.ios:
-        return IosVersionCompareManager(dataService: dataService, bundleId: bundleId);
+        return IosVersionCompareManager(
+            dataService: dataService, bundleId: bundleId);
 
       case AppPlatform.huawei:
-        return HuaweiVersionCompareManager(dataService: dataService, appId: bundleId);
+        return HuaweiVersionCompareManager(
+            dataService: dataService, appId: bundleId);
 
       default:
         throw Exception(kErrorMessage.unHandledAppPlatformException);

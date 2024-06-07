@@ -1,7 +1,8 @@
 import '../../version_comparator.dart';
 import '../utils/constants/constants.dart';
 
-class AppVersionComparatorView<TResult> extends CustomVersionComparatorView<TResult> {
+class AppVersionComparatorView<TResult>
+    extends CustomVersionComparatorView<TResult> {
   AppVersionComparatorView({
     super.key,
     required super.child,

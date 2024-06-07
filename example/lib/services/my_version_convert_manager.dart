@@ -2,10 +2,12 @@ import 'package:version_comparator/version_comparator.dart';
 
 import '../models/my_version_response_model.dart';
 
-class MyVersionConvertManager extends VersionConvertService<MyVersionResponseModel> {
+class MyVersionConvertManager
+    extends VersionConvertService<MyVersionResponseModel> {
   @override
   DataResult<String> convert(EntityModel<MyVersionResponseModel> entity) {
-    final firstMatch = RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
+    final firstMatch =
+        RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
 
     return _checkRegExpVersion(firstMatch);
   }

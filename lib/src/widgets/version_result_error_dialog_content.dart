@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../utils/constants/constants.dart';
 
 class VersionResultErrorDialogContent extends StatelessWidget {
-  const VersionResultErrorDialogContent({super.key, required this.content, required this.onPressed});
+  const VersionResultErrorDialogContent(
+      {super.key, required this.content, required this.onPressed});
 
   final String content;
   final VoidCallback onPressed;
@@ -13,7 +14,11 @@ class VersionResultErrorDialogContent extends StatelessWidget {
     return AlertDialog(
       title: Text(kInfoMessage.checkVersionErrorDialogTitle),
       content: Text(content),
-      actions: [TextButton(onPressed: onPressed, child: Text(kInfoMessage.checkVersionOkAction))],
+      actions: [
+        TextButton(
+            onPressed: onPressed,
+            child: Text(kInfoMessage.checkVersionOkAction))
+      ],
     );
   }
 }

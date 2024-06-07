@@ -11,7 +11,8 @@ part 'huawei_version_entity_model.g.dart';
 
 @JsonSerializable()
 class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
-  HuaweiVersionEntityModel({String? responseBody, this.layoutData}) : responseBody = responseBody ?? kEmpty;
+  HuaweiVersionEntityModel({String? responseBody, this.layoutData})
+      : responseBody = responseBody ?? kEmpty;
 
   HuaweiVersionEntityModel.empty()
       : responseBody = '',
@@ -32,7 +33,8 @@ class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
       return kEmpty;
     }
 
-    bool isDataNullOrEmpty = layoutData!.first.dataList == null || (layoutData!.first.dataList?.isEmpty ?? true);
+    bool isDataNullOrEmpty = layoutData!.first.dataList == null ||
+        (layoutData!.first.dataList?.isEmpty ?? true);
     if (isDataNullOrEmpty) {
       return kEmpty;
     }
@@ -40,7 +42,8 @@ class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
     return layoutData!.first.dataList!.first.versionName ?? kEmpty;
   }
 
-  factory HuaweiVersionEntityModel.fromJson(Map<String, dynamic> json) => _$HuaweiVersionEntityModelFromJson(json);
+  factory HuaweiVersionEntityModel.fromJson(Map<String, dynamic> json) =>
+      _$HuaweiVersionEntityModelFromJson(json);
 
   factory HuaweiVersionEntityModel.fromResponse(String body) {
     final json = jsonDecode(body);
@@ -48,7 +51,8 @@ class HuaweiVersionEntityModel extends EntityModel<HuaweiVersionEntityModel> {
   }
 
   @override
-  HuaweiVersionEntityModel fromJson(Map<String, dynamic> json) => _$HuaweiVersionEntityModelFromJson(json);
+  HuaweiVersionEntityModel fromJson(Map<String, dynamic> json) =>
+      _$HuaweiVersionEntityModelFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$HuaweiVersionEntityModelToJson(this);

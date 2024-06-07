@@ -1,7 +1,8 @@
 import '../entities/entity_model.dart';
 import 'service_parameter_model.dart';
 
-class SendDataServiceParameterModel<TData extends EntityModel<TData>> extends ServiceParameterModel {
+class SendDataServiceParameterModel<TData extends EntityModel<TData>>
+    extends ServiceParameterModel {
   final TData body;
 
   SendDataServiceParameterModel({

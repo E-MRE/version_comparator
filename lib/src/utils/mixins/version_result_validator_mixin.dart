@@ -6,9 +6,15 @@ import '../results/result.dart';
 mixin VersionResultValidatorMixin {
   Result isVersionResultValid(DataResult<VersionResponseModel> result) {
     if (result.isNotSuccess) {
-      return Result.error(message: result.message.isEmpty ? kErrorMessage.appNotFound : result.message);
+      return Result.error(
+          message: result.message.isEmpty
+              ? kErrorMessage.appNotFound
+              : result.message);
     } else if (result.data == null) {
-      return Result.error(message: result.message.isEmpty ? kErrorMessage.versionResponseNull : result.message);
+      return Result.error(
+          message: result.message.isEmpty
+              ? kErrorMessage.versionResponseNull
+              : result.message);
     }
 
     return Result.success();

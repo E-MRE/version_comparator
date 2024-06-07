@@ -4,10 +4,12 @@ import '../../../utils/helpers/regexp_helper.dart';
 import '../../../utils/results/data_result.dart';
 import '../../abstracts/version_convert_service.dart';
 
-class AndroidVersionConvertManager extends VersionConvertService<EmptyEntityModel> {
+class AndroidVersionConvertManager
+    extends VersionConvertService<EmptyEntityModel> {
   @override
   DataResult<String> convert(EmptyEntityModel entity) {
-    final firstMatch = RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
+    final firstMatch =
+        RegExpHelper.androidVersionRegExp.firstMatch(entity.responseBody);
 
     return _checkRegExpVersion(firstMatch);
   }

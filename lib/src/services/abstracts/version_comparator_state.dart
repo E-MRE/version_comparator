@@ -19,7 +19,8 @@ class VersionComparatorSuccessState extends VersionComparatorState {
 }
 
 class VersionComparatorErrorState extends VersionComparatorState {
-  const VersionComparatorErrorState({required this.message, this.data, required this.isOldVersionError});
+  const VersionComparatorErrorState(
+      {required this.message, this.data, required this.isOldVersionError});
 
   final String message;
   final bool isOldVersionError;

@@ -10,14 +10,21 @@ class DataResult<TData> extends Result {
   final int code;
 
   ///Customizable constructor
-  DataResult({required super.isSuccess, required super.message, this.data, this.code = kZero});
+  DataResult(
+      {required super.isSuccess,
+      required super.message,
+      this.data,
+      this.code = kZero});
 
   ///Operation result is successful. Also you can add success message to [message]. [data] is required.
-  DataResult.success({super.message, required this.data, this.code = kZero}) : super.success();
+  DataResult.success({super.message, required this.data, this.code = kZero})
+      : super.success();
 
   ///Operation result is unsuccessful. You must add error message to [message]
-  DataResult.error({required super.message, this.data, this.code = kZero}) : super.error();
+  DataResult.error({required super.message, this.data, this.code = kZero})
+      : super.error();
 
   ///Operation result is unsuccessful. Error message is optional.
-  DataResult.errorByEmptyMessage({super.message, this.data, this.code = kZero}) : super.errorByEmptyMessage();
+  DataResult.errorByEmptyMessage({super.message, this.data, this.code = kZero})
+      : super.errorByEmptyMessage();
 }

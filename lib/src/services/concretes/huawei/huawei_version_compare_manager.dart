@@ -9,9 +9,12 @@ import '../../abstracts/version_convert_service.dart';
 import '../http_remote_data_manager.dart';
 
 class HuaweiVersionCompareManager extends HuaweiVersionCompareService {
-  HuaweiVersionCompareManager({required this.dataService, required String appId}) : store = HuaweiStoreModel(appId);
+  HuaweiVersionCompareManager(
+      {required this.dataService, required String appId})
+      : store = HuaweiStoreModel(appId);
 
-  HuaweiVersionCompareManager.httpService({VersionConvertService? versionConvertService, required String appId})
+  HuaweiVersionCompareManager.httpService(
+      {VersionConvertService? versionConvertService, required String appId})
       : store = HuaweiStoreModel(appId),
         dataService = HttpRemoteDataManager();
 
@@ -22,10 +25,13 @@ class HuaweiVersionCompareManager extends HuaweiVersionCompareService {
   final RemoteDataService dataService;
 
   @override
-  Future<DataResult<VersionResponseModel>> getVersion({Map<String, String>? customHeader}) async {
+  Future<DataResult<VersionResponseModel>> getVersion(
+      {Map<String, String>? customHeader}) async {
     return await getVersionByQuery(
-      customUpdateLink: (body) => HuaweiVersionEntityModel.fromResponse(body).storeUrl(store.appId),
-      onConvertVersion: (body) => HuaweiVersionEntityModel.fromResponse(body).storeVersion,
+      customUpdateLink: (body) =>
+          HuaweiVersionEntityModel.fromResponse(body).storeUrl(store.appId),
+      onConvertVersion: (body) =>
+          HuaweiVersionEntityModel.fromResponse(body).storeVersion,
       customHeader: customHeader ?? await generateHeaderByInterfaceCode(),
     );
   }

@@ -16,10 +16,12 @@ const double kLoadingWidgetSize = 40;
 const double kMediumSpace = 16;
 const double kTransparentBlack = 0.25;
 
-ComparatorInfoMessage get kInfoMessage => AppConstants.comparatorInfoMessage ?? DefaultComparatorInfoMessage.instance;
+ComparatorInfoMessage get kInfoMessage =>
+    AppConstants.comparatorInfoMessage ?? DefaultComparatorInfoMessage.instance;
 
 ComparatorErrorMessage get kErrorMessage =>
-    AppConstants.comparatorErrorMessage ?? DefaultComparatorErrorMessage.instance;
+    AppConstants.comparatorErrorMessage ??
+    DefaultComparatorErrorMessage.instance;
 
 class AppConstants {
   static ComparatorInfoMessage? comparatorInfoMessage;

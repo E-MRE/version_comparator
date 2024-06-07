@@ -7,7 +7,8 @@ import 'version_result_error_dialog_content.dart';
 
 part '../utils/mixins/custom_version_comparator_view_state_mixin.dart';
 
-class CustomVersionComparatorView<TResult> extends VersionComparatorView<TResult> {
+class CustomVersionComparatorView<TResult>
+    extends VersionComparatorView<TResult> {
   CustomVersionComparatorView({
     super.key,
     required super.onVersionCompareCallback,
@@ -78,18 +79,25 @@ class CustomVersionComparatorView<TResult> extends VersionComparatorView<TResult
   }) : super.widget();
 
   @override
-  State<CustomVersionComparatorView<TResult>> createState() => _CustomVersionComparatorViewState<TResult>();
+  State<CustomVersionComparatorView<TResult>> createState() =>
+      _CustomVersionComparatorViewState<TResult>();
 }
 
-class _CustomVersionComparatorViewState<TResult> extends State<CustomVersionComparatorView<TResult>>
-    with _CustomVersionComparatorViewStateMixin<TResult>, VersionResultValidatorMixin {
+class _CustomVersionComparatorViewState<TResult>
+    extends State<CustomVersionComparatorView<TResult>>
+    with
+        _CustomVersionComparatorViewStateMixin<TResult>,
+        VersionResultValidatorMixin {
   @override
   Widget build(BuildContext context) {
     if (_state is VersionComparatorErrorState) {
       final errorState = (_state as VersionComparatorErrorState);
       return errorState.isOldVersionError && errorState.data != null
-          ? (widget.outOfDateVersionPageBuilder?.call(context, errorState.message, errorState.data!) ?? widget.child)
-          : (widget.errorPageBuilder?.call(context, errorState.message) ?? widget.child);
+          ? (widget.outOfDateVersionPageBuilder
+                  ?.call(context, errorState.message, errorState.data!) ??
+              widget.child)
+          : (widget.errorPageBuilder?.call(context, errorState.message) ??
+              widget.child);
     } else if (_state is VersionComparatorLoadingState) {
       return _buildLoadingBodyByType();
     }
@@ -98,11 +106,15 @@ class _CustomVersionComparatorViewState<TResult> extends State<CustomVersionComp
   }
 
   Widget _buildLoadingBodyByType() {
-    return widget.loadingType == CheckVersionLoadingType.alertDialog ? _buildAlertLoading() : _buildLoading();
+    return widget.loadingType == CheckVersionLoadingType.alertDialog
+        ? _buildAlertLoading()
+        : _buildLoading();
   }
 
   Widget _buildChild() {
-    return widget.isChildExpandedInStack ? Expanded(child: widget.child) : widget.child;
+    return widget.isChildExpandedInStack
+        ? Expanded(child: widget.child)
+        : widget.child;
   }
 
   Widget _buildAlertLoading() {

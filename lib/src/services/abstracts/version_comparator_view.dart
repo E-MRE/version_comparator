@@ -4,11 +4,16 @@ import '../../../version_comparator.dart';
 import '../../utils/constants/constants.dart';
 
 typedef VoidCompareErrorCallback = void Function(String message);
-typedef VoidOutOfDateVersionErrorCallback = void Function(String message, VersionResponseModel data);
-typedef VoidVersionComparatorSuccessCallback = void Function(VersionResponseModel data);
-typedef FutureVersionResponseCallback = Future<DataResult<VersionResponseModel>> Function();
-typedef VersionCompareErrorViewBuilder = Widget Function(BuildContext context, String message);
-typedef VersionOutOfDateViewBuilder = Widget Function(BuildContext context, String message, VersionResponseModel data);
+typedef VoidOutOfDateVersionErrorCallback = void Function(
+    String message, VersionResponseModel data);
+typedef VoidVersionComparatorSuccessCallback = void Function(
+    VersionResponseModel data);
+typedef FutureVersionResponseCallback = Future<DataResult<VersionResponseModel>>
+    Function();
+typedef VersionCompareErrorViewBuilder = Widget Function(
+    BuildContext context, String message);
+typedef VersionOutOfDateViewBuilder = Widget Function(
+    BuildContext context, String message, VersionResponseModel data);
 
 ///Version comparator widget. It's a [StatefulWidget]. It basically manages all version compare process.
 ///There are three options for comparator widget. First one full custom mode, second one is widget mode and last of them is
@@ -85,7 +90,8 @@ abstract class VersionComparatorView<TResult> extends StatefulWidget {
 
     ///Custom loading text
     this.loadingText,
-  }) : dialogService = versionDialogService ?? VersionComparator.instance.dialogService;
+  }) : dialogService =
+            versionDialogService ?? VersionComparator.instance.dialogService;
 
   VersionComparatorView.alertDialog({
     super.key,
@@ -152,7 +158,8 @@ abstract class VersionComparatorView<TResult> extends StatefulWidget {
   })  : errorPageBuilder = null,
         outOfDateVersionPageBuilder = null,
         loadingType = CheckVersionLoadingType.alertDialog,
-        dialogService = versionDialogService ?? VersionComparator.instance.dialogService;
+        dialogService =
+            versionDialogService ?? VersionComparator.instance.dialogService;
 
   const VersionComparatorView.widget({
     super.key,

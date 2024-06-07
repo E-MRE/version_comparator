@@ -14,12 +14,15 @@ class HuaweiLayoutDataModel extends EntityModel<HuaweiLayoutDataModel> {
   @JsonKey(includeFromJson: false)
   final String responseBody;
 
-  HuaweiLayoutDataModel({this.dataList, String? responseBody}) : responseBody = responseBody ?? kEmpty;
+  HuaweiLayoutDataModel({this.dataList, String? responseBody})
+      : responseBody = responseBody ?? kEmpty;
 
-  factory HuaweiLayoutDataModel.fromJson(Map<String, dynamic> json) => _$HuaweiLayoutDataModelFromJson(json);
+  factory HuaweiLayoutDataModel.fromJson(Map<String, dynamic> json) =>
+      _$HuaweiLayoutDataModelFromJson(json);
 
   @override
-  HuaweiLayoutDataModel fromJson(Map<String, dynamic> json) => _$HuaweiLayoutDataModelFromJson(json);
+  HuaweiLayoutDataModel fromJson(Map<String, dynamic> json) =>
+      _$HuaweiLayoutDataModelFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$HuaweiLayoutDataModelToJson(this);

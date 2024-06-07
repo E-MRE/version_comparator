@@ -1,3 +1,8 @@
+## 1.0.21 (07/06/2024)
+
+* Flutter version upgraded to last version.
+* Depended packages version upgraded.
+
 ## 1.0.2 (10/07/2023)
 
 * [Interface Code] error fixed for Huawei version compare.

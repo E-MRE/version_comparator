@@ -41,7 +41,8 @@ class CheckVersionProgressDialog extends StatelessWidget {
               width: loadingWidgetSize,
               child: customLoading ?? const CircularProgressIndicator(),
             ),
-            if (isTextVisible) Text(loadingText ?? kInfoMessage.checkVersionLoadingMessage)
+            if (isTextVisible)
+              Text(loadingText ?? kInfoMessage.checkVersionLoadingMessage)
           ],
         ),
       ),
