@@ -6,7 +6,7 @@ issue_tracker: https://github.com/E-MRE/version_comparator/issues?q=is%3Aopen
 version: 1.0.2
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.4.1 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
@@ -14,28 +14,28 @@ dependencies:
     sdk: flutter
 
   #Json Operations
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
 
   #Query operations
-  collection: ^1.17.1
+  collection: ^1.18.0
 
   #Networking
-  http: ^1.0.0
+  http: ^1.2.1
 
   #Package & Device Info
-  package_info_plus: ^4.0.2
-  device_info_plus: ^9.0.2
+  package_info_plus: ^8.0.0
+  device_info_plus: ^10.1.0
 
   #Launch URL
-  url_launcher: ^6.1.11
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
-  build_runner: ^2.2.1
+  build_runner: ^2.4.11
   #Json Operation
-  json_serializable: ^6.6.1
+  json_serializable: ^6.8.0
 
 flutter:

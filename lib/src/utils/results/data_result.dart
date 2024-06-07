@@ -13,13 +13,11 @@ class DataResult<TData> extends Result {
   DataResult({required super.isSuccess, required super.message, this.data, this.code = kZero});
 
   ///Operation result is successful. Also you can add success message to [message]. [data] is required.
-  DataResult.success({String message = kEmpty, required this.data, this.code = kZero})
-      : super.success(message: message);
+  DataResult.success({super.message, required this.data, this.code = kZero}) : super.success();
 
   ///Operation result is unsuccessful. You must add error message to [message]
-  DataResult.error({required String message, this.data, this.code = kZero}) : super.error(message: message);
+  DataResult.error({required super.message, this.data, this.code = kZero}) : super.error();
 
   ///Operation result is unsuccessful. Error message is optional.
-  DataResult.errorByEmptyMessage({String message = kEmpty, this.data, this.code = kZero})
-      : super.errorByEmptyMessage(message: message);
+  DataResult.errorByEmptyMessage({super.message, this.data, this.code = kZero}) : super.errorByEmptyMessage();
 }

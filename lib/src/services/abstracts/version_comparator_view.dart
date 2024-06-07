@@ -15,7 +15,7 @@ typedef VersionOutOfDateViewBuilder = Widget Function(BuildContext context, Stri
 ///alertDialog mode.
 abstract class VersionComparatorView<TResult> extends StatefulWidget {
   VersionComparatorView({
-    Key? key,
+    super.key,
 
     ///Version compare callback. When call this function it returns Future version model.
     required this.onVersionCompareCallback,
@@ -85,11 +85,10 @@ abstract class VersionComparatorView<TResult> extends StatefulWidget {
 
     ///Custom loading text
     this.loadingText,
-  })  : dialogService = versionDialogService ?? VersionComparator.instance.dialogService,
-        super(key: key);
+  }) : dialogService = versionDialogService ?? VersionComparator.instance.dialogService;
 
   VersionComparatorView.alertDialog({
-    Key? key,
+    super.key,
 
     ///Version compare callback. When call this function it returns Future version model.
     required this.onVersionCompareCallback,
@@ -153,11 +152,10 @@ abstract class VersionComparatorView<TResult> extends StatefulWidget {
   })  : errorPageBuilder = null,
         outOfDateVersionPageBuilder = null,
         loadingType = CheckVersionLoadingType.alertDialog,
-        dialogService = versionDialogService ?? VersionComparator.instance.dialogService,
-        super(key: key);
+        dialogService = versionDialogService ?? VersionComparator.instance.dialogService;
 
   const VersionComparatorView.widget({
-    Key? key,
+    super.key,
 
     /// In the widget mode and any error happens than this builder shows widget.
     this.errorPageBuilder,
@@ -210,8 +208,7 @@ abstract class VersionComparatorView<TResult> extends StatefulWidget {
         invalidVersionDialogContentBuilder = null,
         outOfDateVersionDialogContentBuilder = null,
         popVersionDialogResult = null,
-        onAfterPopDialog = null,
-        super(key: key);
+        onAfterPopDialog = null;
 
   final VersionCompareErrorViewBuilder? errorPageBuilder;
   final VersionCompareErrorViewBuilder? invalidVersionDialogContentBuilder;

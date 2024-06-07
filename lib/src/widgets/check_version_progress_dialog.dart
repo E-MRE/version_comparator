@@ -5,14 +5,14 @@ import 'column_by_space.dart';
 
 class CheckVersionProgressDialog extends StatelessWidget {
   const CheckVersionProgressDialog({
-    Key? key,
+    super.key,
     this.backgroundColor,
     this.customLoading,
     this.loadingText,
     this.isTextVisible = true,
     this.loadingWidgetSize = kLoadingWidgetSize,
     this.spaceAroundChildren = kMediumSpace,
-  }) : super(key: key);
+  });
 
   final Color? backgroundColor;
   final Widget? customLoading;

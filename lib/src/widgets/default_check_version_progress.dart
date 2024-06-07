@@ -5,13 +5,13 @@ import 'column_by_space.dart';
 
 class DefaultCheckVersionProgress extends StatelessWidget {
   const DefaultCheckVersionProgress({
-    Key? key,
+    super.key,
     this.loadingWidget,
     required this.isLoadingTextVisible,
     required this.loadingWidgetSize,
     required this.spaceAroundChild,
     this.loadingText,
-  }) : super(key: key);
+  });
 
   final Widget? loadingWidget;
   final bool isLoadingTextVisible;

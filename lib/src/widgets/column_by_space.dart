@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class ColumnBySpace extends StatelessWidget {
   const ColumnBySpace({
-    Key? key,
+    super.key,
     required this.children,
     required this.space,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisSize = MainAxisSize.min,
-  }) : super(key: key);
+  });
 
   final List<Widget> children;
   final Widget space;
