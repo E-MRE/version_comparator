@@ -1,3 +1,7 @@
+## 1.0.22 (02/04/2025)
+
+* Depended packages upgraded.
+
 ## 1.0.21 (07/06/2024)
 
 * Flutter version upgraded to last version.
