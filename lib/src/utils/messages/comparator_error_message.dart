@@ -38,4 +38,9 @@ abstract class ComparatorErrorMessage {
 
   ///If data is null than this message displays.
   String get versionResponseNull => 'Data is null. App version can\'t compare';
+
+  /// Returns an error message indicating that the current platform is not supported
+  /// for automatic version comparison.
+  String get platformNotSupportedForThis =>
+      'Current platform is not supported to the automatic version compare. Please use custom comparator in this platform';
 }

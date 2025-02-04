@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
 
 import '../../models/entities/entity_model.dart';
@@ -28,7 +26,7 @@ class HttpRemoteDataManager extends RemoteDataService {
               headers: parameterModel.header ?? baseHeader)
           .timeout(parameterModel.timeoutDuration);
 
-      return response.statusCode == HttpStatus.ok
+      return response.statusCode == kHttpStatusOK
           ? DataResult.success(data: response.body)
           : DataResult.error(message: kInfoMessage.getDataError);
     } catch (exception) {
@@ -45,7 +43,7 @@ class HttpRemoteDataManager extends RemoteDataService {
               headers: parameterModel.header ?? baseHeader)
           .timeout(parameterModel.timeoutDuration);
 
-      return response.statusCode == HttpStatus.ok
+      return response.statusCode == kHttpStatusOK
           ? Result.success(message: kInfoMessage.sendDataSuccess)
           : DataResult.error(message: kInfoMessage.sendDataError);
     } catch (exception) {

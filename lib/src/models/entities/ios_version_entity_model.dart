@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:version_comparator/src/utils/extensions/iterable_extension.dart';
 
 import '../../utils/constants/constants.dart';
 import 'entity_model.dart';

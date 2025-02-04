@@ -1,11 +1,8 @@
-import '../../services/abstracts/remote_data_service.dart';
-import '../../services/abstracts/version_compare_service.dart';
-import '../../services/concretes/android/android_version_compare_manager.dart';
-import '../../services/concretes/android/android_version_convert_manager.dart';
-import '../../services/concretes/huawei/huawei_version_compare_manager.dart';
-import '../../services/concretes/ios/ios_version_compare_manager.dart';
-import '../constants/constants.dart';
-import '../enums/app_platform.dart';
+import 'package:version_comparator/src/services/concretes/android/android_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/huawei/huawei_version_compare_manager.dart';
+import 'package:version_comparator/src/services/concretes/ios/ios_version_compare_manager.dart';
+import 'package:version_comparator/src/utils/constants/constants.dart';
+import 'package:version_comparator/version_comparator.dart';
 
 class VersionCompareServiceFactory {
   final AppPlatform platform;
@@ -17,9 +14,6 @@ class VersionCompareServiceFactory {
     required String bundleId,
   }) {
     switch (platform) {
-      case AppPlatform.invalid:
-        throw Exception(kErrorMessage.otherPlatformsNotSupported);
-
       case AppPlatform.android:
         return AndroidVersionCompareManager(
           versionConvertService: AndroidVersionConvertManager(),
@@ -35,7 +29,11 @@ class VersionCompareServiceFactory {
         return HuaweiVersionCompareManager(
             dataService: dataService, appId: bundleId);
 
-      default:
+      case AppPlatform.web:
+      case AppPlatform.linux:
+      case AppPlatform.macOs:
+      case AppPlatform.windows:
+      case AppPlatform.invalid:
         throw Exception(kErrorMessage.unHandledAppPlatformException);
     }
   }

@@ -7,8 +7,8 @@ class MyStoreModel extends BaseStoreModel {
   MyStoreModel({required this.appId});
 
   @override
-  String get storeUrl => 'YOUR_CUSTOM_STORE_URL_WITH_ENDPOINT';
+  String get storeUrl => 'https://itunes.apple.com/lookup';
 
   @override
-  String get versionQuery => 'QUERY_OF_STORE_URL_FOR_COMPARE';
+  String get versionQuery => 'bundleId=com.mars.FocusId';
 }
