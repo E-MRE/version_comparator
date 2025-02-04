@@ -77,13 +77,20 @@ class VersionComparator extends BaseVersionComparator
     }
 
     final remoteService = dataService ?? HttpRemoteDataManager();
-    final versionComparatorService =
-        VersionCompareServiceFactory(platform: platform).getCompareService(
-      dataService: remoteService,
-      bundleId: bundleResult.data ?? kEmpty,
-    );
 
-    setVersionComparator(versionComparatorService);
+    try {
+      final versionComparatorService =
+          VersionCompareServiceFactory(platform: platform).getCompareService(
+        dataService: remoteService,
+        bundleId: bundleResult.data ?? kEmpty,
+      );
+
+      setVersionComparator(versionComparatorService);
+    } catch (_) {
+      return DataResult.error(
+        message: kErrorMessage.platformNotSupportedForThis,
+      );
+    }
 
     return await versionComparator?.getVersion() ??
         DataResult.error(message: kErrorMessage.versionComparatorNotSet);

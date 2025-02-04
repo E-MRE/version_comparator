@@ -11,6 +11,7 @@ const String kHuaweiManufacturer = 'HUAWEI';
 
 const int kDefaultTimeout = 16000;
 const int kZero = 0;
+const int kHttpStatusOK = 200;
 
 const double kLoadingWidgetSize = 40;
 const double kMediumSpace = 16;

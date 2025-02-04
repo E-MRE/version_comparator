@@ -57,7 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Version Comparator')),
-      body: buildVersionCompareWithAlertDialog(),
+      // body: buildVersionCompareWithAlertDialog(),
+      body: _buildBody(),
     );
   }
 
@@ -80,9 +81,22 @@ class _MyHomePageState extends State<MyHomePage> {
   //Your app is published on the [PlayStore] or [AppStore] than you can pass huaweiId.
   Widget buildVersionCompareWithAlertDialog() {
     return AppVersionComparatorView.alertDialog(
+      isDismissibleWhenGetDataError: true,
       onCompareSuccess: (data) => debugPrint('Success: ${data.storeVersion}'),
-      invalidVersionDialogContentBuilder: (context, message) =>
-          Text('Error: $message'),
+      invalidVersionDialogContentBuilder: (context, message) {
+        return Center(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.width * .1,
+            width: MediaQuery.of(context).size.width * .3,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Error: $message'),
+              ),
+            ),
+          ),
+        );
+      },
       child: _buildBody(),
     );
   }
@@ -111,8 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> customCompareVersion() async {
     _setLoading(true);
     final result = await VersionComparator.instance.customCompare(
-      localVersion: '1.0.0',
-      store: MyStoreModel(appId: 'YOUR_APP_BUNDLE_ID'),
+      localVersion: '2.0.45',
+      store: MyStoreModel(appId: 'com.mars.FocusId'),
       customUpdateLink: (body) => 'YOU CAN ADD CUSTOM UPDATE LINK',
       onConvertVersion: (responseBody) {
         final result = MyVersionConvertManager()

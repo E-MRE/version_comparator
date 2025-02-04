@@ -1,3 +1,9 @@
+## 1.0.23 (02/04/2025)
+
+* Reorganized platform decision logic 
+* Added web support
+* Updated constants and error messages
+
 ## 1.0.22 (02/04/2025)
 
 * Depended packages upgraded.
